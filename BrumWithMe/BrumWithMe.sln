@@ -25,6 +25,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Auth", "Auth", "{B7BC6532-7
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrumWithMe.Auth.Identity", "Auth\BrumWithMe.Auth.Identity\BrumWithMe.Auth.Identity.csproj", "{38072AFB-A6B9-434A-B4BC-0BE245478270}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Clients", "Clients", "{19B68451-2A3C-49D5-8297-F83A303DE045}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrumWithMe.Console", "Clients\BrumWithMe.Console\BrumWithMe.Console.csproj", "{27F28526-1E51-47D2-B8E5-91F7A5E991DB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +55,10 @@ Global
 		{38072AFB-A6B9-434A-B4BC-0BE245478270}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{38072AFB-A6B9-434A-B4BC-0BE245478270}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{38072AFB-A6B9-434A-B4BC-0BE245478270}.Release|Any CPU.Build.0 = Release|Any CPU
+		{27F28526-1E51-47D2-B8E5-91F7A5E991DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27F28526-1E51-47D2-B8E5-91F7A5E991DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27F28526-1E51-47D2-B8E5-91F7A5E991DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27F28526-1E51-47D2-B8E5-91F7A5E991DB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -61,5 +69,6 @@ Global
 		{B332EC19-A4C2-4A73-BDDF-BA1FD0E9ED6E} = {82FB51F2-F379-4911-8C5A-DF3A986DD17C}
 		{2A2F207E-4113-4CC9-9554-C7C547508E2D} = {82FB51F2-F379-4911-8C5A-DF3A986DD17C}
 		{38072AFB-A6B9-434A-B4BC-0BE245478270} = {B7BC6532-763F-400D-AE17-4E958BA797C8}
+		{27F28526-1E51-47D2-B8E5-91F7A5E991DB} = {19B68451-2A3C-49D5-8297-F83A303DE045}
 	EndGlobalSection
 EndGlobal

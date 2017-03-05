@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BrumWithMe.Data.Models.Entities
 {
@@ -35,6 +29,5 @@ namespace BrumWithMe.Data.Models.Entities
         public string OwenerId { get; set; }
 
         public virtual User Owner { get; set; }
-
     }
 }
