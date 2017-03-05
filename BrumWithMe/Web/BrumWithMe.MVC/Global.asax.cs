@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BrumWithMe.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -16,6 +17,8 @@ namespace BrumWithMe.MVC
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            BrumWithMeDbContext.Create().Database.CreateIfNotExists();
         }
     }
 }
