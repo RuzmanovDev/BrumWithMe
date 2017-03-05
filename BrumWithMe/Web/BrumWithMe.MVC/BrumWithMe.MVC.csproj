@@ -297,10 +297,6 @@
     <Content Include="Scripts\jquery-3.1.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Auth\BrumWithMe.Auth.Identity\BrumWithMe.Auth.Identity.csproj">
-      <Project>{38072AFB-A6B9-434A-B4BC-0BE245478270}</Project>
-      <Name>BrumWithMe.Auth.Identity</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Data\BrumWithMe.Data.Models\BrumWithMe.Data.Models.csproj">
       <Project>{144806c1-2813-4871-845f-3d2d708052f7}</Project>
       <Name>BrumWithMe.Data.Models</Name>
@@ -308,6 +304,10 @@
     <ProjectReference Include="..\..\Data\BrumWithMe.Data\BrumWithMe.Data.csproj">
       <Project>{dba8734c-3ef5-4d46-a318-bfc9f75d0980}</Project>
       <Name>BrumWithMe.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Services\BrumWithMe.Auth.Identity\BrumWithMe.Auth.Identity.csproj">
+      <Project>{38072AFB-A6B9-434A-B4BC-0BE245478270}</Project>
+      <Name>BrumWithMe.Auth.Identity</Name>
     </ProjectReference>
     <ProjectReference Include="..\BrumWithMe.Web.Models\BrumWithMe.Web.Models.csproj">
       <Project>{2A2F207E-4113-4CC9-9554-C7C547508E2D}</Project>
