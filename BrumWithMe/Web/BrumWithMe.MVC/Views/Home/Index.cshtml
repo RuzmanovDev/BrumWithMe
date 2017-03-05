@@ -1,0 +1,45 @@
+﻿
+@*<h2>Testing some shit</h2>
+<div class="row">
+    <select>
+        <option value="" disabled selected>Choose your option</option>
+        <option value="1">Option 1</option>
+        <option value="2">Option 2</option>
+        <option value="3">Option 3</option>
+    </select>
+
+    <label>Materialize Select</label>
+
+    <div class="input-field col s7 pull-5">
+        @using (Ajax.BeginForm(nameof(HomeController.PostComment), null, new AjaxOptions
+        {
+            UpdateTargetId = "results",
+            InsertionMode = InsertionMode.Replace
+        },
+                            FormMethod.Post))
+        {
+            @Html.EditorFor(m => m.Content)
+            <input type="submit" />
+        }
+        <div id="dynamic-content"></div>
+    </div>
+
+    @Ajax.ActionLink("Refresh", nameof(HomeController.LoadComments), null, new AjaxOptions
+{
+    UpdateTargetId = "results",
+    InsertionMode = InsertionMode.InsertAfter
+}, new { @class = "btn" })
+
+    <ul id="results" class="col s12">
+        @Html.Action(nameof(HomeController.LoadComments), new { id = this.Request.QueryString["id"] })
+    </ul>
+
+</div>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('select').material_select();
+        });
+    </script>
+}*@

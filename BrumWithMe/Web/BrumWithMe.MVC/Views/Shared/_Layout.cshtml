@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+    @* TODO: ADD TO FILE*@
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+    <nav>
+        <div class="nav-wrapper nav teal darken-4">
+            <a href="#!" class="center brand-logo">Logo</a>
+            <ul class="left hide-on-med-and-down">
+                <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                <li>@Html.ActionLink("About", "About", "Home")</li>
+                <li>@Html.ActionLink("Начало", "TestHomePage", "Home")</li>
+                <li><a href="trip/creatingtrip"> Създаване на пътуване</a></li>
+            </ul>
+            @Html.Partial("_LoginPartial")
+        </div>
+    </nav>
+
+    <div>
+        @RenderBody()
+    </div>
+    <footer class="page-footer teal darken-4">
+        <div class="container">
+            <div class="row">
+                <div class="col l6 s12">
+                    <h5 class="white-text">BrumWithMe</h5>
+                    <p class="grey-text text-lighten-4">
+                        Искате да пътувате? Омръзнало ви е да ползвате обществен транспорт?
+                        Искате да се погрижите за околната среда?
+                        BrumWithMe е решението!
+                    </p>
+                </div>
+                <div class="col l4 offset-l2 s12">
+                    <h5 class="white-text">Препратки</h5>
+                    <ul>
+                        <li><a class="grey-text text-lighten-3" href="https://github.com/RuzmanovDev/">Github</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <div class="container">
+                © @DateTime.Now.Year Developed by Stoyan Ruzmanov
+            </div>
+        </div>
+    </footer>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/materialize")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

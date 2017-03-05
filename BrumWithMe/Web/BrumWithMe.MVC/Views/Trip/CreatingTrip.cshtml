@@ -1,0 +1,49 @@
+﻿<section class="container">
+    <h1>Създаване на пътуване</h1>
+
+    @using (Html.BeginForm("CreatingTrip", "Trip", FormMethod.Post))
+    {  <div class="col l3 offset-l3">
+        <label for="origin">From</label>
+        <select id="origin">
+            <option value="" disabled selected>От</option>
+            <option value="1">Option 1</option>
+            <option value="2">Option 2</option>
+            <option value="3">Option 3</option>
+        </select>
+    </div>
+    <div class="col l3">
+        <label for="destination">To</label>
+        <select id="destination">
+            <option value="" disabled selected>До</option>
+            <option value="1">Option 1</option>
+            <option value="2">Option 2</option>
+            <option value="3">Option 3</option>
+        </select>
+    </div>
+    <div class="col l3">
+        <label for="date">Дата на потегляне</label>
+        <input class="datepicker" id="date">
+    </div>
+    <div class="col l3">
+        <label for="number-of-seats">Брой места</label>
+        <input id="number-of-seats" type="number">
+    </div>
+
+    <input type="submit" name="name" value="Създай" class="btn" />
+    }
+
+
+    @section scripts{
+        <script>
+            $(document).ready(function () {
+                $('select').material_select();
+            });
+
+            $('.datepicker').pickadate({
+                selectMonths: true, // Creates a dropdown to control month
+                selectYears: 15 // Creates a dropdown of 15 years to control year
+            });
+        </script>
+    }
+
+</section>

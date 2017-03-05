@@ -1,0 +1,54 @@
+﻿@*@model Test.Web.Models.PostViewModel
+
+<div class="container">
+    <h2 class="center-align">Пловдив - Пазарджик</h2>
+    <div class="row">
+        <div class="col s4" style="height: 200px;border: 1px solid black; ">Ttka shte e kartata</div>
+        <div class="col s8" style="">
+            <div>
+                <span class="date" title="Дата на погегляне"><i class="material-icons">today</i> 23.03.2017</span>
+                <span class="time" title="Час на потегляне"><i class="material-icons">query_builder</i> 18:00</span>
+                <span class="seats" title="Места">
+                    <i class="material-icons">perm_identity</i> 3/5
+                </span>
+                <span><i class="material-icons" title="Цена">loyalty</i> Цена 5 Лева</span>
+            </div>
+            <div>
+                @Html.Partial("_UserInfoSummary", "Pesho Ivanov")
+            </div>
+            <div>
+                <h6>Описание</h6>
+                <p>
+                    Trafasdasjdsajsdajkjksd asd
+                    asdkjsadjk
+                    asdkjkjasd
+                    jksdakjkjlsda kljasdklj
+                    klajsd ljkasljkd dasjksdakjkjlsadjklsadjklsdjlkajlksda
+                    asdsadasd
+                </p>
+            </div>
+            <a href="#" class="btn">Запази място</a>
+        </div>
+    </div>
+    <div class="row">
+        <h5>Отзиви за шофьора</h5>
+
+        <div class="input-field col s7 pull-5">
+            @using (Ajax.BeginForm(nameof(HomeController.PostComment), "Home", null, new AjaxOptions
+            {
+                UpdateTargetId = "results",
+                InsertionMode = InsertionMode.Replace
+            },
+                        FormMethod.Post))
+            {
+                @Html.EditorFor(m => m.Content)
+                <input type="submit" class="btn" />
+            }
+            <div id="dynamic-content"></div>
+        </div>
+
+        <ul id="results" class="col s12">
+            @Html.Action(nameof(HomeController.LoadComments), "Home", new { id = this.Request.QueryString["id"] })
+        </ul>
+    </div>
+</div>*@

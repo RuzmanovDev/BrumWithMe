@@ -1,0 +1,85 @@
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
+using System.Security.Claims;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace BrumWithMe.Data.Models.Entities
+{
+    public class User : IdentityUser
+    {
+        private ICollection<Trip> trips;
+        private ICollection<Car> cars;
+        private ICollection<Review> reviewsForHim;
+        private ICollection<Review> reviewsByHim;
+
+        public User()
+        {
+            this.trips = new HashSet<Trip>();
+            this.cars = new HashSet<Car>();
+            this.reviewsForHim = new HashSet<Review>();
+            this.reviewsByHim = new HashSet<Review>();
+        }
+
+        [MinLength(3)]
+        [MaxLength(25)]
+        [Required]
+        public string FirstName { get; set; }
+
+        [MinLength(3)]
+        [MaxLength(25)]
+        [Required]
+        public string LastName { get; set; }
+
+        [MaxLength(50)]
+        public string AvataImageurl { get; set; }
+
+        [NotMapped]
+        public string FullName
+        {
+            get { return $"{this.FirstName} {this.LastName}"; }
+        }
+
+        public virtual ICollection<Trip> Trips
+        {
+            get { return this.trips; }
+            set { this.trips = value; }
+        }
+
+        public virtual ICollection<Car> Cars
+        {
+            get { return this.cars; }
+            set { this.cars = value; }
+        }
+
+        public virtual ICollection<Review> ReviewsForHim
+        {
+            get { return this.reviewsForHim; }
+            set { this.reviewsForHim = value; }
+        }
+
+        public virtual ICollection<Review> ReviewsByHim
+        {
+            get { return this.reviewsByHim; }
+            set { this.reviewsByHim = value; }
+        }
+
+        public ClaimsIdentity GenerateUserIdentity(UserManager<User> manager)
+        {
+            // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
+            ClaimsIdentity userIdentity = manager.CreateIdentity(this, DefaultAuthenticationTypes.ApplicationCookie);
+            // Add custom user claims here
+            return userIdentity;
+        }
+
+        public Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<User> manager)
+        {
+            return Task.FromResult(this.GenerateUserIdentity(manager));
+        }
+    }
+}

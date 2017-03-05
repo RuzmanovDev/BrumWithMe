@@ -1,0 +1,65 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{73EAD4AD-7040-45C0-8C3F-61C52DA44463}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{82FB51F2-F379-4911-8C5A-DF3A986DD17C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrumWithMe.Data.Models", "Data\BrumWithMe.Data.Models\BrumWithMe.Data.Models.csproj", "{144806C1-2813-4871-845F-3D2D708052F7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrumWithMe.Data", "Data\BrumWithMe.Data\BrumWithMe.Data.csproj", "{DBA8734C-3EF5-4D46-A318-BFC9F75D0980}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{0F1D995E-BD95-4D7E-B7B4-BCB51C2C4058}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{E858DCCC-4154-4C5B-9A86-14784EBF85A8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Providers", "Providers", "{F75D650F-5BF1-4183-9FE8-95E51911CD07}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrumWithMe.MVC", "Web\BrumWithMe.MVC\BrumWithMe.MVC.csproj", "{B332EC19-A4C2-4A73-BDDF-BA1FD0E9ED6E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrumWithMe.Web.Models", "Web\BrumWithMe.Web.Models\BrumWithMe.Web.Models.csproj", "{2A2F207E-4113-4CC9-9554-C7C547508E2D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Auth", "Auth", "{B7BC6532-763F-400D-AE17-4E958BA797C8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrumWithMe.Auth.Identity", "Auth\BrumWithMe.Auth.Identity\BrumWithMe.Auth.Identity.csproj", "{38072AFB-A6B9-434A-B4BC-0BE245478270}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{144806C1-2813-4871-845F-3D2D708052F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{144806C1-2813-4871-845F-3D2D708052F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{144806C1-2813-4871-845F-3D2D708052F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{144806C1-2813-4871-845F-3D2D708052F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DBA8734C-3EF5-4D46-A318-BFC9F75D0980}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DBA8734C-3EF5-4D46-A318-BFC9F75D0980}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DBA8734C-3EF5-4D46-A318-BFC9F75D0980}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DBA8734C-3EF5-4D46-A318-BFC9F75D0980}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B332EC19-A4C2-4A73-BDDF-BA1FD0E9ED6E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B332EC19-A4C2-4A73-BDDF-BA1FD0E9ED6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B332EC19-A4C2-4A73-BDDF-BA1FD0E9ED6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B332EC19-A4C2-4A73-BDDF-BA1FD0E9ED6E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A2F207E-4113-4CC9-9554-C7C547508E2D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A2F207E-4113-4CC9-9554-C7C547508E2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A2F207E-4113-4CC9-9554-C7C547508E2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A2F207E-4113-4CC9-9554-C7C547508E2D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{38072AFB-A6B9-434A-B4BC-0BE245478270}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38072AFB-A6B9-434A-B4BC-0BE245478270}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38072AFB-A6B9-434A-B4BC-0BE245478270}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38072AFB-A6B9-434A-B4BC-0BE245478270}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{144806C1-2813-4871-845F-3D2D708052F7} = {73EAD4AD-7040-45C0-8C3F-61C52DA44463}
+		{DBA8734C-3EF5-4D46-A318-BFC9F75D0980} = {73EAD4AD-7040-45C0-8C3F-61C52DA44463}
+		{B332EC19-A4C2-4A73-BDDF-BA1FD0E9ED6E} = {82FB51F2-F379-4911-8C5A-DF3A986DD17C}
+		{2A2F207E-4113-4CC9-9554-C7C547508E2D} = {82FB51F2-F379-4911-8C5A-DF3A986DD17C}
+		{38072AFB-A6B9-434A-B4BC-0BE245478270} = {B7BC6532-763F-400D-AE17-4E958BA797C8}
+	EndGlobalSection
+EndGlobal
