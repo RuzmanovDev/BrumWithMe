@@ -1,12 +1,9 @@
-﻿using BrumWithMe.Data;
+﻿using System;
+using System.Data.Entity;
+using BrumWithMe.Data;
 using BrumWithMe.Data.Contracts;
 using BrumWithMe.Data.Repositories;
 using Ninject.Modules;
-using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Web;
 using Ninject.Web.Common;
 using Ninject;
 

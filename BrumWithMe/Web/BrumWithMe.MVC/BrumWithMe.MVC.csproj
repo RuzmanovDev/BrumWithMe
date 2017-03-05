@@ -183,6 +183,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\Bindings\DataConfig.cs" />
+    <Compile Include="App_Start\Bindings\ServicesConfig.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\NinjectConfig.cs" />
@@ -302,6 +304,10 @@
     <ProjectReference Include="..\..\Data\BrumWithMe.Data.Models\BrumWithMe.Data.Models.csproj">
       <Project>{144806c1-2813-4871-845f-3d2d708052f7}</Project>
       <Name>BrumWithMe.Data.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Data\BrumWithMe.Data\BrumWithMe.Data.csproj">
+      <Project>{dba8734c-3ef5-4d46-a318-bfc9f75d0980}</Project>
+      <Name>BrumWithMe.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\BrumWithMe.Web.Models\BrumWithMe.Web.Models.csproj">
       <Project>{2A2F207E-4113-4CC9-9554-C7C547508E2D}</Project>
