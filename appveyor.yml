@@ -12,7 +12,7 @@ build:
   
 environment:
   COVERALLS_REPO_TOKEN:
-    secure: dI6TkJSq524D8TQreufS0jk03WA5Ap0Hq
+    secure: phzoOBpzRlLWwSsiaXoAEKKzToGvIvezY4Wvd
 
 after_test:
   - BrumWithMe\packages\OpenCover.4.6.519\tools\OpenCover.Console.exe -register:user -filter:"+[*]*" -target:"BrumWithMe\packages\NUnit.ConsoleRunner.3.6.0\tools\nunit3-console.exe" -targetargs:"/domain:single BrumWithMe\Tests\BrumWithMe.Services.Data.Tests\bin\Debug\BrumWithMe.Services.Data.Tests.dll BrumWithMe\Tests\BrumWithMe.Services.Providers.Tests\bin\Debug\BrumWithMe.Services.Providers.Tests.dll" -output:cover.xml
