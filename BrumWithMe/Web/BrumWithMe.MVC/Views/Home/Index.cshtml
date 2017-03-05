@@ -1,45 +1,48 @@
-﻿
-@*<h2>Testing some shit</h2>
-<div class="row">
-    <select>
-        <option value="" disabled selected>Choose your option</option>
-        <option value="1">Option 1</option>
-        <option value="2">Option 2</option>
-        <option value="3">Option 3</option>
-    </select>
-
-    <label>Materialize Select</label>
-
-    <div class="input-field col s7 pull-5">
-        @using (Ajax.BeginForm(nameof(HomeController.PostComment), null, new AjaxOptions
-        {
-            UpdateTargetId = "results",
-            InsertionMode = InsertionMode.Replace
-        },
-                            FormMethod.Post))
-        {
-            @Html.EditorFor(m => m.Content)
-            <input type="submit" />
-        }
-        <div id="dynamic-content"></div>
+﻿<div id="home-picture-container">
+        <div class="row">
+            <div class="center-align">
+                <h1>brumwithme</h1>
+                <h4>порталът за споделено пътуване, който предлага повече</h4>
+                <a href="#" class="btn">как работи</a>
+                <form class="quick-travel-search">
+                    <div class="col l3 offset-l3">
+                        <select class="quick-travel-search-input">
+                            <option value="" disabled selected>от</option>
+                            <option value="1">option 1</option>
+                            <option value="2">option 2</option>
+                            <option value="3">option 3</option>
+                        </select>
+                    </div>
+                    <div class="col l3">
+                        <select class="quick-travel-search-input">
+                            <option value="" disabled selected>до</option>
+                            <option value="1">option 1</option>
+                            <option value="2">option 2</option>
+                            <option value="3">option 3</option>
+                        </select>
+                    </div>
+                    <div class="col l1">
+                        <input type="submit" value="търсене" class="btn">
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 
-    @Ajax.ActionLink("Refresh", nameof(HomeController.LoadComments), null, new AjaxOptions
-{
-    UpdateTargetId = "results",
-    InsertionMode = InsertionMode.InsertAfter
-}, new { @class = "btn" })
+    <div class="container">
+        <h4>скоро споделени</h4>
+        <div>
+            @Html.Action(nameof(TripController.RecentTrips), "Trip");
+        </div>
+    </div>
 
-    <ul id="results" class="col s12">
-        @Html.Action(nameof(HomeController.LoadComments), new { id = this.Request.QueryString["id"] })
-    </ul>
 
-</div>
+    @section scripts{
+        <script>
+            $(document).ready(function () {
+                $('select').material_select();
+            });
 
-@section scripts{
-    <script>
-        $(document).ready(function () {
-            $('select').material_select();
-        });
-    </script>
-}*@
+
+        </script>
+    }

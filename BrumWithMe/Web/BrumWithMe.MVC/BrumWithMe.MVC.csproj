@@ -169,6 +169,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\TripController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -253,8 +254,7 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Home\TestHomePage.cshtml" />
-    <Content Include="Views\Shared\_RescentTrips.cshtml" />
+    <Content Include="Views\Shared\_RecentTrips.cshtml" />
     <Content Include="Views\Shared\_TripInfo.cshtml" />
     <Content Include="Views\Shared\_UserInfoSummary.cshtml" />
     <Content Include="Views\Shared\AjaxTest.cshtml" />
