@@ -244,6 +244,7 @@
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="UserAvatars\default.png" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -259,23 +260,12 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
-    <Content Include="Views\Account\ConfirmEmail.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
     <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
-    <Content Include="Views\Account\ForgotPassword.cshtml" />
-    <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
-    <Content Include="Views\Account\ResetPassword.cshtml" />
-    <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
-    <Content Include="Views\Account\SendCode.cshtml" />
-    <Content Include="Views\Account\VerifyCode.cshtml" />
-    <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
     <Content Include="Views\Manage\ChangePassword.cshtml" />
     <Content Include="Views\Manage\Index.cshtml" />
-    <Content Include="Views\Manage\ManageLogins.cshtml" />
-    <Content Include="Views\Manage\SetPassword.cshtml" />
-    <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_RecentTrips.cshtml" />
@@ -284,9 +274,11 @@
     <Content Include="Views\Shared\AjaxTest.cshtml" />
     <Content Include="Views\Trip\CreatingTrip.cshtml" />
     <Content Include="Views\Trip\TripDetails.cshtml" />
+    <Content Include="Views\Manage\RegisterCar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="UserAvatars\Cars\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -313,6 +305,10 @@
     <ProjectReference Include="..\..\Services\BrumWithMe.Services.Data\BrumWithMe.Services.Data.csproj">
       <Project>{EF938788-92EE-4CA0-B659-2F3474AF9B80}</Project>
       <Name>BrumWithMe.Services.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Services\BrumWithMe.Services.Providers\BrumWithMe.Services.Providers.csproj">
+      <Project>{402CA91F-486D-4954-94B9-38E6FCFDE38A}</Project>
+      <Name>BrumWithMe.Services.Providers</Name>
     </ProjectReference>
     <ProjectReference Include="..\BrumWithMe.Web.Models\BrumWithMe.Web.Models.csproj">
       <Project>{2A2F207E-4113-4CC9-9554-C7C547508E2D}</Project>

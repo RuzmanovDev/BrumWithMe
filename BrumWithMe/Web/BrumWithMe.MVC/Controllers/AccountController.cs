@@ -15,7 +15,6 @@ namespace BrumWithMe.MVC.Controllers
     {
         private readonly IAuthService authService;
 
-        // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
 
         public AccountController(IAuthService authService)
@@ -73,7 +72,8 @@ namespace BrumWithMe.MVC.Controllers
                     UserName = model.Email,
                     Email = model.Email,
                     FirstName = model.FirstName,
-                    LastName = model.LastName
+                    LastName = model.LastName,
+                    AvataImageurl = "~/UserAvatars/default.png"
                 };
 
                 IdentityResult result = await this.authService.Register(user, model.Password);

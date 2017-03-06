@@ -1,7 +1,11 @@
 ﻿using BrumWithMe.Auth.Identity.Contracts;
 using BrumWithMe.Auth.Identity.Services;
+using BrumWithMe.Services.Data.Contracts;
+using BrumWithMe.Services.Data.Services;
+using BrumWithMe.Services.Providers.FileUpload;
 using Microsoft.Owin;
 using Ninject.Modules;
+using Ninject.Web.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +21,8 @@ namespace BrumWithMe.MVC.App_Start.Bindings
             this.Bind<IOwinContext>()
                .ToMethod(c => HttpContext.Current.GetOwinContext())
                .WhenInjectedInto(typeof(IAuthService));
+            this.Bind<IFileUploadProvider>().To<FileUploadProvider>();
+            this.Bind<IAccountManagementService>().To<AccountManagementService>().InRequestScope();
         }
     }
 }

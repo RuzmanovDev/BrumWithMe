@@ -6,6 +6,7 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using System.Threading.Tasks;
 using BrumWithMe.Data.Models.Entities;
+using System;
 
 namespace BrumWithMe.Auth.Identity.Services
 {
@@ -27,7 +28,6 @@ namespace BrumWithMe.Auth.Identity.Services
             this.authManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
         }
 
-
         public async Task<SignInStatus> LogIn(string email, string password)
         {
             SignInStatus result = await this.signInManager.PasswordSignInAsync(email, password, isPersistent: false, shouldLockout: false);
@@ -40,6 +40,16 @@ namespace BrumWithMe.Auth.Identity.Services
             var result = await this.userManager.CreateAsync(user, password);
 
             return result;
+        }
+
+        public Task<IdentityResult> ChangePasswordAsync(string v, string oldPassword, string newPassword)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task LogIn(User user, bool isPersistent, bool rememberBrowser)
+        {
+            throw new NotImplementedException();
         }
     }
 }

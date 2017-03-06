@@ -12,5 +12,9 @@ namespace BrumWithMe.Auth.Identity.Contracts
         Task<SignInStatus> LogIn(string email, string password);
 
         Task<IdentityResult> Register(User user, string password);
+
+        Task<IdentityResult> ChangePasswordAsync(string v, string oldPassword, string newPassword);
+
+        Task LogIn(User user, bool isPersistent, bool rememberBrowser);
     }
 }

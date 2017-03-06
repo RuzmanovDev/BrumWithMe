@@ -1,0 +1,39 @@
+﻿@model RegisterCarViewModel
+<section class="container">
+    <h2>Регистриране на автомобил</h2>
+    <sectiom class="row">
+        @using (Html.BeginForm(nameof(ManageController.RegisterCar), "Manage", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="input-field col s6">
+                <label for="make">Марка</label>
+                @Html.TextBoxFor(m => m.Make, new { @class = "validate" })
+            </div>
+            <div class="input-field col s6">
+                <label for="model">Модел</label>
+                @Html.TextBoxFor(m => m.Model, new { @class = "validate" })
+            </div>
+            <div class="input-field col s6">
+                <label for="year">Година</label>
+                @Html.TextBoxFor(m => m.Year, new { @class = "validate" })
+            </div>
+            <div class="input-field col s6">
+                <label for="color">Цвят</label>
+                @Html.TextBoxFor(m => m.Color, new { @class = "validate" })
+            </div>
+            <div class="file-field input-field col s6">
+                <div class="btn">
+                    <span>File</span>
+                    <input type="file" name="CarAvatar">
+                </div>
+                <div class="file-path-wrapper">
+                    <input class="file-path validate" type="text">
+                </div>
+            </div>
+            <div class="input-field col s6">
+                <input type="submit" value="Добави автомобил" />
+            </div>
+        }
+    </sectiom>
+</section>
