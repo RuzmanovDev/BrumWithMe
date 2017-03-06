@@ -1,5 +1,5 @@
-[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(BrumWithMe.MVC.App_Start.NinjectWebCommon), "Start")]
-[assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(BrumWithMe.MVC.App_Start.NinjectWebCommon), "Stop")]
+[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(BrumWithMe.MVC.App_Start.NinjectConfig), "Start")]
+[assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(BrumWithMe.MVC.App_Start.NinjectConfig), "Stop")]
 
 namespace BrumWithMe.MVC.App_Start
 {
@@ -12,20 +12,22 @@ namespace BrumWithMe.MVC.App_Start
     using Ninject.Web.Common;
     using Bindings;
 
-    public static class NinjectWebCommon 
+    public static class NinjectConfig
     {
         private static readonly Bootstrapper bootstrapper = new Bootstrapper();
 
         /// <summary>
         /// Starts the application
         /// </summary>
-        public static void Start() 
+        public static void Start()
         {
             DynamicModuleUtility.RegisterModule(typeof(OnePerRequestHttpModule));
             DynamicModuleUtility.RegisterModule(typeof(NinjectHttpModule));
             bootstrapper.Initialize(CreateKernel);
         }
-        
+
+        public static IKernel Kernel { get; private set; }
+
         /// <summary>
         /// Stops the application.
         /// </summary>
@@ -33,7 +35,7 @@ namespace BrumWithMe.MVC.App_Start
         {
             bootstrapper.ShutDown();
         }
-        
+
         /// <summary>
         /// Creates the kernel that will manage your application.
         /// </summary>
@@ -41,6 +43,7 @@ namespace BrumWithMe.MVC.App_Start
         private static IKernel CreateKernel()
         {
             var kernel = new StandardKernel();
+            Kernel = kernel;
             try
             {
                 kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
@@ -65,6 +68,6 @@ namespace BrumWithMe.MVC.App_Start
             kernel.Load(
                new ServicesConfig(),
                new DataConfig());
-        }        
+        }
     }
 }

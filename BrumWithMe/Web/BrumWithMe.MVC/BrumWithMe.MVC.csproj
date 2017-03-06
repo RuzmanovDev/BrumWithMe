@@ -190,6 +190,7 @@
     <Compile Include="App_Start\NinjectConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ChallengeResult.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\TripController.cs" />
@@ -308,6 +309,10 @@
     <ProjectReference Include="..\..\Services\BrumWithMe.Auth.Identity\BrumWithMe.Auth.Identity.csproj">
       <Project>{38072AFB-A6B9-434A-B4BC-0BE245478270}</Project>
       <Name>BrumWithMe.Auth.Identity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Services\BrumWithMe.Services.Data\BrumWithMe.Services.Data.csproj">
+      <Project>{EF938788-92EE-4CA0-B659-2F3474AF9B80}</Project>
+      <Name>BrumWithMe.Services.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\BrumWithMe.Web.Models\BrumWithMe.Web.Models.csproj">
       <Project>{2A2F207E-4113-4CC9-9554-C7C547508E2D}</Project>

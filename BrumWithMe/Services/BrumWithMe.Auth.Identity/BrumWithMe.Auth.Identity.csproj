@@ -86,11 +86,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration\IdentityConfig.cs" />
+    <Compile Include="Contracts\IAuthService.cs" />
     <Compile Include="Managers\ApplicationSignInManager.cs" />
     <Compile Include="Managers\ApplicationUserManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\AuthService.cs" />
     <Compile Include="Services\EmailService.cs" />
-    <Compile Include="Services\SmsService.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
@@ -105,6 +106,10 @@
     <ProjectReference Include="..\..\Data\BrumWithMe.Data\BrumWithMe.Data.csproj">
       <Project>{DBA8734C-3EF5-4D46-A318-BFC9F75D0980}</Project>
       <Name>BrumWithMe.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BrumWithMe.Services.Data\BrumWithMe.Services.Data.csproj">
+      <Project>{EF938788-92EE-4CA0-B659-2F3474AF9B80}</Project>
+      <Name>BrumWithMe.Services.Data</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
