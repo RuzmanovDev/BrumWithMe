@@ -12,9 +12,11 @@ namespace BrumWithMe.Web.Models.Trip
 
         public string OriginName { get; set; }
 
+        public string Description { get; set; }
+
         public DateTime DateOfDeparture { get; set; }
 
-        public DateTime HourOfDeparture { get; set; }
+        public string HourOfDeparture { get; set; }
 
         public int FreeSeats { get; set; }
 

@@ -29,6 +29,8 @@ namespace BrumWithMe.Data
 
         public virtual IDbSet<Tag> Tags { get; set; }
 
+        public virtual IDbSet<UsersTrips> UsersTrips { get; set; }
+
         public virtual IDbSet<Subscription> Friendships { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

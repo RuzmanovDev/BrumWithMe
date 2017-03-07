@@ -6,12 +6,12 @@
         <h4>Създаване на пътуване</h4>
         @using (Html.BeginForm(nameof(TripController.Create), "Trip", FormMethod.Post))
         {
-            <div class="col l6">
-                <label for="originame">От</label>
-                @Html.TextBoxFor(x => x.OriginName)
+            <div class="col l6 input-field">
+                @Html.LabelFor(m => m.OriginName, "От")
+                @Html.TextBoxFor(x => x.OriginName, new { id = "origin-name" })
             </div>
-            <div class="col l6">
-                <label for="destination">To</label>
+            <div class="col l6 input-field">
+                @Html.LabelFor(m => m.DestinationName, "До")
                 @Html.TextBoxFor(x => x.DestinationName)
             </div>
             <div class="col l6">
@@ -22,12 +22,12 @@
                 <label for="hour">час на потегляне</label>
                 @Html.TextBoxFor(x => x.HourOfDeparture, new { @class = "timepicker" })
             </div>
-            <div class="col l6">
-                <label for="number-of-seats">Брой места</label>
+            <div class="col l6 input-field">
+                @Html.LabelFor(m => m.FreeSeats, "Брой места")
                 @Html.TextBoxFor(x => x.FreeSeats)
             </div>
-            <div class="col l6">
-                <label for="price">Цена</label>
+            <div class="col l6 input-field">
+                @Html.LabelFor(m => m.Price, "Цена")
                 @Html.TextBoxFor(x => x.Price)
             </div>
             <div class="col l12">
@@ -49,6 +49,10 @@
                     </p>
                 }
             </div>
+            <div class="col l6 input-field">
+                @Html.LabelFor(m => m.Description, "Описание")
+                @Html.TextAreaFor(x => x.Description, new { @class = "materialize-textarea" })
+            </div>
             <input type="submit" name="name" value="Създай" class="btn col l12" />
         }
     </div>
@@ -61,17 +65,21 @@
     <script>
         $(document).ready(function () {
             $('select').material_select();
+            var currentDate = new Date();
 
-            $('.datepicker').pickadate({
+            var $input = $('.datepicker').pickadate({
                 selectMonths: true, // Creates a dropdown to control month
                 selectYears: 15 // Creates a dropdown of 15 years to control year
             });
 
-            $('.timepicker').pickatime({
+            var picker = $input.pickadate('picker')
+            picker.set('select', [currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate()])
+
+            var $hourInput = $('.timepicker').pickatime({
                 default: 'now',
                 twelvehour: false, // change to 12 hour AM/PM clock from 24 hour
                 donetext: 'OK',
-                autoclose: false,
+                autoclose: true,
                 vibrate: true // vibrate the device when dragging clock hand
             });
 
