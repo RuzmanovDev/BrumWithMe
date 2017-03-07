@@ -25,6 +25,9 @@ namespace BrumWithMe.MVC.App_Start.Bindings
 
             this.Bind<IFileUploadProvider>().To<FileUploadProvider>();
             this.Bind<IAccountManagementService>().To<AccountManagementService>().InRequestScope();
+            this.Bind<ITripService>().To<TripService>().InRequestScope();
+            this.Bind<ICityService>().To<CityService>().InRequestScope();
+            this.Bind<ITagService>().To<TagService>().InRequestScope();
         }
     }
 }

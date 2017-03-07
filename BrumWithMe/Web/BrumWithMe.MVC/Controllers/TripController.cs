@@ -1,6 +1,9 @@
 ﻿using BrumWithMe.Data;
 using BrumWithMe.Data.Models.Entities;
+using BrumWithMe.Data.Models.TransportEntities;
+using BrumWithMe.Services.Data.Contracts;
 using BrumWithMe.Web.Models.Trip;
+using Bytes2you.Validation;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
@@ -12,6 +15,22 @@ namespace BrumWithMe.MVC.Controllers
 {
     public class TripController : Controller
     {
+        private readonly ITripService tripService;
+        private readonly ICityService cityService;
+        private readonly ITagService tagService;
+        private readonly ICarService carService;
+
+        public TripController(ITripService tripService, ICityService cityService, ITagService tagService)
+        {
+            Guard.WhenArgument(tripService, nameof(tripService)).IsNull().Throw();
+            Guard.WhenArgument(cityService, nameof(cityService)).IsNull().Throw();
+            Guard.WhenArgument(tagService, nameof(tagService)).IsNull().Throw();
+
+            this.tripService = tripService;
+            this.cityService = cityService;
+            this.tagService = tagService;
+        }
+
         public ActionResult TripDetails()
         {
             return View();
@@ -25,74 +44,42 @@ namespace BrumWithMe.MVC.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(CreateTripViewModel a)
+        public ActionResult Create(CreateTripViewModel tripInfo)
         {
-            var context = new BrumWithMeDbContext();
-
-            var origin = context.Cities.FirstOrDefault(x => x.Name == a.OriginName);
-            if (origin == null)
+            if (!ModelState.IsValid)
             {
-                context.Cities.Add(new Data.Models.Entities.City()
-                {
-                    Name = a.OriginName
-                });
-
-                context.SaveChanges();
+                return this.View(tripInfo);
             }
 
-            var destination = context.Cities.FirstOrDefault(x => x.Name == a.DestinationName);
-            if (destination == null)
+            var hourOfDeparting = TimeSpan.ParseExact(tripInfo.HourOfDeparture, @"hh\:mm", null);
+            var travelDate = tripInfo.DateOfDeparture.Add(hourOfDeparting);
+            var currentUSerId = this.User.Identity.GetUserId();
+            var selectedTags = tripInfo.Tags.Where(x => x.IsSelected).Select(x => x.Id);
+
+            var trip = new TripCreationInfo()
             {
-                context.Cities.Add(new Data.Models.Entities.City()
-                {
-                    Name = a.DestinationName
-                });
-
-                context.SaveChanges();
-            }
-
-            var hourOfDeparting = TimeSpan.ParseExact(a.HourOfDeparture, @"hh\:mm", null);
-            var travelDate = a.DateOfDeparture.Add(hourOfDeparting);
-
-            var tagIds = a.Tags.Select(z => z.Id);
-            var tags = context.Tags.Where(x => tagIds.Contains(x.Id)).ToList();
-
-            var trip = new Trip()
-            {
-                CarId = a.CarId,
-                Date = travelDate,
-                Seats = a.FreeSeats,
-                DestinationId = destination.Id,
-                OriginId = origin.Id,
-                Price = a.Price,
-                Tags = tags,
-                Description = a.Description
+                Description = tripInfo.Description,
+                DestinationName = tripInfo.DestinationName,
+                OriginName = tripInfo.OriginName,
+                FreeSeats = tripInfo.FreeSeats,
+                Price = tripInfo.Price,
+                TagIds = selectedTags,
+                TimeOfDeparture = travelDate,
+                CarId = tripInfo.CarId,
+                DriverId = currentUSerId
             };
 
-            context.Trips.Add(trip);
-
-
-            var currentUSerId = this.User.Identity.GetUserId();
-
-            context.UsersTrips.Add(new UsersTrips()
-            {
-                Trip = trip,
-                UserId = currentUSerId,
-                IsDriver = true
-            });
-
-            context.SaveChanges();
+            this.tripService.CreateTrip(trip);
 
             return RedirectToAction(nameof(this.Create));
         }
 
         public ActionResult Create()
         {
-            var context = new BrumWithMeDbContext();
-
-            var tags = context.Tags.ToList();
+            var tags = this.tagService.GetAllTags();
             var userId = this.User.Identity.GetUserId();
-            var cars = context.Cars.Where(x => x.OwenerId == userId).ToList();
+
+            var cars = this.carService.GetUserCars(userId);
 
             var model = new CreateTripViewModel();
 
@@ -124,4 +111,6 @@ namespace BrumWithMe.MVC.Controllers
             return View(model);
         }
     }
+
+
 }

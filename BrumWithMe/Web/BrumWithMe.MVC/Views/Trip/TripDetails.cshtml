@@ -24,6 +24,11 @@
                     klajsd ljkasljkd dasjksdakjkjlsadjklsadjklsdjlkajlksda
                     asdsadasd
                 </p>
+                <div>
+                    <div class="chip">Tag</div>
+                    <div class="chip">Tag</div>
+                    <div class="chip">Tag</div>
+                </div>
             </div>
             <a href="#" class="btn">запази място</a>
         </div>
@@ -32,21 +37,21 @@
         <h5>отзиви за шофьора</h5>
 
         @*<div class="input-field col s7 pull-5">
-            @using (ajax.beginform(nameof(homecontroller.postcomment), "home", null, new ajaxoptions
-            {
-                updatetargetid = "results",
-                insertionmode = insertionmode.replace
-            },
-                        formmethod.post))
-            {
-                @html.editorfor(m => m.content)
-                <input type="submit" class="btn" />
-            }
-            <div id="dynamic-content"></div>
-        </div>
+                @using (ajax.beginform(nameof(homecontroller.postcomment), "home", null, new ajaxoptions
+                {
+                    updatetargetid = "results",
+                    insertionmode = insertionmode.replace
+                },
+                            formmethod.post))
+                {
+                    @html.editorfor(m => m.content)
+                    <input type="submit" class="btn" />
+                }
+                <div id="dynamic-content"></div>
+            </div>
 
-        <ul id="results" class="col s12">
-            @html.action(nameof(homecontroller.loadcomments), "home", new { id = this.request.querystring["id"] })
-        </ul>*@
+            <ul id="results" class="col s12">
+                @html.action(nameof(homecontroller.loadcomments), "home", new { id = this.request.querystring["id"] })
+            </ul>*@
     </div>
 </div>

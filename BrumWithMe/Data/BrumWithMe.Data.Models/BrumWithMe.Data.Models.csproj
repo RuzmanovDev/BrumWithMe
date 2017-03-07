@@ -66,6 +66,8 @@
     <Compile Include="Entities\User.cs" />
     <Compile Include="Entities\UsersTrips.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TransportEntities\CarBasicInfo.cs" />
+    <Compile Include="TransportEntities\TripInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
