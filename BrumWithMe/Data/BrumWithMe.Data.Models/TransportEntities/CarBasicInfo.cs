@@ -18,7 +18,7 @@ namespace BrumWithMe.Data.Models.TransportEntities
 
         public override string ToString()
         {
-            return $"{this.Make} {this.Model} ({this.Year})"
+            return $"{this.Make} {this.Model} ({this.Year})";
         }
     }
 }
