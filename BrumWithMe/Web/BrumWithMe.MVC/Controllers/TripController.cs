@@ -31,9 +31,29 @@ namespace BrumWithMe.MVC.Controllers
             this.tagService = tagService;
         }
 
-        public ActionResult TripDetails()
+        public ActionResult TripDetails(int id)
         {
-            return View();
+            var db = new BrumWithMeDbContext();
+            var model = new TripDetailsViewModel();
+            var trip = db.Trips.Where(x => x.Id == id)
+                .Select(x => new TripDetailsViewModel()
+                {
+                    OriginName = x.Origin.Name,
+                    DestinationName = x.Destination.Name,
+                    TimeOfDeparture = x.Date,
+                    TakenSeats = x.TakenSeats,
+                    TotalSeats = x.TotalSeats,
+                    Price = x.Price,
+                    DriverId = x.TripsUsers
+                        .Where(z => z.TripId == x.Id && z.IsDriver)
+                        .Select(z => z.UserId)
+                        .FirstOrDefault(),
+                    Description = x.Description,
+                    Tags = x.Tags.Select(z => z.Name)
+                })
+                .FirstOrDefault(); ;
+
+            return View(trip);
         }
 
         public ActionResult RecentTrips()

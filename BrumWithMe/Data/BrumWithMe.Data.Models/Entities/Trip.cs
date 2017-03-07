@@ -27,7 +27,9 @@ namespace BrumWithMe.Data.Models.Entities
         [Range(0,10000)]
         public decimal Price { get; set; }
 
-        public int Seats { get; set; }
+        public int TotalSeats { get; set; }
+
+        public int TakenSeats { get; set; }
 
         [MaxLength(300)]
         public string Description { get; set; }

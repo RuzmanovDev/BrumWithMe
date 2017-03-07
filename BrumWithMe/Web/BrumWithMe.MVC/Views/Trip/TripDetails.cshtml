@@ -1,57 +1,82 @@
-﻿<div class="container">
-    <h2 class="center-align">пловдив - пазарджик</h2>
+﻿@model TripDetailsViewModel
+<div id="map" class="col l12" style="height:300px"></div>
+<div class="container">
     <div class="row">
-        <div class="col s4" style="height: 200px;border: 1px solid black; ">ttka shte e kartata</div>
-        <div class="col s8" style="">
-            <div>
-                <span class="date" title="дата на погегляне"><i class="material-icons">today</i> 23.03.2017</span>
-                <span class="time" title="час на потегляне"><i class="material-icons">query_builder</i> 18:00</span>
-                <span class="seats" title="места">
-                    <i class="material-icons">perm_identity</i> 3/5
+        <h2 class="left-align">
+            <span id="origin">@Model.OriginName</span> - <span id="destination">@Model.DestinationName</span>
+        </h2>
+        <div class="col s12" style="">
+            <div class="col s6">
+                <span class="date" title="дата на погегляне">
+                    <i class="material-icons">today</i>
+                    @Model.TimeOfDeparture.Date.ToString("dd MMMM, yyyy")
                 </span>
-                <span><i class="material-icons" title="цена">loyalty</i> цена 5 лева</span>
+                <span class="time" title="час на потегляне">
+                    <i class="material-icons">query_builder</i>
+                    @Model.TimeOfDeparture.Date.ToString("HH:mm")
+                </span>
+                <span class="seats" title="места">
+                    <i class="material-icons">perm_identity</i>
+                    @Model.TakenSeats/@Model.TotalSeats
+                </span>
+                <span>
+                    <i class="material-icons" title="цена">loyalty</i>
+                    цена @Model.Price лева
+                </span>
+                @foreach (var tag in Model.Tags)
+                {
+                    <div class="chip">#@tag</div>
+                }
             </div>
-            <div>
-                @Html.Partial("_userinfosummary", "pesho ivanov")
-            </div>
-            <div>
-                <h6>описание</h6>
-                <p>
-                    trafasdasjdsajsdajkjksd asd
-                    asdkjsadjk
-                    asdkjkjasd
-                    jksdakjkjlsda kljasdklj
-                    klajsd ljkasljkd dasjksdakjkjlsadjklsadjklsdjlkajlksda
-                    asdsadasd
-                </p>
+            <div class="col s6">
                 <div>
-                    <div class="chip">Tag</div>
-                    <div class="chip">Tag</div>
-                    <div class="chip">Tag</div>
+                    @Html.Partial("_userinfosummary", "pesho ivanov")
                 </div>
+                <div>
+                    <h5>Описание</h5>
+                    <p>
+                        @Model.Description
+                    </p>
+                </div>
+                <a href="#" class="btn">Запази място</a>
             </div>
-            <a href="#" class="btn">запази място</a>
         </div>
     </div>
     <div class="row">
         <h5>отзиви за шофьора</h5>
 
-        @*<div class="input-field col s7 pull-5">
-                @using (ajax.beginform(nameof(homecontroller.postcomment), "home", null, new ajaxoptions
-                {
-                    updatetargetid = "results",
-                    insertionmode = insertionmode.replace
-                },
-                            formmethod.post))
-                {
-                    @html.editorfor(m => m.content)
-                    <input type="submit" class="btn" />
-                }
-                <div id="dynamic-content"></div>
-            </div>
-
-            <ul id="results" class="col s12">
-                @html.action(nameof(homecontroller.loadcomments), "home", new { id = this.request.querystring["id"] })
-            </ul>*@
     </div>
 </div>
+@section scripts{
+    <script>
+        function initMap() {
+            var directionsService = new google.maps.DirectionsService;
+            var directionsDisplay = new google.maps.DirectionsRenderer;
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 7,
+                center: { lat: 41.85, lng: -87.65 }
+            });
+            directionsDisplay.setMap(map);
+
+            calculateAndDisplayRoute(directionsService, directionsDisplay);
+
+        }
+
+        function calculateAndDisplayRoute(directionsService, directionsDisplay) {
+            directionsService.route({
+                origin: document.getElementById('origin').innerText,
+                destination: document.getElementById('destination').innerText,
+                travelMode: 'DRIVING'
+            }, function (response, status) {
+                if (status === 'OK') {
+                    directionsDisplay.setDirections(response);
+                } else {
+                    window.alert('Directions request failed due to ' + status);
+                }
+            });
+        }
+    </script>
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAmM0B0JfIJKoF6KQfUfotRFcmzvI4Qn3w&callback=initMap">
+    </script>
+}

@@ -97,6 +97,7 @@
     <Compile Include="Trip\CarViewModel.cs" />
     <Compile Include="Trip\CreateTripViewModel.cs" />
     <Compile Include="Trip\TagViewModel.cs" />
+    <Compile Include="Trip\TripDetailsViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

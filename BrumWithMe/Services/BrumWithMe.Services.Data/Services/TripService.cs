@@ -39,7 +39,7 @@ namespace BrumWithMe.Services.Data.Services
                     Destination = tripInfo.Destination,
                     Origin = tripInfo.Origin,
                     Price = tripInfo.Price,
-                    Seats = tripInfo.FreeSeats,
+                    TotalSeats = tripInfo.FreeSeats,
                     Tags = tripInfo.TagIds as ICollection<Tag>,
                 };
 
@@ -87,7 +87,7 @@ namespace BrumWithMe.Services.Data.Services
                     Destination = destination,
                     Origin = origin,
                     Price = tripInfo.Price,
-                    Seats = tripInfo.FreeSeats,
+                    TotalSeats = tripInfo.FreeSeats,
                     Tags = tags
                 };
 
