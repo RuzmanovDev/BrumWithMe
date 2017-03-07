@@ -201,8 +201,10 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\materialize\css\materialize.clockpicker.css" />
     <Content Include="Content\materialize\css\materialize.css" />
     <Content Include="Content\materialize\css\materialize.min.css" />
+    <Content Include="Content\materialize\js\materialize.clockpicker.js" />
     <Content Include="Content\materialize\js\materialize.js" />
     <Content Include="Content\materialize\js\materialize.min.js" />
     <Content Include="favicon.ico" />
@@ -272,7 +274,7 @@
     <Content Include="Views\Shared\_TripInfo.cshtml" />
     <Content Include="Views\Shared\_UserInfoSummary.cshtml" />
     <Content Include="Views\Shared\AjaxTest.cshtml" />
-    <Content Include="Views\Trip\CreatingTrip.cshtml" />
+    <Content Include="Views\Trip\Create.cshtml" />
     <Content Include="Views\Trip\TripDetails.cshtml" />
     <Content Include="Views\Manage\RegisterCar.cshtml" />
   </ItemGroup>

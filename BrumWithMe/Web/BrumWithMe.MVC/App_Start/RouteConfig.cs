@@ -14,37 +14,7 @@ namespace BrumWithMe.MVC
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-            routes.MapRoute(
-                name: "UsersProfiles",
-                url: "users/{username}",
-                defaults: new
-                {
-                    controller = nameof(HomeController),
-                    action = nameof(HomeController.Profiles),
-                    username = UrlParameter.Optional
-                });
-
-            routes.MapRoute(
-              name: "TestHomePage",
-              url: "home",
-              defaults: new
-              {
-                  controller = "Home",
-                  action = nameof(HomeController.TestHomePage),
-              });
-
-            routes.MapRoute(
-              name: "TripDetails",
-              url: "trip/{action}/{id}",
-              defaults: new { controller = "Trip", action = "TripDetails", id = UrlParameter.Optional }
-
-          );
-
-            routes.MapRoute(
-            name: "GetTownsApi",
-            url: "api/trip/{action}",
-            defaults: new { controller = "Trip", action = "GetTowns" }
-        );
+            routes.LowercaseUrls = true;
 
             routes.MapRoute(
                name: "Default",
@@ -53,15 +23,6 @@ namespace BrumWithMe.MVC
 
            );
 
-            routes.MapRoute(
-            name: "Comments",
-            url: "comments/{controller}/{action}/{page}",
-            defaults: new
-            {
-                controller = "Home",
-                action = nameof(HomeController.LoadComments),
-                page = UrlParameter.Optional
-            });
 
         }
     }

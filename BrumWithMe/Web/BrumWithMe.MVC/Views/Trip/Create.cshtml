@@ -1,0 +1,83 @@
+﻿@using BrumWithMe.Web.Models.Trip
+@model CreateTripViewModel
+
+<section class="container">
+    <div class="row">
+        <h4>Създаване на пътуване</h4>
+        @using (Html.BeginForm(nameof(TripController.Create), "Trip", FormMethod.Post))
+        {
+            <div class="col l6">
+                <label for="originame">От</label>
+                @Html.TextBoxFor(x => x.OriginName)
+            </div>
+            <div class="col l6">
+                <label for="destination">To</label>
+                @Html.TextBoxFor(x => x.DestinationName)
+            </div>
+            <div class="col l6">
+                <label for="date">Дата на потегляне</label>
+                @Html.TextBoxFor(x => x.DateOfDeparture, new { @class = "datepicker" })
+            </div>
+            <div class="col l6">
+                <label for="hour">час на потегляне</label>
+                @Html.TextBoxFor(x => x.HourOfDeparture, new { @class = "timepicker" })
+            </div>
+            <div class="col l6">
+                <label for="number-of-seats">Брой места</label>
+                @Html.TextBoxFor(x => x.FreeSeats)
+            </div>
+            <div class="col l6">
+                <label for="price">Цена</label>
+                @Html.TextBoxFor(x => x.Price)
+            </div>
+            <div class="col l12">
+                <label for="car">Автомобил</label>
+                @Html.DropDownListFor(c => c.CarId, new SelectList(Model.UserCars, "Id", "Name"))
+            </div>
+            <div class="col l6">
+                <label for="car">Тагове</label>
+                @for (int i = 0; i < Model.Tags.Count; i++)
+                {
+                    <p>
+                        @*Html.HiddenFor(m => m.Tags[i].Id)
+                            @Html.CheckBoxFor(m => m.Tags[i].IsSelected)
+                            @Html.LabelFor(m => m.Tags[i].IsSelected, Model.Tags[i].Name)*@
+
+                        @Html.CheckBoxFor(m => m.Tags[i].IsSelected, new { @type = "checkbox" })
+                        @Html.HiddenFor(x => x.Tags[i].Id)
+                        @Html.LabelFor(m => m.Tags[i].IsSelected, Model.Tags[i].Name, new { @class = "login-label" })
+                    </p>
+                }
+            </div>
+            <input type="submit" name="name" value="Създай" class="btn col l12" />
+        }
+    </div>
+</section>
+
+@section scripts{
+    <link rel="stylesheet" type="text/css" href="~/Content/materialize/css/materialize.clockpicker.css" />
+
+    <script src="~/Content/materialize/js/materialize.clockpicker.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('select').material_select();
+
+            $('.datepicker').pickadate({
+                selectMonths: true, // Creates a dropdown to control month
+                selectYears: 15 // Creates a dropdown of 15 years to control year
+            });
+
+            $('.timepicker').pickatime({
+                default: 'now',
+                twelvehour: false, // change to 12 hour AM/PM clock from 24 hour
+                donetext: 'OK',
+                autoclose: false,
+                vibrate: true // vibrate the device when dragging clock hand
+            });
+
+            $('input:hidden').each(function (index, element) {
+                $(element).appendTo($(element).parent());
+            });
+        });
+    </script>
+}

@@ -10,14 +10,14 @@ namespace BrumWithMe.Data.Models.Entities
 {
     public class User : IdentityUser
     {
-        private ICollection<Trip> trips;
+        private ICollection<UsersTrips> usersTrips;
         private ICollection<Car> cars;
         private ICollection<Review> reviewsForHim;
         private ICollection<Review> reviewsByHim;
 
         public User()
         {
-            this.trips = new HashSet<Trip>();
+            this.usersTrips = new HashSet<UsersTrips>();
             this.cars = new HashSet<Car>();
             this.reviewsForHim = new HashSet<Review>();
             this.reviewsByHim = new HashSet<Review>();
@@ -42,10 +42,10 @@ namespace BrumWithMe.Data.Models.Entities
             get { return $"{this.FirstName} {this.LastName}"; }
         }
 
-        public virtual ICollection<Trip> Trips
+        public virtual ICollection<UsersTrips> UsersTrips
         {
-            get { return this.trips; }
-            set { this.trips = value; }
+            get { return this.usersTrips; }
+            set { this.usersTrips = value; }
         }
 
         public virtual ICollection<Car> Cars

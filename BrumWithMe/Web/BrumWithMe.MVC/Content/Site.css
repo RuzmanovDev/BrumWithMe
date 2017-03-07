@@ -6,7 +6,7 @@
 }
 
 .logged-user-avatar {
-    width: 50px;
+    width: 35px;
 }
 
 .logged-user-username {
@@ -31,6 +31,7 @@ a {
 
 nav {
     font-weight: bold;
+    /*height: 50px;*/
 }
 
 main {

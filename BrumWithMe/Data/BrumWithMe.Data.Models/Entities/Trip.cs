@@ -7,26 +7,21 @@ namespace BrumWithMe.Data.Models.Entities
 {
     public class Trip
     {
-        private ICollection<User> passangers;
+        private ICollection<UsersTrips> tripsUser;
         private ICollection<Tag> tags;
 
         public Trip()
         {
-            this.passangers = new HashSet<User>();
+            this.tripsUser = new HashSet<UsersTrips>();
             this.tags = new HashSet<Tag>();
         }
 
         public int Id { get; set; }
 
-        public string DriverId { get; set; }
-
-        [ForeignKey("DriverId")]
-        public virtual User Driver { get; set; }
-
-        public virtual ICollection<User> Passangers
+        public virtual ICollection<UsersTrips> TripsUsers
         {
-            get { return this.passangers; }
-            set { this.passangers = value; }
+            get { return this.tripsUser; }
+            set { this.tripsUser = value; }
         }
 
         [Range(0,10000)]

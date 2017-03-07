@@ -20,7 +20,9 @@ namespace BrumWithMe.MVC.App_Start.Bindings
             this.Bind<IAuthService>().To<AuthService>();
             this.Bind<IOwinContext>()
                .ToMethod(c => HttpContext.Current.GetOwinContext())
-               .WhenInjectedInto(typeof(IAuthService));
+               .WhenInjectedInto(typeof(IAuthService))
+               .InRequestScope();
+
             this.Bind<IFileUploadProvider>().To<FileUploadProvider>();
             this.Bind<IAccountManagementService>().To<AccountManagementService>().InRequestScope();
         }

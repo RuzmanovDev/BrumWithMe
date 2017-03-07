@@ -7,7 +7,7 @@
         <ul class="right hide-on-med-and-down">
             <li>
                 <a href="@Url.Action("Index","Manage")" class="valign-wrapper">
-                    <img class="circle valign logged-user-avatar" src="~/UserAvatars/default.png" />
+                    <img class="circle logged-user-avatar" src="~/UserAvatars/default.png" />
                     <span class="logged-user-username">@this.User.Identity.Name</span>
                 </a>
             </li>
@@ -17,7 +17,7 @@
 }
 else
 {
-    <ul class="right hide-on-med-and-down">
+    <ul class="right hide-on-med-and-down valign">
         <li>@Html.ActionLink("Регистрация", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
         <li>@Html.ActionLink("Вход", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
     </ul>

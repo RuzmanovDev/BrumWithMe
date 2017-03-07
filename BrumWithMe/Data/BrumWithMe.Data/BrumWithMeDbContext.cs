@@ -54,15 +54,15 @@ namespace BrumWithMe.Data
                 .WithRequired(x => x.Creator)
                 .HasForeignKey(x => x.CreatorId);
 
-            modelBuilder.Entity<User>()
-                .HasMany<Trip>(x => x.Trips)
-                .WithMany(x => x.Passangers)
-                .Map(ut =>
-                {
-                    ut.MapLeftKey("TripId");
-                    ut.MapRightKey("PassengerId");
-                    ut.ToTable("UserTrips");
-                });
+            //modelBuilder.Entity<User>()
+            //    .HasMany<Trip>(x => x.UsersTrips)
+            //    .WithMany(x => x.TripsUsers)
+            //    .Map(ut =>
+            //    {
+            //        ut.MapLeftKey("TripId");
+            //        ut.MapRightKey("PassengerId");
+            //        ut.ToTable("UserTrips");
+            //    });
 
             modelBuilder.Entity<Trip>()
                 .HasMany<Tag>(x => x.Tags)

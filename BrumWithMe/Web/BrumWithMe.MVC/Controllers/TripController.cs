@@ -1,4 +1,7 @@
-﻿using System;
+﻿using BrumWithMe.Data;
+using BrumWithMe.Web.Models.Trip;
+using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -21,14 +24,48 @@ namespace BrumWithMe.MVC.Controllers
         }
 
         [HttpPost]
-        public ActionResult CreateNewTrip()
+        public ActionResult Create(CreateTripViewModel a)
         {
-            return null;
+
+            return new EmptyResult();
         }
 
-        public ActionResult CreatingTrip()
+        public ActionResult Create()
         {
-            return View();
+            var context = new BrumWithMeDbContext();
+
+            var tags = context.Tags.ToList();
+            var userId = this.User.Identity.GetUserId();
+            var cars = context.Cars.Where(x => x.OwenerId == userId).ToList();
+
+            var model = new CreateTripViewModel();
+
+            var carsVModel= new List<CarViewModel>();
+            foreach (var car in cars)
+            {
+                carsVModel.Add(new CarViewModel()
+                {
+                    Id = car.Id,
+                    Name = car.Make
+                });
+            }
+
+
+            var tagsvModel = new List<TagViewModel>();
+
+            foreach (var ta in tags)
+            {
+                tagsvModel.Add(new TagViewModel()
+                {
+                    Id = ta.Id,
+                    Name = ta.Name
+                });
+            }
+
+            model.UserCars = carsVModel;
+            model.Tags = tagsvModel;
+
+            return View(model);
         }
     }
 }

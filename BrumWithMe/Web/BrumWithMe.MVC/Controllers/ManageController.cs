@@ -1,12 +1,6 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Web;
+﻿using System.Threading.Tasks;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin.Security;
-using BrumWithMe.Auth.Identity.Managers;
 using BrumWithMe.Web.Models.Manage;
 using BrumWithMe.Auth.Identity.Contracts;
 using Bytes2you.Validation;
