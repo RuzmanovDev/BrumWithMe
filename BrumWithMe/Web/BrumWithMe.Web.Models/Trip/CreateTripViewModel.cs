@@ -26,7 +26,7 @@ namespace BrumWithMe.Web.Models.Trip
         [Required]
         public string HourOfDeparture { get; set; }
 
-        public int FreeSeats { get; set; }
+        public int TotalSeats { get; set; }
 
         public decimal Price { get; set; }
 

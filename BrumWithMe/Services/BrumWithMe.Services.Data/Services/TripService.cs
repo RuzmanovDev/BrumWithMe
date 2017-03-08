@@ -68,18 +68,6 @@ namespace BrumWithMe.Services.Data.Services
                 trip.Destination = destination;
                 trip.DateCreated = this.dateTimeProvider.Now;
 
-                //var trip = new Trip()
-                //{
-                //    CarId = tripInfo.CarId,
-                //    TimeOfDeparture = tripInfo.TimeOfDeparture,
-                //    Description = tripInfo.Description,
-                //    Destination = destination,
-                //    Origin = origin,
-                //    Price = tripInfo.Price,
-                //    TotalSeats = tripInfo.TotalSeats,
-                //    Tags = tags
-                //};
-
                 var userTrips = new UsersTrips()
                 {
                     Trip = trip,

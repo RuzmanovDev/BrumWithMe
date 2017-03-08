@@ -68,6 +68,10 @@
       <Project>{144806C1-2813-4871-845F-3D2D708052F7}</Project>
       <Name>BrumWithMe.Data.Models</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Web\BrumWithMe.Web.Models\BrumWithMe.Web.Models.csproj">
+      <Project>{2A2F207E-4113-4CC9-9554-C7C547508E2D}</Project>
+      <Name>BrumWithMe.Web.Models</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

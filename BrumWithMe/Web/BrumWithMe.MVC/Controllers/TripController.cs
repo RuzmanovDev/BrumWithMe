@@ -1,14 +1,13 @@
 ﻿using BrumWithMe.Data;
-using BrumWithMe.Data.Models.Entities;
 using BrumWithMe.Data.Models.TransportEntities;
 using BrumWithMe.Services.Data.Contracts;
+using BrumWithMe.Services.Providers.Mapping.Contracts;
 using BrumWithMe.Web.Models.Trip;
 using Bytes2you.Validation;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace BrumWithMe.MVC.Controllers
@@ -19,18 +18,26 @@ namespace BrumWithMe.MVC.Controllers
         private readonly ICityService cityService;
         private readonly ITagService tagService;
         private readonly ICarService carService;
+        private readonly IMappingProvider mappingProvider;
 
-        public TripController(ITripService tripService, ICityService cityService, ITagService tagService, ICarService carService)
+        public TripController(
+            ITripService tripService,
+            ICityService cityService,
+            ITagService tagService,
+            ICarService carService,
+            IMappingProvider mappingProvider)
         {
             Guard.WhenArgument(tripService, nameof(tripService)).IsNull().Throw();
             Guard.WhenArgument(cityService, nameof(cityService)).IsNull().Throw();
             Guard.WhenArgument(tagService, nameof(tagService)).IsNull().Throw();
             Guard.WhenArgument(carService, nameof(carService)).IsNull().Throw();
+            Guard.WhenArgument(mappingProvider, nameof(mappingProvider)).IsNull().Throw();
 
             this.tripService = tripService;
             this.cityService = cityService;
             this.tagService = tagService;
             this.carService = carService;
+            this.mappingProvider = mappingProvider;
         }
 
         public ActionResult TripDetails(int id)
@@ -73,23 +80,17 @@ namespace BrumWithMe.MVC.Controllers
                 return this.View(tripInfo);
             }
 
-            var hourOfDeparting = TimeSpan.ParseExact(tripInfo.HourOfDeparture, @"hh\:mm", null);
-            var travelDate = tripInfo.DateOfDeparture.Add(hourOfDeparting);
+            var hourOfDeparture = TimeSpan.ParseExact(tripInfo.HourOfDeparture, @"hh\:mm", null);
+            var timeOfDeparture = tripInfo.DateOfDeparture.Add(hourOfDeparture);
             var currentUSerId = this.User.Identity.GetUserId();
+
             var selectedTags = tripInfo.Tags.Where(x => x.IsSelected).Select(x => x.Id);
 
-            var trip = new TripCreationInfo()
-            {
-                Description = tripInfo.Description,
-                DestinationName = tripInfo.DestinationName,
-                OriginName = tripInfo.OriginName,
-                TotalSeats = tripInfo.FreeSeats,
-                Price = tripInfo.Price,
-                TagIds = selectedTags,
-                TimeOfDeparture = travelDate,
-                CarId = tripInfo.CarId,
-                DriverId = currentUSerId
-            };
+            var trip = this.mappingProvider.Map<CreateTripViewModel, TripCreationInfo>(tripInfo);
+
+            trip.TimeOfDeparture = timeOfDeparture;
+            trip.TagIds = selectedTags;
+            trip.DriverId = currentUSerId;
 
             this.tripService.CreateTrip(trip);
 
@@ -101,32 +102,16 @@ namespace BrumWithMe.MVC.Controllers
             var tags = this.tagService.GetAllTags();
             var userId = this.User.Identity.GetUserId();
 
-            // TODO Check if Cars are null
             var cars = this.carService.GetUserCars(userId);
+            if(cars == null)
+            {
+                this.RedirectToAction(nameof(ManageController.RegisterCar), "Manage");
+            }
 
             var model = new CreateTripViewModel();
-
-            var carsVModel = new List<CarViewModel>();
-            foreach (var car in cars)
-            {
-                carsVModel.Add(new CarViewModel()
-                {
-                    Id = car.Id,
-                    Name = car.Make
-                });
-            }
-
-
-            var tagsvModel = new List<TagViewModel>();
-
-            foreach (var ta in tags)
-            {
-                tagsvModel.Add(new TagViewModel()
-                {
-                    Id = ta.Id,
-                    Name = ta.Name
-                });
-            }
+          
+            var carsVModel = this.mappingProvider.Map<IEnumerable<CarBasicInfo>, IEnumerable<CarViewModel>>(cars);
+            var tagsvModel = this.mappingProvider.Map<IEnumerable<TagInfo>, IList<TagViewModel>>(tags);
 
             model.UserCars = carsVModel;
             model.Tags = tagsvModel;
@@ -134,6 +119,4 @@ namespace BrumWithMe.MVC.Controllers
             return View(model);
         }
     }
-
-
 }
