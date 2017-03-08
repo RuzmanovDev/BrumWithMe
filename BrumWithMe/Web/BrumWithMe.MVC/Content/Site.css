@@ -4,6 +4,17 @@
     flex-direction: column;
     color: #4D4D4D;
 }
+/* disable scrollbar*/
+html {
+    overflow: scroll;
+    overflow-x: hidden;
+}
+
+::-webkit-scrollbar {
+    width: 0px; /* remove scrollbar space */
+    background: transparent; /* optional: just make scrollbar invisible */
+}
+/* disable scrollbar*/
 
 .avatar {
     width: 50px;
@@ -81,9 +92,6 @@ html {
 }
 
 /* newly added trip*/
-.home {
-    background-color: lightblue;
-}
 
 .newly-shared-trip {
     margin: 20px 15px 20px 10px;
@@ -111,4 +119,8 @@ html {
 
 .trip-info .secondary .material-icons {
     font-size: 18px;
+}
+
+.creating-trip-container {
+    padding: 20px;
 }
