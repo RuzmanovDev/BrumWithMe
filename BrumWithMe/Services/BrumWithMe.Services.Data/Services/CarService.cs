@@ -5,6 +5,7 @@ using BrumWithMe.Data.Models.TransportEntities;
 using BrumWithMe.Data.Contracts;
 using BrumWithMe.Data.Models.Entities;
 using Bytes2you.Validation;
+using BrumWithMe.Services.Providers.Mapping.Contracts;
 
 namespace BrumWithMe.Services.Data.Services
 {
@@ -12,8 +13,8 @@ namespace BrumWithMe.Services.Data.Services
     {
         private readonly IRepository<Car> carRepo;
 
-        public CarService(IRepository<Car> carRepo, Func<IUnitOfWork> unitOfWork)
-            : base(unitOfWork)
+        public CarService(IRepository<Car> carRepo, Func<IUnitOfWork> unitOfWork, IMappingProvider mappingProvider)
+            : base(unitOfWork, mappingProvider)
         {
             Guard.WhenArgument(carRepo, nameof(carRepo)).IsNull().Throw();
 

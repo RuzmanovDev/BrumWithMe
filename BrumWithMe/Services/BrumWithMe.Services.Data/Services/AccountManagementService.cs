@@ -4,30 +4,29 @@ using BrumWithMe.Data.Models.Entities;
 using BrumWithMe.Services.Data.Contracts;
 using BrumWithMe.Services.Providers.FileUpload;
 using Bytes2you.Validation;
+using BrumWithMe.Services.Providers.Mapping.Contracts;
 
 namespace BrumWithMe.Services.Data.Services
 {
-    public class AccountManagementService : IAccountManagementService
+    public class AccountManagementService : BaseDataService, IAccountManagementService
     {
         private readonly IRepository<Car> carsRepo;
         private readonly IFileUploadProvider fileUploadProvider;
-        private readonly Func<IUnitOfWork> unitOfWork;
 
         public AccountManagementService(
             IRepository<Car> carsRepo,
             IFileUploadProvider fileUploadProvider,
-            Func<IUnitOfWork> unitOfWork)
+            Func<IUnitOfWork> unitOfWork, IMappingProvider mappingProvider)
+            :base(unitOfWork, mappingProvider)
         {
             Guard.WhenArgument(carsRepo, nameof(carsRepo)).IsNull().Throw();
-            Guard.WhenArgument(unitOfWork, nameof(unitOfWork)).IsNull().Throw();
 
             this.carsRepo = carsRepo;
-            this.unitOfWork = unitOfWork;
         }
 
         public bool AddCarToUser(Car car, string userId)
         {
-            using (var uow = this.unitOfWork())
+            using (var uow = base.UnitOfWork())
             {
                 car.OwenerId = userId;
                 this.carsRepo.Add(car);

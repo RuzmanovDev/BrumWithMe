@@ -6,6 +6,7 @@ using BrumWithMe.Data.Models.TransportEntities;
 using BrumWithMe.Data.Contracts;
 using Bytes2you.Validation;
 using System;
+using BrumWithMe.Services.Providers.Mapping.Contracts;
 
 namespace BrumWithMe.Services.Data.Services
 {
@@ -13,8 +14,8 @@ namespace BrumWithMe.Services.Data.Services
     {
         private readonly IRepository<Tag> tagRepo;
 
-        public TagService(IRepository<Tag> tagRepo, Func<IUnitOfWork> unitOfWork)
-            :base(unitOfWork)
+        public TagService(IRepository<Tag> tagRepo, Func<IUnitOfWork> unitOfWork, IMappingProvider mappingProvider)
+            : base(unitOfWork, mappingProvider)
         {
             Guard.WhenArgument(tagRepo, nameof(tagRepo)).IsNull().Throw();
 

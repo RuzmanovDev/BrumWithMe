@@ -3,6 +3,7 @@ using BrumWithMe.Data.Contracts;
 using BrumWithMe.Data.Models.Entities;
 using BrumWithMe.Services.Data.Contracts;
 using Bytes2you.Validation;
+using BrumWithMe.Services.Providers.Mapping.Contracts;
 
 namespace BrumWithMe.Services.Data.Services
 {
@@ -10,8 +11,8 @@ namespace BrumWithMe.Services.Data.Services
     {
         private readonly IRepository<City> cityRepo;
 
-        public CityService(IRepository<City> cityRepo, Func<IUnitOfWork> unitOfWork)
-            : base(unitOfWork)
+        public CityService(IRepository<City> cityRepo, Func<IUnitOfWork> unitOfWork, IMappingProvider mappingProvider)
+            : base(unitOfWork, mappingProvider)
         {
             Guard.WhenArgument(cityRepo, nameof(cityRepo)).IsNull().Throw();
 
@@ -31,7 +32,7 @@ namespace BrumWithMe.Services.Data.Services
         {
             Guard.WhenArgument(cityName, nameof(cityName)).IsNullOrEmpty().Throw();
 
-            using(var uow = base.UnitOfWork())
+            using (var uow = base.UnitOfWork())
             {
                 var city = new City()
                 {

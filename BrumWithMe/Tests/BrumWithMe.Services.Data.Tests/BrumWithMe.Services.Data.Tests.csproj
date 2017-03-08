@@ -58,10 +58,26 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="BaseDataServiceTests\Constructor_Should.cs" />
+    <Compile Include="BaseDataServiceTests\Mocks\DerivedDataService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Data\BrumWithMe.Data\BrumWithMe.Data.csproj">
+      <Project>{DBA8734C-3EF5-4D46-A318-BFC9F75D0980}</Project>
+      <Name>BrumWithMe.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Services\BrumWithMe.Services.Data\BrumWithMe.Services.Data.csproj">
+      <Project>{EF938788-92EE-4CA0-B659-2F3474AF9B80}</Project>
+      <Name>BrumWithMe.Services.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Services\BrumWithMe.Services.Providers\BrumWithMe.Services.Providers.csproj">
+      <Project>{402CA91F-486D-4954-94B9-38E6FCFDE38A}</Project>
+      <Name>BrumWithMe.Services.Providers</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

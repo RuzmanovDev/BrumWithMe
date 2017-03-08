@@ -18,7 +18,6 @@ namespace BrumWithMe.Services.Data.Services
         private readonly ICityService cityService;
         private readonly ITagService tagService;
         private readonly IDateTimeProvider dateTimeProvider;
-        private readonly IMappingProvider mappingProvider;
 
         public TripService(
             Func<IUnitOfWork> unitOfWork,
@@ -27,17 +26,15 @@ namespace BrumWithMe.Services.Data.Services
             ITagService tagService,
             IRepository<Trip> tripRepo,
             IDateTimeProvider dateTimeProvider)
-            : base(unitOfWork)
+            : base(unitOfWork,mappingProvider)
         {
             Guard.WhenArgument(tripRepo, nameof(tripRepo)).IsNull().Throw();
             Guard.WhenArgument(cityService, nameof(cityService)).IsNull().Throw();
-            Guard.WhenArgument(mappingProvider, nameof(mappingProvider)).IsNull().Throw();
             Guard.WhenArgument(tagService, nameof(tagService)).IsNull().Throw();
 
             this.tripRepo = tripRepo;
             this.cityService = cityService;
             this.tagService = tagService;
-            this.mappingProvider = mappingProvider;
             this.dateTimeProvider = dateTimeProvider;
         }
 
@@ -61,7 +58,7 @@ namespace BrumWithMe.Services.Data.Services
 
             using (var uow = base.UnitOfWork())
             {
-                var trip = this.mappingProvider.Map<TripCreationInfo, Trip>(tripInfo);
+                var trip = base.MappingProvider.Map<TripCreationInfo, Trip>(tripInfo);
 
                 trip.Tags = tags;
                 trip.Origin = origin;
@@ -92,7 +89,7 @@ namespace BrumWithMe.Services.Data.Services
                 x => x.Origin,
                 x => x.Tags);
 
-            var resut = this.mappingProvider.Map<Trip, TripDetails>(trip);
+            var resut = base.MappingProvider.Map<Trip, TripDetails>(trip);
             return resut;
         }
 
@@ -103,7 +100,7 @@ namespace BrumWithMe.Services.Data.Services
                 .OrderByDescending(x => x.DateCreated)
                 .Take(countToTake);
 
-            var result = this.mappingProvider.Map<IEnumerable<Trip>, IEnumerable<TripBasicInfo>>(trips);
+            var result = base.MappingProvider.Map<IEnumerable<Trip>, IEnumerable<TripBasicInfo>>(trips);
 
             return result;
         }
