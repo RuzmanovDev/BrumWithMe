@@ -8,11 +8,12 @@ using Bytes2you.Validation;
 
 namespace BrumWithMe.Services.Data.Services
 {
-    public class CarService : ICarService
+    public class CarService : BaseDataService, ICarService
     {
         private readonly IRepository<Car> carRepo;
 
-        public CarService(IRepository<Car> carRepo)
+        public CarService(IRepository<Car> carRepo, Func<IUnitOfWork> unitOfWork)
+            : base(unitOfWork)
         {
             Guard.WhenArgument(carRepo, nameof(carRepo)).IsNull().Throw();
 

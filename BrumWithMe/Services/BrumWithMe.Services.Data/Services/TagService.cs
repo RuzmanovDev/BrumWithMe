@@ -5,14 +5,16 @@ using BrumWithMe.Data.Models.Entities;
 using BrumWithMe.Data.Models.TransportEntities;
 using BrumWithMe.Data.Contracts;
 using Bytes2you.Validation;
+using System;
 
 namespace BrumWithMe.Services.Data.Services
 {
-    public class TagService : ITagService
+    public class TagService : BaseDataService, ITagService
     {
         private readonly IRepository<Tag> tagRepo;
 
-        public TagService(IRepository<Tag> tagRepo)
+        public TagService(IRepository<Tag> tagRepo, Func<IUnitOfWork> unitOfWork)
+            :base(unitOfWork)
         {
             Guard.WhenArgument(tagRepo, nameof(tagRepo)).IsNull().Throw();
 
