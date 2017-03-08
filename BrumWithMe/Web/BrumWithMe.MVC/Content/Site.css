@@ -5,6 +5,11 @@
     color: #4D4D4D;
 }
 
+.avatar {
+    width: 50px;
+    border-radius: 50px;
+}
+
 .logged-user-avatar {
     width: 35px;
 }
@@ -81,8 +86,10 @@ html {
 }
 
 .newly-shared-trip {
-    margin: 20px 0 20px 10px;
+    margin: 20px 15px 20px 10px;
     padding: 10px 0 10px 0;
+    width: 30%;
+    display: inline-block;
 }
 
     .newly-shared-trip trip-avatar-container {
