@@ -5,7 +5,6 @@ using BrumWithMe.Data.Models.Entities;
 using BrumWithMe.Data.Models.TransportEntities;
 using BrumWithMe.Services.Data.Contracts;
 using Bytes2you.Validation;
-using BrumWithMe.Web.Models.Trip;
 using System.Linq;
 using BrumWithMe.Services.Providers.TimeProviders;
 using BrumWithMe.Services.Providers.Mapping.Contracts;

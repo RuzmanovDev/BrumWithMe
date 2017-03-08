@@ -67,10 +67,6 @@
       <Project>{DBA8734C-3EF5-4D46-A318-BFC9F75D0980}</Project>
       <Name>BrumWithMe.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Web\BrumWithMe.Web.Models\BrumWithMe.Web.Models.csproj">
-      <Project>{2A2F207E-4113-4CC9-9554-C7C547508E2D}</Project>
-      <Name>BrumWithMe.Web.Models</Name>
-    </ProjectReference>
     <ProjectReference Include="..\BrumWithMe.Services.Providers\BrumWithMe.Services.Providers.csproj">
       <Project>{402CA91F-486D-4954-94B9-38E6FCFDE38A}</Project>
       <Name>BrumWithMe.Services.Providers</Name>
