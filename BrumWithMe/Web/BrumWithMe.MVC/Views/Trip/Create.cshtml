@@ -5,6 +5,8 @@
         <h4>Създаване на пътуване</h4>
         @using (Html.BeginForm(nameof(TripController.Create), "Trip", FormMethod.Post))
         {
+            @Html.AntiForgeryToken();
+
             <div class="col l6 input-field">
                 @Html.LabelFor(m => m.OriginName, "От")
                 @Html.TextBoxFor(x => x.OriginName, new { id = "origin-name" })

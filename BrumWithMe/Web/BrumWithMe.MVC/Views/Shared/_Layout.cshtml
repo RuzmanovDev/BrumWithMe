@@ -13,7 +13,13 @@
 <body>
     <nav>
         <div class="nav-wrapper nav teal darken-4">
+            <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
             <ul class="left hide-on-med-and-down">
+                <li>@Html.ActionLink("Начало", "Index", "Home")</li>
+                <li>@Html.ActionLink("Гугъл карта", "About", "Home")</li>
+                <li>@Html.ActionLink("Създаване на пътуване", "Create", "Trip")</li>
+            </ul>
+            <ul class="side-nav" id="mobile-demo">
                 <li>@Html.ActionLink("Начало", "Index", "Home")</li>
                 <li>@Html.ActionLink("Гугъл карта", "About", "Home")</li>
                 <li>@Html.ActionLink("Създаване на пътуване", "Create", "Trip")</li>
@@ -54,5 +60,11 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/materialize")
     @RenderSection("scripts", required: false)
+    <script>
+        $(document).ready(function () {
+            $(".dropdown-button").dropdown();
+            $(".button-collapse").sideNav();
+        });
+    </script>
 </body>
 </html>

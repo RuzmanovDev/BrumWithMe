@@ -10,9 +10,17 @@
 }
 
 .logged-user-username {
-    margin-left: 5px;
+    margin-right: 10px;
 }
 
+#logged-user-avatar-menu {
+    position: relative;
+}
+
+#drop-down-menu {
+    position: absolute;
+    top: 60px !important;
+}
 /* Change Autocomplete styles in Chrome*/
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
@@ -68,55 +76,32 @@ html {
 }
 
 /* newly added trip*/
+.home {
+    background-color: lightblue;
+}
+
 .newly-shared-trip {
-    width: 150px;
-    display: inline-block;
-    margin: 20px 0px 20px 0;
+    margin: 20px 0 20px 10px;
+    padding: 10px 0 10px 0;
 }
 
-.trip-avatar-container {
-    display: inline-block;
-}
-
-.avatar {
-    border-radius: 50px;
-    width: 50px;
-    height: 50px;
-    vertical-align: middle;
-}
-
-.trip-info {
-    display: inline-block;
-    float: none;
-}
-
-    .trip-info .primary {
-        float: none;
+    .newly-shared-trip trip-avatar-container {
     }
 
-    .trip-info .secondary {
-        float: left;
-    }
-
-    .trip-info .primary .origin {
-        display: block;
-    }
-
-    .trip-info .primary .destination {
-        /*float: left;*/
-        line-height: 24px;
-        font-size: 25px;
-        display: inline-block;
-        width: 71%;
-    }
-
-    .trip-info .primary .trip-price {
-        line-height: 24px;
-        font-size: 30px;
-        display: inline-block;
+    .newly-shared-trip .trip-avatar-container .avatar {
         width: 50px;
+        margin-top: 10px;
     }
 
-    .trip-info .secondary .material-icons {
-        font-size: 18px;
+    .newly-shared-trip .trip-info .primary .trip-price {
+        font-size: 20px;
+        font-weight: bold;
     }
+
+    .newly-shared-trip .trip-avatar-container .trip-info {
+    }
+
+
+.trip-info .secondary .material-icons {
+    font-size: 18px;
+}

@@ -3,15 +3,17 @@
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
     {
         @Html.AntiForgeryToken()
-
-        <ul class="right hide-on-med-and-down">
+        <ul id="drop-down-menu" class="dropdown-content">
+            <li>@Html.ActionLink("Настойки", nameof(ManageController.Index), "Manage")</li>
+            <li><a href="javascript:document.getElementById('logoutForm').submit()">Изход</a></li>
+        </ul>
+        <ul id="logged-user-avatar-menu" class="right hide-on-med-and-down">
             <li>
-                <a href="@Url.Action("Index","Manage")" class="valign-wrapper">
-                    <img class="circle logged-user-avatar" src="~/UserAvatars/default.png" />
+                <a href="#!" class="valign-wrapper dropdown-button" data-activates="drop-down-menu">
                     <span class="logged-user-username">@this.User.Identity.Name</span>
+                    <img class="circle logged-user-avatar" src="~/UserAvatars/default.png" />
                 </a>
             </li>
-            <li><a href="javascript:document.getElementById('logoutForm').submit()">Изход</a></li>
         </ul>
     }
 }

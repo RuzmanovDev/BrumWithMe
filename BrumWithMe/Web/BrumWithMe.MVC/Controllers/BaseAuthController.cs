@@ -5,9 +5,8 @@ using Microsoft.AspNet.Identity;
 
 namespace BrumWithMe.MVC.Controllers
 {
-    public class BaseAuthController : Controller
+    public class BaseAuthController : BaseController
     {
-        private readonly string loggedUserId;
         private readonly IAuthService authService;
 
         public BaseAuthController(IAuthService authService)
@@ -15,10 +14,7 @@ namespace BrumWithMe.MVC.Controllers
             Guard.WhenArgument(authService, nameof(authService)).IsNull().Throw();
 
             this.authService = authService;
-            this.loggedUserId = this.authService.GetLoggedUserId(this.User);
         }
-
-        protected string GetLoggedUserId => this.loggedUserId;
 
         protected IAuthService AuthService => this.authService;
 

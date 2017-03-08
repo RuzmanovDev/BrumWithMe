@@ -1,17 +1,17 @@
 ﻿@model TripBasicInfoViewModel
 
-<div class="newly-shared-trip col s4">
-    <a href="/trip/tripdetails/@Model.Id">
-        <div class="trip-avatar-container">
-            <img src="@Model.UserAvatarImageUrl" alt="Alternate Text" class="avatar" />
+<a href="/trip/tripdetails/@Model.Id">
+    <div class="newly-shared-trip col s4 z-depth-5">
+        <div class="trip-avatar-container col s2">
+            <img src="@Model.UserAvatarImageUrl" alt="Alternate Text" class="circle avatar" />
         </div>
-        <div class="trip-info">
-            <div class="primary">
-                <div class="origin">От @Model.OriginName</div>
-                <div class="destination">До @Model.DestinationName</div>
-                <div class="trip-price">$@Model.Price</div>
+        <div class="trip-info col s9">
+            <div class="primary col s12">
+                <div class="origin col s12">От @Model.OriginName</div>
+                <div class="destination col s8">До @Model.DestinationName</div>
+                <div class="trip-price col s4">$@Model.Price</div>
             </div>
-            <div class="secondary">
+            <div class="secondary col s12">
                 <span class="date" title="Дата на погегляне"><i class="material-icons">today</i> @Model.TimeOfDeparture.ToString("dd.MMM")</span>
                 <span class="time" title="Час на потегляне"><i class="material-icons">query_builder</i> @Model.TimeOfDeparture.ToString("hh.mm")</span>
                 <span class="seats" title="Места">
@@ -19,5 +19,7 @@
                 </span>
             </div>
         </div>
-    </a>
-</div>
+    </div>
+</a>
+
+

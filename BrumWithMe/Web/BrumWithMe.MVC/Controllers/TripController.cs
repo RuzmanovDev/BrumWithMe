@@ -1,12 +1,9 @@
-﻿using BrumWithMe.Data;
-using BrumWithMe.Data.Models.CompositeModels;
+﻿using BrumWithMe.Data.Models.CompositeModels;
 using BrumWithMe.Data.Models.CompositeModels.Trip;
 using BrumWithMe.Services.Data.Contracts;
 using BrumWithMe.Services.Providers.Mapping.Contracts;
-using BrumWithMe.Web.Models.Shared;
 using BrumWithMe.Web.Models.Trip;
 using Bytes2you.Validation;
-using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +11,7 @@ using System.Web.Mvc;
 
 namespace BrumWithMe.MVC.Controllers
 {
-    public class TripController : Controller
+    public class TripController : BaseController
     {
         private readonly ITripService tripService;
         private readonly ITagService tagService;
@@ -57,6 +54,7 @@ namespace BrumWithMe.MVC.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Create(CreateTripViewModel tripInfo)
         {
             if (!ModelState.IsValid)
@@ -66,7 +64,7 @@ namespace BrumWithMe.MVC.Controllers
 
             var hourOfDeparture = TimeSpan.ParseExact(tripInfo.HourOfDeparture, @"hh\:mm", null);
             var timeOfDeparture = tripInfo.DateOfDeparture.Add(hourOfDeparture);
-            var currentUSerId = this.User.Identity.GetUserId();
+            var currentUSerId = base.GetLoggedUserId;
 
             var selectedTags = tripInfo.Tags.Where(x => x.IsSelected).Select(x => x.Id);
 
@@ -81,10 +79,12 @@ namespace BrumWithMe.MVC.Controllers
             return RedirectToAction(nameof(this.Create));
         }
 
+
+        [Authorize]
         public ActionResult Create()
         {
             var tags = this.tagService.GetAllTags();
-            var userId = this.User.Identity.GetUserId();
+            var userId = base.GetLoggedUserId;
 
             var cars = this.carService.GetUserCars(userId);
             if (cars == null)
