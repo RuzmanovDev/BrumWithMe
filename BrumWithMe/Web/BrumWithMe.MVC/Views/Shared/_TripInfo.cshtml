@@ -1,21 +1,21 @@
-﻿@model int
+﻿@model TripBasicInfoViewModel
 
 <div class="newly-shared-trip col s4">
-    <a href="/trip/tripdetails/@Model">
+    <a href="/trip/tripdetails/@Model.Id">
         <div class="trip-avatar-container">
-            <img src="~/Content/sample-avatar.png" alt="Alternate Text" class="avatar" />
+            <img src="@Model.UserAvatarImageUrl" alt="Alternate Text" class="avatar" />
         </div>
         <div class="trip-info">
             <div class="primary">
-                <div class="origin">Ot Pazardjik</div>
-                <div class="destination">Do Plovdiv</div>
-                <div class="trip-price">$5</div>
+                <div class="origin">От @Model.OriginName</div>
+                <div class="destination">До @Model.DestinationName</div>
+                <div class="trip-price">$@Model.Price</div>
             </div>
             <div class="secondary">
-                <span class="date" title="Дата на погегляне"><i class="material-icons">today</i> 23.03.2017</span>
-                <span class="time" title="Час на потегляне"><i class="material-icons">query_builder</i> 18:00</span>
+                <span class="date" title="Дата на погегляне"><i class="material-icons">today</i> @Model.TimeOfDeparture.ToString("dd.MMM")</span>
+                <span class="time" title="Час на потегляне"><i class="material-icons">query_builder</i> @Model.TimeOfDeparture.ToString("hh.mm")</span>
                 <span class="seats" title="Места">
-                    <i class="material-icons">perm_identity</i> 0/5
+                    <i class="material-icons">perm_identity</i> @Model.TakenSeats/@Model.TotalSeats
                 </span>
             </div>
         </div>

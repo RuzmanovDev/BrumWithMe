@@ -9,6 +9,7 @@ using BrumWithMe.Web.Models.Trip;
 using System.Linq;
 using BrumWithMe.Services.Providers.TimeProviders;
 using BrumWithMe.Services.Providers.Mapping.Contracts;
+using BrumWithMe.Data.Models.TransportEntities.Trip;
 
 namespace BrumWithMe.Services.Data.Services
 {
@@ -96,5 +97,16 @@ namespace BrumWithMe.Services.Data.Services
             return resut;
         }
 
+        public IEnumerable<TripBasicInfo> GetLatestTripsBasicInfo(int countToTake)
+        {
+            var trips = this.tripRepo
+                .GetAll(x => true, x => x, i => i.Car.Owner, i => i.Destination, i => i.Origin)
+                .OrderByDescending(x => x.DateCreated)
+                .Take(countToTake);
+
+            var result = this.mappingProvider.Map<IEnumerable<Trip>, IEnumerable<TripBasicInfo>>(trips);
+
+            return result;
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BrumWithMe.Data.Models.TransportEntities;
+using BrumWithMe.Data.Models.TransportEntities.Trip;
 using BrumWithMe.Web.Models.Trip;
 
 namespace BrumWithMe.Services.Providers.Mapping.Profiles
@@ -13,6 +14,7 @@ namespace BrumWithMe.Services.Providers.Mapping.Profiles
 
             CreateMap<TripCreationInfo, CreateTripViewModel>().ReverseMap();
             CreateMap<TripDetails, TripDetailsViewModel>().ReverseMap();
+            CreateMap<TripBasicInfo, TripBasicInfoViewModel>();
         }
     }
 }

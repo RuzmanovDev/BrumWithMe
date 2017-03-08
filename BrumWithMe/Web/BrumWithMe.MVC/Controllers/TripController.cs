@@ -1,5 +1,6 @@
 ﻿using BrumWithMe.Data;
 using BrumWithMe.Data.Models.TransportEntities;
+using BrumWithMe.Data.Models.TransportEntities.Trip;
 using BrumWithMe.Services.Data.Contracts;
 using BrumWithMe.Services.Providers.Mapping.Contracts;
 using BrumWithMe.Web.Models.Shared;
@@ -16,26 +17,22 @@ namespace BrumWithMe.MVC.Controllers
     public class TripController : Controller
     {
         private readonly ITripService tripService;
-        private readonly ICityService cityService;
         private readonly ITagService tagService;
         private readonly ICarService carService;
         private readonly IMappingProvider mappingProvider;
 
         public TripController(
             ITripService tripService,
-            ICityService cityService,
             ITagService tagService,
             ICarService carService,
             IMappingProvider mappingProvider)
         {
             Guard.WhenArgument(tripService, nameof(tripService)).IsNull().Throw();
-            Guard.WhenArgument(cityService, nameof(cityService)).IsNull().Throw();
             Guard.WhenArgument(tagService, nameof(tagService)).IsNull().Throw();
             Guard.WhenArgument(carService, nameof(carService)).IsNull().Throw();
             Guard.WhenArgument(mappingProvider, nameof(mappingProvider)).IsNull().Throw();
 
             this.tripService = tripService;
-            this.cityService = cityService;
             this.tagService = tagService;
             this.carService = carService;
             this.mappingProvider = mappingProvider;
@@ -52,7 +49,11 @@ namespace BrumWithMe.MVC.Controllers
         public ActionResult RecentTrips()
         {
             // get from db pass it
-            return PartialView("_RecentTrips");
+            var recentTrip = this.tripService.GetLatestTripsBasicInfo(6);
+
+            var recentTripsViewModel = this.mappingProvider.Map<IEnumerable<TripBasicInfo>, IEnumerable<TripBasicInfoViewModel>>(recentTrip);
+
+            return PartialView("_RecentTrips", recentTripsViewModel);
 
         }
 

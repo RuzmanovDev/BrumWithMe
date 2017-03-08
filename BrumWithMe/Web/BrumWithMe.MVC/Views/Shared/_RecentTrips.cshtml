@@ -1,7 +1,8 @@
-﻿<div class="row">
-    @for (int i = 0; i < 9; i++)
-    {
-        @Html.Partial("_TripInfo", i)
-    }
+﻿@model IEnumerable<TripBasicInfoViewModel>
 
+<div class="row">
+    @foreach(var trip in Model)
+    {
+        @Html.Partial("_TripInfo", trip)
+    }
 </div>

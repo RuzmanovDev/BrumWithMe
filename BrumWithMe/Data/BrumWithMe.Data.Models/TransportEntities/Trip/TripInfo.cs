@@ -1,15 +1,13 @@
-﻿using BrumWithMe.Data.Models.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using BrumWithMe.Data.Models.Entities;
 
-namespace BrumWithMe.Data.Models.TransportEntities
+namespace BrumWithMe.Data.Models.TransportEntities.Trip
 {
     public class TripCreationInfo
     {
         public City Origin { get; set; }
+
         public City Destination { get; set; }
 
         public string OriginName { get; set; }

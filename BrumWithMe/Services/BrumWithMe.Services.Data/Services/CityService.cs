@@ -1,12 +1,8 @@
-﻿using BrumWithMe.Data.Contracts;
+﻿using System;
+using BrumWithMe.Data.Contracts;
 using BrumWithMe.Data.Models.Entities;
 using BrumWithMe.Services.Data.Contracts;
 using Bytes2you.Validation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BrumWithMe.Services.Data.Services
 {
@@ -47,6 +43,5 @@ namespace BrumWithMe.Services.Data.Services
                 return city;
             }
         }
-
     }
 }
