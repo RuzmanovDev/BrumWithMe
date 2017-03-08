@@ -7,6 +7,8 @@ using Microsoft.Owin.Security;
 using System.Threading.Tasks;
 using BrumWithMe.Data.Models.Entities;
 using System;
+using System.Security.Principal;
+using Bytes2you.Validation;
 
 namespace BrumWithMe.Auth.Identity.Services
 {
@@ -50,6 +52,13 @@ namespace BrumWithMe.Auth.Identity.Services
         public Task LogIn(User user, bool isPersistent, bool rememberBrowser)
         {
             throw new NotImplementedException();
+        }
+
+        public string GetLoggedUserId(IPrincipal loggedUser)
+        {
+            Guard.WhenArgument(loggedUser, nameof(loggedUser)).IsNull().Throw();
+
+            return loggedUser.Identity.GetUserId();
         }
     }
 }

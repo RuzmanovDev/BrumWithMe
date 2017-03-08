@@ -1,4 +1,4 @@
-﻿namespace BrumWithMe.Data.Models.TransportEntities
+﻿namespace BrumWithMe.Data.Models.CompositeModels
 {
     public class TagInfo
     {

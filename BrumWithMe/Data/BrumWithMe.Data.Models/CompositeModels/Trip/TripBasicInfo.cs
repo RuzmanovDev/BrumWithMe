@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BrumWithMe.Data.Models.TransportEntities.Trip
+namespace BrumWithMe.Data.Models.CompositeModels.Trip
 {
     public class TripBasicInfo
     {

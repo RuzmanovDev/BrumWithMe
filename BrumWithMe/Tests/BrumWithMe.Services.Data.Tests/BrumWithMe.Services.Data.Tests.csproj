@@ -61,11 +61,16 @@
     <Compile Include="BaseDataServiceTests\Constructor_Should.cs" />
     <Compile Include="BaseDataServiceTests\Mocks\DerivedDataService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TripServiceTests\CreateTripShould.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Data\BrumWithMe.Data.Models\BrumWithMe.Data.Models.csproj">
+      <Project>{144806C1-2813-4871-845F-3D2D708052F7}</Project>
+      <Name>BrumWithMe.Data.Models</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Data\BrumWithMe.Data\BrumWithMe.Data.csproj">
       <Project>{DBA8734C-3EF5-4D46-A318-BFC9F75D0980}</Project>
       <Name>BrumWithMe.Data</Name>

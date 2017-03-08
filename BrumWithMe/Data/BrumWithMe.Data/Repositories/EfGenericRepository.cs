@@ -19,14 +19,6 @@ namespace BrumWithMe.Data.Repositories
             this.DbSet = this.Context.Set<T>();
         }
 
-        public IQueryable<T> All
-        {
-            get
-            {
-                return this.DbSet;
-            }
-        }
-
         protected DbContext Context { get; private set; }
 
         protected DbSet<T> DbSet { get; private set; }

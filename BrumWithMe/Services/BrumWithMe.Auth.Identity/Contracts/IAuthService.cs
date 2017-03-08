@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using BrumWithMe.Data.Models.Entities;
 using Microsoft.AspNet.Identity;
+using System.Security.Principal;
 
 namespace BrumWithMe.Auth.Identity.Contracts
 {
@@ -16,5 +17,7 @@ namespace BrumWithMe.Auth.Identity.Contracts
         Task<IdentityResult> ChangePasswordAsync(string v, string oldPassword, string newPassword);
 
         Task LogIn(User user, bool isPersistent, bool rememberBrowser);
+
+        string GetLoggedUserId(IPrincipal loggedUser);
     }
 }

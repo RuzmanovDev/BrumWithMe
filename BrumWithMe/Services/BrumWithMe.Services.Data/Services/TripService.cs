@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using BrumWithMe.Data.Contracts;
 using BrumWithMe.Data.Models.Entities;
-using BrumWithMe.Data.Models.TransportEntities;
+using BrumWithMe.Data.Models.CompositeModels;
 using BrumWithMe.Services.Data.Contracts;
 using Bytes2you.Validation;
 using System.Linq;
 using BrumWithMe.Services.Providers.TimeProviders;
 using BrumWithMe.Services.Providers.Mapping.Contracts;
-using BrumWithMe.Data.Models.TransportEntities.Trip;
+using BrumWithMe.Data.Models.CompositeModels.Trip;
 
 namespace BrumWithMe.Services.Data.Services
 {
@@ -26,7 +26,7 @@ namespace BrumWithMe.Services.Data.Services
             ITagService tagService,
             IRepository<Trip> tripRepo,
             IDateTimeProvider dateTimeProvider)
-            : base(unitOfWork,mappingProvider)
+            : base(unitOfWork, mappingProvider)
         {
             Guard.WhenArgument(tripRepo, nameof(tripRepo)).IsNull().Throw();
             Guard.WhenArgument(cityService, nameof(cityService)).IsNull().Throw();

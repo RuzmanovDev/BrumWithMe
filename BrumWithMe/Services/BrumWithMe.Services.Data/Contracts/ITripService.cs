@@ -1,5 +1,5 @@
-﻿using BrumWithMe.Data.Models.TransportEntities;
-using BrumWithMe.Data.Models.TransportEntities.Trip;
+﻿using BrumWithMe.Data.Models.CompositeModels;
+using BrumWithMe.Data.Models.CompositeModels.Trip;
 using System.Collections.Generic;
 
 namespace BrumWithMe.Services.Data.Contracts

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using BrumWithMe.Data.Models.Entities;
 
-namespace BrumWithMe.Data.Models.TransportEntities.Trip
+namespace BrumWithMe.Data.Models.CompositeModels.Trip
 {
     public class TripCreationInfo
     {

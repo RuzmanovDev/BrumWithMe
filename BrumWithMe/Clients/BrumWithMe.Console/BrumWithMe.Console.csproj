@@ -68,6 +68,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Data\BrumWithMe.Data.Models\BrumWithMe.Data.Models.csproj">
+      <Project>{144806C1-2813-4871-845F-3D2D708052F7}</Project>
+      <Name>BrumWithMe.Data.Models</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Data\BrumWithMe.Data\BrumWithMe.Data.csproj">
       <Project>{dba8734c-3ef5-4d46-a318-bfc9f75d0980}</Project>
       <Name>BrumWithMe.Data</Name>

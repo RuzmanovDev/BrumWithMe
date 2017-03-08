@@ -21,8 +21,6 @@ namespace BrumWithMe.Services.Data.Services
 
         public City GetCityByName(string cityName)
         {
-            Guard.WhenArgument(cityName, nameof(cityName)).IsNullOrEmpty().Throw();
-
             var city = this.cityRepo.GetFirst(x => x.Name == cityName);
 
             return city;

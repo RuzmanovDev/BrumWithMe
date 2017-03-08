@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using BrumWithMe.Data.Models.Entities;
-using BrumWithMe.Data.Models.TransportEntities;
+using BrumWithMe.Data.Models.CompositeModels;
 using BrumWithMe.Data.Contracts;
 using Bytes2you.Validation;
 using System;
@@ -31,9 +31,14 @@ namespace BrumWithMe.Services.Data.Services
             });
         }
 
-        public IEnumerable<Tag> GetTagsByIds(IEnumerable<int> ids)
+        public IEnumerable<Tag> GetTagsByIds(IEnumerable<int> tagIds)
         {
-            return this.tagRepo.GetAll(w => !w.IsDeleted && ids.Contains(w.Id), s => s);
+            if (tagIds.Count() == 0)
+            {
+                return new List<Tag>();
+            }
+
+            return this.tagRepo.GetAll(w => !w.IsDeleted && tagIds.Contains(w.Id), s => s);
         }
     }
 }

@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
 
 namespace BrumWithMe.Data.Contracts
 {
     public interface IRepository<T> where T : class
     {
-        IQueryable<T> All { get; }
-
         IEnumerable<T> GetAll();
 
         IEnumerable<T1> GetAll<T1>(Expression<Func<T, bool>> filterExpression, Expression<Func<T, T1>> selectExpression);

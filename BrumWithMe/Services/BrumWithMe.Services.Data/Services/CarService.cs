@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using BrumWithMe.Services.Data.Contracts;
-using BrumWithMe.Data.Models.TransportEntities;
+using BrumWithMe.Data.Models.CompositeModels;
 using BrumWithMe.Data.Contracts;
 using BrumWithMe.Data.Models.Entities;
 using Bytes2you.Validation;

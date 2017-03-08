@@ -12,21 +12,19 @@ using System.IO;
 namespace BrumWithMe.MVC.Controllers
 {
     [Authorize]
-    public class ManageController : Controller
+    public class ManageController : BaseAuthController
     {
-        private readonly IAuthService authService;
         private readonly IFileUploadProvider fileUploadProvider;
         private readonly IAccountManagementService accountManagementService;
         public ManageController(
             IAuthService authService,
             IFileUploadProvider fileUploadProvider,
             IAccountManagementService accountManagementService)
+            :base(authService)
         {
-            Guard.WhenArgument(authService, nameof(authService)).IsNull().Throw();
             Guard.WhenArgument(fileUploadProvider, nameof(fileUploadProvider)).IsNull().Throw();
             Guard.WhenArgument(accountManagementService, nameof(accountManagementService)).IsNull().Throw();
 
-            this.authService = authService;
             this.fileUploadProvider = fileUploadProvider;
             this.accountManagementService = accountManagementService;
         }
@@ -91,14 +89,14 @@ namespace BrumWithMe.MVC.Controllers
             {
                 return View(model);
             }
-            IdentityResult result = await this.authService.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword, model.NewPassword);
+            IdentityResult result = await this.AuthService.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword, model.NewPassword);
 
             if (result.Succeeded)
             {
                 User user = null; //await UserManager.FindByIdAsync(User.Identity.GetUserId());
                 if (user != null)
                 {
-                    await this.authService.LogIn(user, isPersistent: false, rememberBrowser: false);
+                    await this.AuthService.LogIn(user, isPersistent: false, rememberBrowser: false);
                 }
 
                 return RedirectToAction("Index");
@@ -108,12 +106,6 @@ namespace BrumWithMe.MVC.Controllers
             return View(model);
         }
 
-        private void AddErrors(IdentityResult result)
-        {
-            foreach (var error in result.Errors)
-            {
-                ModelState.AddModelError("", error);
-            }
-        }
+        
     }
 }

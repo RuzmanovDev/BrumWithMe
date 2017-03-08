@@ -1,5 +1,5 @@
 ﻿using BrumWithMe.Data.Models.Entities;
-using BrumWithMe.Data.Models.TransportEntities;
+using BrumWithMe.Data.Models.CompositeModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;

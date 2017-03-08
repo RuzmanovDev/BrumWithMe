@@ -1,6 +1,6 @@
 ﻿using BrumWithMe.Data;
-using BrumWithMe.Data.Models.TransportEntities;
-using BrumWithMe.Data.Models.TransportEntities.Trip;
+using BrumWithMe.Data.Models.CompositeModels;
+using BrumWithMe.Data.Models.CompositeModels.Trip;
 using BrumWithMe.Services.Data.Contracts;
 using BrumWithMe.Services.Providers.Mapping.Contracts;
 using BrumWithMe.Web.Models.Shared;
@@ -48,7 +48,6 @@ namespace BrumWithMe.MVC.Controllers
 
         public ActionResult RecentTrips()
         {
-            // get from db pass it
             var recentTrip = this.tripService.GetLatestTripsBasicInfo(6);
 
             var recentTripsViewModel = this.mappingProvider.Map<IEnumerable<TripBasicInfo>, IEnumerable<TripBasicInfoViewModel>>(recentTrip);

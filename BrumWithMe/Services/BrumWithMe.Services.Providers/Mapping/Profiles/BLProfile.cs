@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using BrumWithMe.Data.Models.Entities;
-using BrumWithMe.Data.Models.TransportEntities;
-using BrumWithMe.Data.Models.TransportEntities.Trip;
+using BrumWithMe.Data.Models.CompositeModels;
+using BrumWithMe.Data.Models.CompositeModels.Trip;
 using BrumWithMe.Web.Models.Shared;
 
 namespace BrumWithMe.Services.Providers.Mapping.Profiles
