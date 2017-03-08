@@ -40,7 +40,7 @@ namespace BrumWithMe.MVC.Controllers
                 {
                     OriginName = x.Origin.Name,
                     DestinationName = x.Destination.Name,
-                    TimeOfDeparture = x.Date,
+                    TimeOfDeparture = x.DateOfDeaprture,
                     TakenSeats = x.TakenSeats,
                     TotalSeats = x.TotalSeats,
                     Price = x.Price,

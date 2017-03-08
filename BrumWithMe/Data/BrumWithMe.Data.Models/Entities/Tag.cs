@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using BrumWithMe.Data.Models.Contracts;
 
 namespace BrumWithMe.Data.Models.Entities
 {
-    public class Tag
+    public class Tag : IDeletableEntity
     {
         private ICollection<Trip> trips;
 
@@ -27,5 +28,7 @@ namespace BrumWithMe.Data.Models.Entities
 
             set { this.trips = value; }
         }
+
+        public bool IsDeleted { get; set; }
     }
 }

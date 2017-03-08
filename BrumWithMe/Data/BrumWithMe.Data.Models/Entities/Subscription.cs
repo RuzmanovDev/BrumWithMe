@@ -1,17 +1,15 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using BrumWithMe.Data.Models.Contracts;
 
 namespace BrumWithMe.Data.Models.Entities
 {
-    public class Subscription
+    public class Subscription : IDeletableEntity
     {
-        [Key, Column(Order = 0)]
-        public int Id { get; set; }
-
-        [Key, Column(Order = 1), ForeignKey("UserToSubscribeTo")]
+        [Key, Column(Order = 0), ForeignKey("UserToSubscribeTo")]
         public string UserToSubscribeToId { get; set; }
 
-        [ForeignKey("Subscriber")]
+        [Key, Column(Order = 1), ForeignKey("Subscriber")]
         public string SubscriberId { get; set; }
 
         public User UserToSubscribeTo { get; set; }

@@ -34,7 +34,7 @@ namespace BrumWithMe.Services.Data.Services
                 var trip = new Trip()
                 {
                     CarId = tripInfo.CarId,
-                    Date = tripInfo.TimeOfDeparture,
+                    DateOfDeaprture = tripInfo.TimeOfDeparture,
                     Description = tripInfo.Description,
                     Destination = tripInfo.Destination,
                     Origin = tripInfo.Origin,
@@ -82,7 +82,7 @@ namespace BrumWithMe.Services.Data.Services
                 var trip = new Trip()
                 {
                     CarId = tripInfo.CarId,
-                    Date = tripInfo.TimeOfDeparture,
+                    DateOfDeaprture = tripInfo.TimeOfDeparture,
                     Description = tripInfo.Description,
                     Destination = destination,
                     Origin = origin,

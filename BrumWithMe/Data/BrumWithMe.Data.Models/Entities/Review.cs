@@ -1,18 +1,12 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using BrumWithMe.Data.Models.Contracts;
 
 namespace BrumWithMe.Data.Models.Entities
 {
-    public class Review
+    public class Review : IDeletableEntity
     {
-        //private ICollection<ReviewsUsers> reviewers;
-
-        public Review()
-        {
-            //this.reviewers = new HashSet<ReviewsUsers>();
-        }
-
         public int Id { get; set; }
 
         [Required]
@@ -21,29 +15,22 @@ namespace BrumWithMe.Data.Models.Entities
         public string Content { get; set; }
 
         [Range(0, 5)]
-        [Required]
         public double Rating { get; set; }
 
-        [Required]
         public DateTime CreatedOn { get; set; }
 
-        //public virtual ICollection<ReviewsUsers> Reviewers
-        //{
-        //    get { return this.reviewers; }
-
-        //    set { this.reviewers = value; }
-        //}
-
-        [ForeignKey("ReviewedUser")]
         [Required]
+        [ForeignKey("ReviewedUser")]
         public string ReviewedUserId { get; set; }
 
         public virtual User ReviewedUser { get; set; }
 
         public virtual User Creator { get; set; }
 
-        [ForeignKey("Creator")]
         [Required]
+        [ForeignKey("Creator")]
         public string CreatorId { get; set; }
+
+        public bool IsDeleted { get; set; }
     }
 }

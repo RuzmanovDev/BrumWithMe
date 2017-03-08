@@ -2,9 +2,9 @@
 <div id="map" class="col l12" style="height:300px"></div>
 <div class="container">
     <div class="row">
-        <h2 class="left-align">
+        <h3 class="left-align">
             <span id="origin">@Model.OriginName</span> - <span id="destination">@Model.DestinationName</span>
-        </h2>
+        </h3>
         <div class="col s12" style="">
             <div class="col s6">
                 <span class="date" title="дата на погегляне">
@@ -27,23 +27,23 @@
                 {
                     <div class="chip">#@tag</div>
                 }
+                <a href="#" class="btn col s12">Запази място</a>
             </div>
             <div class="col s6">
                 <div>
                     @Html.Partial("_userinfosummary", "pesho ivanov")
                 </div>
-                <div>
+                <div width="300px">
                     <h5>Описание</h5>
                     <p>
                         @Model.Description
                     </p>
                 </div>
-                <a href="#" class="btn">Запази място</a>
             </div>
-        </div>
+        </div> 
     </div>
     <div class="row">
-        <h5>отзиви за шофьора</h5>
+        <h4 class="center-align">Отзиви за шофьора</h4>
 
     </div>
 </div>
