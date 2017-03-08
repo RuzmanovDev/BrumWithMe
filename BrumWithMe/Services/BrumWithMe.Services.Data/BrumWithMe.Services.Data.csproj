@@ -52,6 +52,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\AccountManagementService.cs" />
     <Compile Include="Services\BaseDataService.cs" />
+    <Compile Include="Services\CarService.cs" />
     <Compile Include="Services\CityService.cs" />
     <Compile Include="Services\TagService.cs" />
     <Compile Include="Services\TripService.cs" />

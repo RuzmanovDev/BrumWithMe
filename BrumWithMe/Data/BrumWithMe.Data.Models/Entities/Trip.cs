@@ -33,13 +33,13 @@ namespace BrumWithMe.Data.Models.Entities
         public int TotalSeats { get; set; }
 
         [Required]
-        [Range(1, 20)]
+        [Range(0, 20)]
         public int TakenSeats { get; set; }
 
         [MaxLength(300)]
         public string Description { get; set; }
 
-        public DateTime DateOfDeaprture { get; set; }
+        public DateTime TimeOfDeparture { get; set; }
 
         public DateTime DateCreated { get; set; }
 

@@ -20,7 +20,7 @@ namespace BrumWithMe.Data.Models.TransportEntities
 
         public DateTime TimeOfDeparture { get; set; }
 
-        public int FreeSeats { get; set; }
+        public int TotalSeats { get; set; }
 
         public decimal Price { get; set; }
 

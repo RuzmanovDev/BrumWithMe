@@ -1,4 +1,5 @@
 ﻿using BrumWithMe.Data.Models.Entities;
+using BrumWithMe.Data.Models.TransportEntities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace BrumWithMe.Services.Data.Contracts
 {
     public interface ITagService
     {
-        IEnumerable<Tag> GetAllTags();
+        IEnumerable<TagInfo> GetAllTags();
         IEnumerable<Tag> GetTagsByIds(IEnumerable<int> ids);
     }
 }

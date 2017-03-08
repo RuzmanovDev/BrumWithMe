@@ -7,6 +7,8 @@ using BrumWithMe.Services.Data.Contracts;
 using Bytes2you.Validation;
 using BrumWithMe.Web.Models.Trip;
 using System.Linq;
+using BrumWithMe.Services.Providers.TimeProviders;
+using BrumWithMe.Services.Providers.Mapping.Contracts;
 
 namespace BrumWithMe.Services.Data.Services
 {
@@ -15,48 +17,28 @@ namespace BrumWithMe.Services.Data.Services
         private readonly IRepository<Trip> tripRepo;
         private readonly ICityService cityService;
         private readonly ITagService tagService;
+        private readonly IDateTimeProvider dateTimeProvider;
+        private readonly IMappingProvider mappingProvider;
 
-        public TripService(Func<IUnitOfWork> unitOfWork,
-            IRepository<Trip> tripRepo)
+        public TripService(
+            Func<IUnitOfWork> unitOfWork,
+            ICityService cityService,
+            IMappingProvider mappingProvider,
+            ITagService tagService,
+            IRepository<Trip> tripRepo,
+            IDateTimeProvider dateTimeProvider)
             : base(unitOfWork)
         {
             Guard.WhenArgument(tripRepo, nameof(tripRepo)).IsNull().Throw();
+            Guard.WhenArgument(cityService, nameof(cityService)).IsNull().Throw();
+            Guard.WhenArgument(mappingProvider, nameof(mappingProvider)).IsNull().Throw();
+            Guard.WhenArgument(tagService, nameof(tagService)).IsNull().Throw();
 
             this.tripRepo = tripRepo;
-        }
-
-        public void AddTrip(TripCreationInfo tripInfo)
-        {
-            Guard.WhenArgument(tripInfo, nameof(tripInfo)).IsNull().Throw();
-
-            using (var uow = base.UnitOfWork())
-            {
-                var trip = new Trip()
-                {
-                    CarId = tripInfo.CarId,
-                    DateOfDeaprture = tripInfo.TimeOfDeparture,
-                    Description = tripInfo.Description,
-                    Destination = tripInfo.Destination,
-                    Origin = tripInfo.Origin,
-                    Price = tripInfo.Price,
-                    TotalSeats = tripInfo.FreeSeats,
-                    Tags = tripInfo.TagIds as ICollection<Tag>,
-                };
-
-                var userTrips = new UsersTrips()
-                {
-                    Trip = trip,
-                    UserId = tripInfo.DriverId,
-                    IsDriver = true
-                };
-
-                trip.TripsUsers = new List<UsersTrips>() { userTrips };
-
-                this.tripRepo.Add(trip);
-
-                uow.Commit();
-            }
-
+            this.cityService = cityService;
+            this.tagService = tagService;
+            this.mappingProvider = mappingProvider;
+            this.dateTimeProvider = dateTimeProvider;
         }
 
         public void CreateTrip(TripCreationInfo tripInfo)
@@ -79,17 +61,24 @@ namespace BrumWithMe.Services.Data.Services
 
             using (var uow = base.UnitOfWork())
             {
-                var trip = new Trip()
-                {
-                    CarId = tripInfo.CarId,
-                    DateOfDeaprture = tripInfo.TimeOfDeparture,
-                    Description = tripInfo.Description,
-                    Destination = destination,
-                    Origin = origin,
-                    Price = tripInfo.Price,
-                    TotalSeats = tripInfo.FreeSeats,
-                    Tags = tags
-                };
+                var trip = this.mappingProvider.Map<TripCreationInfo, Trip>(tripInfo);
+
+                trip.Tags = tags;
+                trip.Origin = origin;
+                trip.Destination = destination;
+                trip.DateCreated = this.dateTimeProvider.Now;
+
+                //var trip = new Trip()
+                //{
+                //    CarId = tripInfo.CarId,
+                //    TimeOfDeparture = tripInfo.TimeOfDeparture,
+                //    Description = tripInfo.Description,
+                //    Destination = destination,
+                //    Origin = origin,
+                //    Price = tripInfo.Price,
+                //    TotalSeats = tripInfo.TotalSeats,
+                //    Tags = tags
+                //};
 
                 var userTrips = new UsersTrips()
                 {

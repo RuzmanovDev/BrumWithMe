@@ -1,8 +1,12 @@
-﻿using BrumWithMe.Auth.Identity.Contracts;
+﻿using AutoMapper;
+using BrumWithMe.Auth.Identity.Contracts;
 using BrumWithMe.Auth.Identity.Services;
 using BrumWithMe.Services.Data.Contracts;
 using BrumWithMe.Services.Data.Services;
 using BrumWithMe.Services.Providers.FileUpload;
+using BrumWithMe.Services.Providers.Mapping;
+using BrumWithMe.Services.Providers.Mapping.Contracts;
+using BrumWithMe.Services.Providers.TimeProviders;
 using Microsoft.Owin;
 using Ninject.Modules;
 using Ninject.Web.Common;
@@ -23,9 +27,15 @@ namespace BrumWithMe.MVC.App_Start.Bindings
                .WhenInjectedInto(typeof(IAuthService))
                .InRequestScope();
 
+            this.Bind<IMapper>()
+                .ToMethod(c => MappingProfile.InitializeAutoMapper().CreateMapper());
+
+            this.Bind<IMappingProvider>().To<MappingProvider>().InRequestScope();
+            this.Bind<IDateTimeProvider>().To<DateTimeProvider>().InRequestScope();
             this.Bind<IFileUploadProvider>().To<FileUploadProvider>();
             this.Bind<IAccountManagementService>().To<AccountManagementService>().InRequestScope();
             this.Bind<ITripService>().To<TripService>().InRequestScope();
+            this.Bind<ICarService>().To<CarService>().InRequestScope();
             this.Bind<ICityService>().To<CityService>().InRequestScope();
             this.Bind<ITagService>().To<TagService>().InRequestScope();
         }

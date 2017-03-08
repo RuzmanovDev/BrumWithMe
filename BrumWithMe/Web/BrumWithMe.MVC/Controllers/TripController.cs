@@ -20,15 +20,17 @@ namespace BrumWithMe.MVC.Controllers
         private readonly ITagService tagService;
         private readonly ICarService carService;
 
-        public TripController(ITripService tripService, ICityService cityService, ITagService tagService)
+        public TripController(ITripService tripService, ICityService cityService, ITagService tagService, ICarService carService)
         {
             Guard.WhenArgument(tripService, nameof(tripService)).IsNull().Throw();
             Guard.WhenArgument(cityService, nameof(cityService)).IsNull().Throw();
             Guard.WhenArgument(tagService, nameof(tagService)).IsNull().Throw();
+            Guard.WhenArgument(carService, nameof(carService)).IsNull().Throw();
 
             this.tripService = tripService;
             this.cityService = cityService;
             this.tagService = tagService;
+            this.carService = carService;
         }
 
         public ActionResult TripDetails(int id)
@@ -40,7 +42,7 @@ namespace BrumWithMe.MVC.Controllers
                 {
                     OriginName = x.Origin.Name,
                     DestinationName = x.Destination.Name,
-                    TimeOfDeparture = x.DateOfDeaprture,
+                    TimeOfDeparture = x.TimeOfDeparture,
                     TakenSeats = x.TakenSeats,
                     TotalSeats = x.TotalSeats,
                     Price = x.Price,
@@ -81,7 +83,7 @@ namespace BrumWithMe.MVC.Controllers
                 Description = tripInfo.Description,
                 DestinationName = tripInfo.DestinationName,
                 OriginName = tripInfo.OriginName,
-                FreeSeats = tripInfo.FreeSeats,
+                TotalSeats = tripInfo.FreeSeats,
                 Price = tripInfo.Price,
                 TagIds = selectedTags,
                 TimeOfDeparture = travelDate,
@@ -99,6 +101,7 @@ namespace BrumWithMe.MVC.Controllers
             var tags = this.tagService.GetAllTags();
             var userId = this.User.Identity.GetUserId();
 
+            // TODO Check if Cars are null
             var cars = this.carService.GetUserCars(userId);
 
             var model = new CreateTripViewModel();

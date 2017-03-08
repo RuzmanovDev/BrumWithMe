@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BrumWithMe.Web.Models.Trip
 {
@@ -26,6 +23,7 @@ namespace BrumWithMe.Web.Models.Trip
 
         public DateTime DateOfDeparture { get; set; }
 
+        [Required]
         public string HourOfDeparture { get; set; }
 
         public int FreeSeats { get; set; }
