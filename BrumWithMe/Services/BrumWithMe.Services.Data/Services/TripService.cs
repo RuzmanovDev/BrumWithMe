@@ -82,5 +82,19 @@ namespace BrumWithMe.Services.Data.Services
                 uow.Commit();
             }
         }
+
+        public TripDetails GetTripDetails(int tripId)
+        {
+            var trip = this.tripRepo.GetFirst(x => x.Id == tripId,
+                x => x.TripsUsers,
+                x => x.Car,
+                x => x.Destination,
+                x => x.Origin,
+                x => x.Tags);
+
+            var resut = this.mappingProvider.Map<Trip, TripDetails>(trip);
+            return resut;
+        }
+
     }
 }

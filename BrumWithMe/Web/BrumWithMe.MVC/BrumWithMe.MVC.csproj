@@ -297,11 +297,12 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_RecentTrips.cshtml" />
     <Content Include="Views\Shared\_TripInfo.cshtml" />
-    <Content Include="Views\Shared\_UserInfoSummary.cshtml" />
+    <Content Include="Views\Shared\_CarAssignedToTravel.cshtml" />
     <Content Include="Views\Shared\AjaxTest.cshtml" />
     <Content Include="Views\Trip\Create.cshtml" />
     <Content Include="Views\Trip\TripDetails.cshtml" />
     <Content Include="Views\Manage\RegisterCar.cshtml" />
+    <Content Include="Views\Shared\_UserBanner.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

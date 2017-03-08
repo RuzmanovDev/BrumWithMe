@@ -25,13 +25,16 @@
                 </span>
                 @foreach (var tag in Model.Tags)
                 {
-                    <div class="chip">#@tag</div>
+                    <div class="chip">#@tag.Name</div>
                 }
                 <a href="#" class="btn col s12">Запази място</a>
             </div>
             <div class="col s6">
-                <div>
-                    @Html.Partial("_userinfosummary", "pesho ivanov")
+                <div class="col s6">
+                    @Html.Partial("_CarAssignedToTravel", Model.Car)
+                </div>
+                <div class="col s6">
+                  @Html.Partial("_UserBanner", Model.Driver)
                 </div>
                 <div width="300px">
                     <h5>Описание</h5>

@@ -27,7 +27,9 @@ namespace BrumWithMe.Services.Data.Services
                 Id = s.Id,
                 Make = s.Make,
                 Model = s.Model,
-                Year = s.Year
+                Year = s.Year,
+                ImageUrl = s.ImageUrl,
+                Color = s.Color
             });
         }
     }

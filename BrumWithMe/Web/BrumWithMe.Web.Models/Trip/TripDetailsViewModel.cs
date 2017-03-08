@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using BrumWithMe.Web.Models.Shared;
 
 namespace BrumWithMe.Web.Models.Trip
 {
@@ -20,10 +18,12 @@ namespace BrumWithMe.Web.Models.Trip
 
         public decimal Price { get; set; }
 
-        public string DriverId { get; set; }
+        public UserBannerViewModel Driver { get; set; }
 
         public string Description { get; set; }
 
-        public IEnumerable<string> Tags { get; set; }
+        public CarViewModel Car{ get; set; }
+
+        public IEnumerable<TagViewModel> Tags { get; set; }
     }
 }

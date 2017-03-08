@@ -69,6 +69,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TransportEntities\CarBasicInfo.cs" />
     <Compile Include="TransportEntities\TagInfo.cs" />
+    <Compile Include="TransportEntities\TripDetails.cs" />
     <Compile Include="TransportEntities\TripInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -59,7 +59,7 @@ namespace BrumWithMe.MVC.Controllers
 
                 this.fileUploadProvider.UploadCarImage(car.CarAvatar, path);
 
-                imageUrl = "~/UserAvatars/Cars/" + filename;
+                imageUrl = "/UserAvatars/Cars/" + filename;
             }
 
             var carToAdd = new Car()

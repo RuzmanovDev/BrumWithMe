@@ -2,6 +2,7 @@
 using BrumWithMe.Data.Models.TransportEntities;
 using BrumWithMe.Services.Data.Contracts;
 using BrumWithMe.Services.Providers.Mapping.Contracts;
+using BrumWithMe.Web.Models.Shared;
 using BrumWithMe.Web.Models.Trip;
 using Bytes2you.Validation;
 using Microsoft.AspNet.Identity;
@@ -42,27 +43,10 @@ namespace BrumWithMe.MVC.Controllers
 
         public ActionResult TripDetails(int id)
         {
-            var db = new BrumWithMeDbContext();
-            var model = new TripDetailsViewModel();
-            var trip = db.Trips.Where(x => x.Id == id)
-                .Select(x => new TripDetailsViewModel()
-                {
-                    OriginName = x.Origin.Name,
-                    DestinationName = x.Destination.Name,
-                    TimeOfDeparture = x.TimeOfDeparture,
-                    TakenSeats = x.TakenSeats,
-                    TotalSeats = x.TotalSeats,
-                    Price = x.Price,
-                    DriverId = x.TripsUsers
-                        .Where(z => z.TripId == x.Id && z.IsDriver)
-                        .Select(z => z.UserId)
-                        .FirstOrDefault(),
-                    Description = x.Description,
-                    Tags = x.Tags.Select(z => z.Name)
-                })
-                .FirstOrDefault(); ;
+            TripDetails tripDetails = this.tripService.GetTripDetails(id);
+            TripDetailsViewModel tripDetailsView = this.mappingProvider.Map<TripDetails, TripDetailsViewModel>(tripDetails);
 
-            return View(trip);
+            return View(tripDetailsView);
         }
 
         public ActionResult RecentTrips()
@@ -103,13 +87,13 @@ namespace BrumWithMe.MVC.Controllers
             var userId = this.User.Identity.GetUserId();
 
             var cars = this.carService.GetUserCars(userId);
-            if(cars == null)
+            if (cars == null)
             {
                 this.RedirectToAction(nameof(ManageController.RegisterCar), "Manage");
             }
 
             var model = new CreateTripViewModel();
-          
+
             var carsVModel = this.mappingProvider.Map<IEnumerable<CarBasicInfo>, IEnumerable<CarViewModel>>(cars);
             var tagsvModel = this.mappingProvider.Map<IEnumerable<TagInfo>, IList<TagViewModel>>(tags);
 

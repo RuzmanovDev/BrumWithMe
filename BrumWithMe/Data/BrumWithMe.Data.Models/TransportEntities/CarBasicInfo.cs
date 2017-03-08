@@ -10,6 +10,10 @@
 
         public int Year { get; set; }
 
+        public string ImageUrl { get; set; }
+
+        public string Color { get; set; }
+
         public override string ToString()
         {
             return $"{this.Make} {this.Model} ({this.Year})";

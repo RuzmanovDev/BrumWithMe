@@ -5,5 +5,7 @@ namespace BrumWithMe.Services.Data.Contracts
     public interface ITripService
     {
         void CreateTrip(TripCreationInfo tripInfo);
+
+        TripDetails GetTripDetails(int tripId);
     }
 }
