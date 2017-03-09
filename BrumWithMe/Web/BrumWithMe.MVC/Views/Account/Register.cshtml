@@ -1,7 +1,7 @@
 ﻿@model RegisterViewModel
 
 <div class="container">
-    <div class="row">
+    <div class="row z-depth-3 shadow-container">
         @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "col s12", role = "form" }))
         {
             @Html.AntiForgeryToken()

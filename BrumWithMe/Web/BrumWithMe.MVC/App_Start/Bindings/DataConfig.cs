@@ -15,7 +15,7 @@ namespace BrumWithMe.MVC.App_Start.Bindings
         {
             this.Bind<DbContext>().To<BrumWithMeDbContext>().InRequestScope();
             this.Bind(typeof(IRepository<>)).To(typeof(EfGenericRepository<>)).InRequestScope();
-            this.Bind<Func<IUnitOfWork>>().ToMethod(ctx => () => ctx.Kernel.Get<UnitOfWork>()).InRequestScope();
+            this.Bind<Func<IUnitOfWork>>().ToMethod(ctx => () => ctx.Kernel.Get<EfUnitOfWork>()).InRequestScope();
         }
     }
 }

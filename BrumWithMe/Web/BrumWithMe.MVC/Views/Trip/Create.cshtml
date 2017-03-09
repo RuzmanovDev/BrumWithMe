@@ -1,8 +1,8 @@
 ﻿@model CreateTripViewModel
 
 <section class="container">
-    <div class="row z-depth-3 creating-trip-container">
-        <h4>Създаване на пътуване</h4>
+    <div class="row z-depth-3 shadow-container">
+        <h4 class="center-align">Създаване на пътуване</h4>
         @using (Html.BeginForm(nameof(TripController.Create), "Trip", FormMethod.Post))
         {
             @Html.AntiForgeryToken();
@@ -20,7 +20,7 @@
                 @Html.TextBoxFor(x => x.DateOfDeparture, new { @class = "datepicker" })
             </div>
             <div class="col l6">
-                <label for="hour">час на потегляне</label>
+                <label for="hour">Час на потегляне</label>
                 @Html.TextBoxFor(x => x.HourOfDeparture, new { @class = "timepicker" })
             </div>
             <div class="col l6 input-field">

@@ -5,6 +5,7 @@ using Microsoft.AspNet.Identity.Owin;
 using BrumWithMe.Web.Models.Account;
 using BrumWithMe.Data.Models.Entities;
 using BrumWithMe.Auth.Identity.Contracts;
+using System.Collections;
 
 namespace BrumWithMe.MVC.Controllers
 {

@@ -4,11 +4,11 @@ using Bytes2you.Validation;
 
 namespace BrumWithMe.Data
 {
-    public class UnitOfWork : IUnitOfWork
+    public class EfUnitOfWork : IUnitOfWork
     {
         private readonly DbContext context;
 
-        public UnitOfWork(DbContext context)
+        public EfUnitOfWork(DbContext context)
         {
             Guard.WhenArgument(context, nameof(context)).IsNull().Throw();
 
