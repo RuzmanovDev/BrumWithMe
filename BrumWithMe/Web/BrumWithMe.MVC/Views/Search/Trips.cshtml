@@ -1,18 +1,21 @@
 ﻿@model SearchTripResultViewModel
 
 <section class="container">
-    <div class="row shadow-container z-depth-3">
-        <h2>Резултат от търсенето</h2>
+    <div class="shadow-container z-depth-3 row">
+        <h3 class="center-align">Намерени пътувания</h3>
+        <div class="col s12">
+            @Html.Partial("_TripQuickSearch", Model.SearchModel)
+        </div>
         @if (Model.Trips.Count() > 0)
         {
             foreach (var trip in Model.Trips)
             {
-                @Html.Partial("_TripInfo", trip)
+                @Html.Partial("_Trip", trip)
             }
         }
         else
         {
-            <h3>Няма резултат ... :( </h3>
+            <h2 class="center-align">Няма резултат ... :( </h2>
         }
     </div>
 </section>

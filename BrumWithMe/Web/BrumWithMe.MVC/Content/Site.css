@@ -124,3 +124,24 @@ html {
 .shadow-container {
     padding: 20px;
 }
+
+.trip-container {
+    margin: 20px;
+    padding: 20px !important;
+}
+
+    .trip-container .trip-avatar-container {
+        padding: 10px;
+    }
+
+        .trip-container .trip-avatar-container .img {
+            width: 65px;
+        }
+
+    .trip-container .primary {
+        font-size: 20px;
+    }
+
+        .trip-container .primary .trip-price {
+            font-size: 25px;
+        }
