@@ -27,23 +27,30 @@ namespace BrumWithMe.MVC.Controllers
             this.tripService = tripService;
         }
 
-        public ActionResult Trips(SearchTripViewModel searchModel,string origin, string destination)
+        public ActionResult Trips(SearchTripViewModel searchModel)
         {
-            //if (!this.ModelState.IsValid)
-            //{
-            //    return this.View();
-            //}
+            var model = new SearchTripResultViewModel();
 
-            //var trips = this.tripService.GetTripsFor(searhModel.Origin, searhModel.Destination);
-            var trips = this.tripService.GetTripsFor(origin,destination);
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(model);
+            }
+
+            var trips = this.tripService.GetTripsFor(searchModel.Origin, searchModel.Destination);
 
             var recentTripsViewModel = this.mappingProvider.Map<IEnumerable<TripBasicInfo>, IEnumerable<TripBasicInfoViewModel>>(trips);
 
-            var model = new SearchTripResultViewModel();
             model.SearchModel = searchModel;
             model.Trips = recentTripsViewModel;
 
             return View(model);
+        }
+
+        public ActionResult Search()
+        {
+            var searchModel = new SearchTripViewModel();
+
+            return this.PartialView("_TripQuickSearch", searchModel);
         }
     }
 }

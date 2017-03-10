@@ -107,8 +107,11 @@ namespace BrumWithMe.Services.Data.Services
 
         public IEnumerable<TripBasicInfo> GetTripsFor(string origin, string destination)
         {
+            origin = origin.ToLower();
+            destination = destination.ToLower();
+
             var trips = this.tripRepo
-                .GetAll(x => x.Origin.Name == origin && x.Destination.Name == destination, x => x, i => i.Car.Owner, i => i.Destination, i => i.Origin)
+                .GetAll(x => x.Origin.Name.Contains(origin) && x.Destination.Name.Contains(destination), x => x, i => i.Car.Owner, i => i.Destination, i => i.Origin)
                 .OrderByDescending(x => x.DateCreated);
 
             var result = base.MappingProvider.Map<IEnumerable<Trip>, IEnumerable<TripBasicInfo>>(trips);

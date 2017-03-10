@@ -12,7 +12,7 @@
                 @Html.ActionLink("Регистрация", nameof(AccountController.Register), "Account", null, new { @class = "btn" })
             }
             <section class="quick-travel-search">
-                @Html.Partial("_TripQuickSearch")
+                @Html.Action(nameof(SearchController.Search), "Search")
             </section>
         </div>
     </div>
