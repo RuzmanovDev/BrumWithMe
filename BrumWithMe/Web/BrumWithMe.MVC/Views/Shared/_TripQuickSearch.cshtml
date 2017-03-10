@@ -1,0 +1,14 @@
+﻿@model SearchTripViewModel
+
+@using (Html.BeginForm(nameof(SearchController.Trips), "Search", FormMethod.Get))
+{
+    <div class="col l3 offset-l3">
+        @Html.TextBoxFor(x => x.Origin, new { @class = "quick-travel-search-input", placeholder = "От", name = "origin" })
+    </div>
+    <div class="col l3">
+        @Html.TextBoxFor(x => x.Destination, new { @class = "quick-travel-search-input", placeholder = "До" })
+    </div>
+    <div class="col l1">
+        <input type="submit" value="търсене" class="btn">
+    </div>
+}

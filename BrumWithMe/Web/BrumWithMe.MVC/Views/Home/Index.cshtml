@@ -11,17 +11,8 @@
             {
                 @Html.ActionLink("Регистрация", nameof(AccountController.Register), "Account", null, new { @class = "btn" })
             }
-            <form class="quick-travel-search">
-                <div class="col l3 offset-l3">
-                    <input type="text" class="quick-travel-search-input" placeholder="От">
-                </div>
-                <div class="col l3">
-                    <input type="text" class="quick-travel-search-input" placeholder="До">>
-                </div>
-                <div class="col l1">
-                    <input type="submit" value="търсене" class="btn">
-                </div>
-            </form>
+
+            @Html.Partial("_TripQuickSearch")
         </div>
     </div>
 </div>

@@ -1,0 +1,18 @@
+﻿@model SearchTripResultViewModel
+
+<section class="container">
+    <div class="row shadow-container z-depth-3">
+        <h2>Резултат от търсенето</h2>
+        @if (Model.Trips.Count() > 0)
+        {
+            foreach (var trip in Model.Trips)
+            {
+                @Html.Partial("_TripInfo", trip)
+            }
+        }
+        else
+        {
+            <h3>Няма резултат ... :( </h3>
+        }
+    </div>
+</section>

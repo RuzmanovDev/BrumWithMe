@@ -104,5 +104,16 @@ namespace BrumWithMe.Services.Data.Services
 
             return result;
         }
+
+        public IEnumerable<TripBasicInfo> GetTripsFor(string origin, string destination)
+        {
+            var trips = this.tripRepo
+                .GetAll(x => x.Origin.Name == origin && x.Destination.Name == destination, x => x, i => i.Car.Owner, i => i.Destination, i => i.Origin)
+                .OrderByDescending(x => x.DateCreated);
+
+            var result = base.MappingProvider.Map<IEnumerable<Trip>, IEnumerable<TripBasicInfo>>(trips);
+
+            return result;
+        }
     }
 }
