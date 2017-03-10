@@ -1,25 +1,33 @@
-﻿@model SearchTripResultViewModel
+﻿@model SearchTripViewModel
 
 <section class="container">
     <div class="shadow-container z-depth-3 row">
         <h3 class="center-align">Намерени пътувания</h3>
         <div class="col s12">
-            @Html.Action(nameof(SearchController.Search), "Search")
-        </div>
-        @if (Model.Trips?.Count() > 0)
-        {
-            foreach (var trip in Model.Trips)
+            @using (Ajax.BeginForm(nameof(SearchController.LoadTrips), null, new AjaxOptions
             {
-                @Html.Partial("_Trip", trip)
+                UpdateTargetId = "result",
+                InsertionMode = InsertionMode.Replace
+            }, FormMethod.Get))
+            {
+                <div class="col l3 offset-l3">
+                    @Html.TextBoxFor(x => x.Origin, new { @class = "quick-travel-search-input autocomplete", placeholder = "От" })
+                </div>
+                <div class="col l3">
+                    @Html.TextBoxFor(x => x.Destination, new { @class = "quick-travel-search-input autocomplete", placeholder = "До" })
+                </div>
+                <div class="col l1">
+                    <input type="submit" value="търсене" class="btn">
+                </div>
             }
-        }
-        else
-        {
-            <h2 class="center-align">Няма резултат ... :( </h2>
-        }
+
+        </div>
+        <section id="result">
+          @Html.Action(nameof(SearchController.LoadTrips))
+        </section>
     </div>
 </section>
 
 @section Scripts{
-  @Scripts.Render("~/bundles/cities-autocomplete")
+    @Scripts.Render("~/bundles/cities-autocomplete")
 }
