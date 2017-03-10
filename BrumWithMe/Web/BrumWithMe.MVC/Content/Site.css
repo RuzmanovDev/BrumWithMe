@@ -145,3 +145,11 @@ html {
         .trip-container .primary .trip-price {
             font-size: 25px;
         }
+
+
+/* Materilize Autocomplete styles*/
+ul.autocomplete-content.dropdown-content {
+    position: absolute !important;
+    width: 300px !important;
+    z-index: 9999;
+}

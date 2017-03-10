@@ -5,11 +5,11 @@
             <h4>Порталът за споделено пътуване, който предлага повече!</h4>
             @if (this.User.Identity.IsAuthenticated)
             {
-                @Html.ActionLink("Dashboard", nameof(AccountController.Register), "Account", null, new { @class = "btn" })
+                @Html.ActionLink("Dashboard", nameof(AccountController.Register), "Account", null, new { @class = "btn", autocomplete = "off" })
             }
             else
             {
-                @Html.ActionLink("Регистрация", nameof(AccountController.Register), "Account", null, new { @class = "btn" })
+                @Html.ActionLink("Регистрация", nameof(AccountController.Register), "Account", null, new { @class = "btn", autocomplete = "off" })
             }
             <section class="quick-travel-search">
                 @Html.Action(nameof(SearchController.Search), "Search")
@@ -21,3 +21,22 @@
 <div class="container">
     @Html.Action(nameof(TripController.RecentTrips), "Trip")
 </div>
+
+@section Scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $(document).ready(function () {
+            $('input.autocomplete').autocomplete({
+                data: {
+                    "Apple": null,
+                    "AppArianale": null,
+                    "Atanas": null,
+                    "Aaairplane": null,
+                    "Microsoft": null,
+                    "Google": 'http://placehold.it/250x250'
+                },
+                limit: 20, // The max amount of results that can be shown at once. Default: Infinity.
+            });
+        });
+    </script>
+}
