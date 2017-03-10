@@ -1,7 +1,7 @@
 ﻿@model RegisterCarViewModel
 <section class="container">
-    <h2>Регистриране на автомобил</h2>
-    <sectiom class="row">
+    <section class="row shadow-container z-depth-3">
+        <h4 class="center-align">Регистриране на автомобил</h4>
         @using (Html.BeginForm(nameof(ManageController.RegisterCar), "Manage", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
             @Html.AntiForgeryToken()
@@ -32,8 +32,8 @@
                 </div>
             </div>
             <div class="input-field col s6">
-                <input type="submit" value="Добави автомобил" />
+                <input type="submit" value="Добави автомобил" class="btn" />
             </div>
         }
-    </sectiom>
+    </section>
 </section>

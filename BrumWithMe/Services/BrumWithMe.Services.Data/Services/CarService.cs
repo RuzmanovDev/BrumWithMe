@@ -20,6 +20,20 @@ namespace BrumWithMe.Services.Data.Services
 
             this.carRepo = carRepo;
         }
+
+        public void AddCarToUser(Car car, string userId)
+        {
+            Guard.WhenArgument(car, nameof(car)).IsNull().Throw();
+            Guard.WhenArgument(userId, nameof(userId)).IsNullOrEmpty().Throw();
+
+            using (var uow = base.UnitOfWork())
+            {
+                car.OwenerId = userId;
+                this.carRepo.Add(car);
+                uow.Commit();
+            }
+        }
+
         public IEnumerable<CarBasicInfo> GetUserCars(string userId)
         {
             Guard.WhenArgument(userId, nameof(userId)).IsNullOrEmpty().Throw();

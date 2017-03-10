@@ -32,7 +32,7 @@ namespace BrumWithMe.MVC.App_Start.Bindings
 
             this.Bind<IMappingProvider>().To<MappingProvider>().InRequestScope();
             this.Bind<IDateTimeProvider>().To<DateTimeProvider>().InRequestScope();
-            this.Bind<IFileUploadProvider>().To<FileUploadProvider>();
+            this.Bind<IFileUploadProvider>().To<ServerFileUploadProvider>();
             this.Bind<IAccountManagementService>().To<AccountManagementService>().InRequestScope();
             this.Bind<ITripService>().To<TripService>().InRequestScope();
             this.Bind<ICarService>().To<CarService>().InRequestScope();

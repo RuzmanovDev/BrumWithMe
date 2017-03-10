@@ -26,14 +26,5 @@ namespace BrumWithMe.MVC.Controllers
             }
         }
 
-        protected ActionResult RedirectToLocal(string returnUrl)
-        {
-            if (Url.IsLocalUrl(returnUrl))
-            {
-                return Redirect(returnUrl);
-            }
-
-            return RedirectToAction("Index", "Home");
-        }
     }
 }

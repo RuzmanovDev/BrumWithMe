@@ -6,6 +6,9 @@ using BrumWithMe.Web.Models.Account;
 using BrumWithMe.Data.Models.Entities;
 using BrumWithMe.Auth.Identity.Contracts;
 using System.Collections;
+using BrumWithMe.Services.Providers.FileUpload;
+using BrumWithMe.Services.Providers.Mapping.Contracts;
+using System.IO;
 
 namespace BrumWithMe.MVC.Controllers
 {
@@ -13,10 +16,12 @@ namespace BrumWithMe.MVC.Controllers
     public class AccountController : BaseAuthController
     {
         private const string XsrfKey = "XsrfId";
+        private readonly IMappingProvider mappingProvider;
 
-        public AccountController(IAuthService authService)
-            :base(authService)
+        public AccountController(IAuthService authService, IMappingProvider mappingProvider)
+            : base(authService)
         {
+            this.mappingProvider = mappingProvider;
         }
 
         [AllowAnonymous]
@@ -41,7 +46,7 @@ namespace BrumWithMe.MVC.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
+                    return this.RedirectToAction(nameof(HomeController.Index), "Home");
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.Failure:
@@ -79,7 +84,10 @@ namespace BrumWithMe.MVC.Controllers
                 {
                     await this.AuthService.LogIn(model.Email, model.Password);
 
-                    return RedirectToAction("Index", "Home");
+                    var path = Server.MapPath($"~/UserAvatars/{model.Email}/Cars/");
+                    Directory.CreateDirectory(path);
+
+                    return RedirectToAction(nameof(HomeController.Index), "Home");
                 }
 
                 this.AddErrors(result);
@@ -95,7 +103,5 @@ namespace BrumWithMe.MVC.Controllers
             this.AuthService.LogOff();
             return RedirectToAction("Index", "Home");
         }
-
-
     }
 }

@@ -9,7 +9,7 @@ using System.Web;
 
 namespace BrumWithMe.Services.Providers.FileUpload
 {
-    public class FileUploadProvider : IFileUploadProvider
+    public class ServerFileUploadProvider : IFileUploadProvider
     {
         public void UploadCarImage(HttpPostedFileBase carAvatar, string fileName)
         {
@@ -18,5 +18,6 @@ namespace BrumWithMe.Services.Providers.FileUpload
 
             carAvatar.SaveAs(fileName);
         }
+
     }
 }

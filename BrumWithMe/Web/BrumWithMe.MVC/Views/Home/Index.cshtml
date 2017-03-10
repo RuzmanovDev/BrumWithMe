@@ -1,25 +1,22 @@
 ﻿<div id="home-picture-container">
     <div class="row">
         <div class="center-align">
-            <h1>brumwithme</h1>
-            <h4>порталът за споделено пътуване, който предлага повече</h4>
-            @Html.ActionLink("Регистрация", nameof(AccountController.Register), "Account", null, new { @class = "btn" })
+            <h1>BrumWithMe</h1>
+            <h4>Порталът за споделено пътуване, който предлага повече!</h4>
+            @if (this.User.Identity.IsAuthenticated)
+            {
+                @Html.ActionLink("Dashboard", nameof(AccountController.Register), "Account", null, new { @class = "btn" })
+            }
+            else
+            {
+                @Html.ActionLink("Регистрация", nameof(AccountController.Register), "Account", null, new { @class = "btn" })
+            }
             <form class="quick-travel-search">
                 <div class="col l3 offset-l3">
-                    <select class="quick-travel-search-input">
-                        <option value="" disabled selected>от</option>
-                        <option value="1">option 1</option>
-                        <option value="2">option 2</option>
-                        <option value="3">option 3</option>
-                    </select>
+                    <input type="text" class="quick-travel-search-input" placeholder="От">
                 </div>
                 <div class="col l3">
-                    <select class="quick-travel-search-input">
-                        <option value="" disabled selected>до</option>
-                        <option value="1">option 1</option>
-                        <option value="2">option 2</option>
-                        <option value="3">option 3</option>
-                    </select>
+                    <input type="text" class="quick-travel-search-input" placeholder="До">>
                 </div>
                 <div class="col l1">
                     <input type="submit" value="търсене" class="btn">
@@ -32,14 +29,3 @@
 <div class="container">
     @Html.Action(nameof(TripController.RecentTrips), "Trip")
 </div>
-
-
-@section scripts{
-    <script>
-        $(document).ready(function () {
-            $('select').material_select();
-        });
-
-
-    </script>
-}

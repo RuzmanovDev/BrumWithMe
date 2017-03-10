@@ -1,14 +1,13 @@
 ﻿using BrumWithMe.Data.Models.CompositeModels;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using BrumWithMe.Data.Models.Entities;
 
 namespace BrumWithMe.Services.Data.Contracts
 {
     public interface ICarService
     {
         IEnumerable<CarBasicInfo> GetUserCars(string userId);
+
+        void AddCarToUser(Car car, string userId);
     }
 }

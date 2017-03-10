@@ -24,14 +24,5 @@ namespace BrumWithMe.Services.Data.Services
             this.carsRepo = carsRepo;
         }
 
-        public bool AddCarToUser(Car car, string userId)
-        {
-            using (var uow = base.UnitOfWork())
-            {
-                car.OwenerId = userId;
-                this.carsRepo.Add(car);
-                return uow.Commit();
-            }
-        }
     }
 }

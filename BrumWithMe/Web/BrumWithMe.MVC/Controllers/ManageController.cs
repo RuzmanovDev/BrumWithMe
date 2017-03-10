@@ -7,6 +7,7 @@ using Bytes2you.Validation;
 using BrumWithMe.Data.Models.Entities;
 using BrumWithMe.Services.Data.Contracts;
 using BrumWithMe.Services.Providers.FileUpload;
+using BrumWithMe.Services.Providers.Mapping.Contracts;
 using System.IO;
 
 namespace BrumWithMe.MVC.Controllers
@@ -14,19 +15,24 @@ namespace BrumWithMe.MVC.Controllers
     [Authorize]
     public class ManageController : BaseAuthController
     {
-        private readonly IFileUploadProvider fileUploadProvider;
         private readonly IAccountManagementService accountManagementService;
+        private readonly ICarService carService;
+        private readonly IMappingProvider mappingProvider;
+
         public ManageController(
             IAuthService authService,
-            IFileUploadProvider fileUploadProvider,
+            ICarService carService,
+            IMappingProvider mappingProvider,
             IAccountManagementService accountManagementService)
-            :base(authService)
+            : base(authService)
         {
-            Guard.WhenArgument(fileUploadProvider, nameof(fileUploadProvider)).IsNull().Throw();
+            Guard.WhenArgument(mappingProvider, nameof(mappingProvider)).IsNull().Throw();
             Guard.WhenArgument(accountManagementService, nameof(accountManagementService)).IsNull().Throw();
+            Guard.WhenArgument(carService, nameof(carService)).IsNull().Throw();
 
-            this.fileUploadProvider = fileUploadProvider;
             this.accountManagementService = accountManagementService;
+            this.mappingProvider = mappingProvider;
+            this.carService = carService;
         }
 
         public ActionResult Index()
@@ -48,30 +54,27 @@ namespace BrumWithMe.MVC.Controllers
                 return View(car);
             }
 
-            var imageUrl = "";
+            var imageUrl = "/UserAvatars/default-car.jpg";
+
             if (car.CarAvatar != null)
             {
+                var loggedUserName = this.User.Identity.Name;
+
                 var extension = Path.GetExtension(car.CarAvatar.FileName);
-                var filename = this.User.Identity.Name + car.Model + car.Year + extension;
-                var path = Server.MapPath("~/UserAvatars/Cars/") + filename;
 
-                this.fileUploadProvider.UploadCarImage(car.CarAvatar, path);
+                var filename = loggedUserName + car.Model + car.Model + car.Year + extension;
+                var path = Server.MapPath($"~/UserAvatars/{loggedUserName}/Cars/") + filename;
 
-                imageUrl = "/UserAvatars/Cars/" + filename;
+                car.CarAvatar.SaveAs(path);
+
+                imageUrl = $"/UserAvatars/{loggedUserName}/Cars/" + filename;
             }
 
-            var carToAdd = new Car()
-            {
-                Color = car.Color,
-                ImageUrl = imageUrl,
-                Make = car.Make,
-                Model = car.Model,
-                Year = car.Year,
-            };
+            var carToAdd = this.mappingProvider.Map<RegisterCarViewModel, Car>(car);
+            carToAdd.ImageUrl = imageUrl;
 
-            //map the car from view to service
-            var loggedUser = this.HttpContext.User.Identity.GetUserId();
-            this.accountManagementService.AddCarToUser(carToAdd, loggedUser);
+            var loggedUser = base.GetLoggedUserId;
+            this.carService.AddCarToUser(carToAdd, loggedUser);
 
             return RedirectToAction(nameof(this.RegisterCar));
         }
@@ -89,23 +92,19 @@ namespace BrumWithMe.MVC.Controllers
             {
                 return View(model);
             }
+
             IdentityResult result = await this.AuthService.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword, model.NewPassword);
 
             if (result.Succeeded)
             {
-                User user = null; //await UserManager.FindByIdAsync(User.Identity.GetUserId());
-                if (user != null)
-                {
-                    await this.AuthService.LogIn(user, isPersistent: false, rememberBrowser: false);
-                }
+                this.AuthService.LogOff();
 
                 return RedirectToAction("Index");
             }
 
             AddErrors(result);
+
             return View(model);
         }
-
-        
     }
 }

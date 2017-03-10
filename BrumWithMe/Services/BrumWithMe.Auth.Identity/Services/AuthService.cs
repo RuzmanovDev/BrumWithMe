@@ -14,15 +14,18 @@ namespace BrumWithMe.Auth.Identity.Services
 {
     public class AuthService : IAuthService
     {
-        private ApplicationSignInManager signInManager;
-        private ApplicationUserManager userManager;
-        private IAuthenticationManager authManager;
+        private readonly ApplicationSignInManager signInManager;
+        private readonly ApplicationUserManager userManager;
+        private readonly IAuthenticationManager authManager;
 
         public AuthService(IOwinContext owinContext)
         {
+            Guard.WhenArgument(owinContext, nameof(owinContext)).IsNull().Throw();
+
             this.signInManager = owinContext.Get<ApplicationSignInManager>();
             this.userManager = owinContext.Get<ApplicationUserManager>();
             this.authManager = owinContext.Authentication;
+
         }
 
         public void LogOff()
@@ -48,12 +51,7 @@ namespace BrumWithMe.Auth.Identity.Services
         {
             throw new NotImplementedException();
         }
-
-        public Task LogIn(User user, bool isPersistent, bool rememberBrowser)
-        {
-            throw new NotImplementedException();
-        }
-
+        
         public string GetLoggedUserId(IPrincipal loggedUser)
         {
             Guard.WhenArgument(loggedUser, nameof(loggedUser)).IsNull().Throw();
