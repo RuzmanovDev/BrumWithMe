@@ -24,19 +24,5 @@
 
 @section Scripts{
     @Scripts.Render("~/bundles/jqueryval")
-    <script>
-        $(document).ready(function () {
-            $('input.autocomplete').autocomplete({
-                data: {
-                    "Apple": null,
-                    "AppArianale": null,
-                    "Atanas": null,
-                    "Aaairplane": null,
-                    "Microsoft": null,
-                    "Google": 'http://placehold.it/250x250'
-                },
-                limit: 20, // The max amount of results that can be shown at once. Default: Infinity.
-            });
-        });
-    </script>
+    @Scripts.Render("~/bundles/cities-autocomplete")
 }

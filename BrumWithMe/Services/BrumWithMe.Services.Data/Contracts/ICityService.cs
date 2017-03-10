@@ -1,4 +1,5 @@
 ﻿using BrumWithMe.Data.Models.Entities;
+using System.Collections.Generic;
 
 namespace BrumWithMe.Services.Data.Contracts
 {
@@ -7,5 +8,7 @@ namespace BrumWithMe.Services.Data.Contracts
         City GetCityByName(string cityName);
 
         City CreateCity(string cityName);
+
+        IEnumerable<string> GetAllCityNames();
     }
 }

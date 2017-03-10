@@ -216,6 +216,7 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AdminController.cs" />
     <Compile Include="Areas\Api\ApiAreaRegistration.cs" />
+    <Compile Include="Areas\Api\Controllers\CityController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseAuthController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
@@ -265,6 +266,7 @@
     <Content Include="Areas\Admin\Views\Admin\Index.cshtml" />
     <Content Include="Areas\Api\Views\web.config" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
+    <Content Include="Scripts\cities-autocomplete.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
     <Content Include="Scripts\jquery-3.1.1.min.js" />
     <Content Include="Scripts\jquery-3.1.1.slim.js" />
@@ -318,8 +320,8 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Admin\Views\Shared\" />
-    <Folder Include="Areas\Api\Controllers\" />
     <Folder Include="Areas\Api\Models\" />
+    <Folder Include="Areas\Api\Views\City\" />
     <Folder Include="Areas\Api\Views\Shared\" />
     <Folder Include="UserAvatars\Cars\" />
   </ItemGroup>

@@ -4,6 +4,7 @@ using BrumWithMe.Data.Models.Entities;
 using BrumWithMe.Services.Data.Contracts;
 using Bytes2you.Validation;
 using BrumWithMe.Services.Providers.Mapping.Contracts;
+using System.Collections.Generic;
 
 namespace BrumWithMe.Services.Data.Services
 {
@@ -41,6 +42,11 @@ namespace BrumWithMe.Services.Data.Services
 
                 return city;
             }
+        }
+
+        public IEnumerable<string> GetAllCityNames()
+        {
+            return this.cityRepo.GetAll(x => !x.IsDeleted, x => x.Name);
         }
     }
 }
