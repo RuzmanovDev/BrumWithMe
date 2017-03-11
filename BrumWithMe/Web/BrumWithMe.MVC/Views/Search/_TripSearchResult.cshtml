@@ -1,25 +1,28 @@
-﻿@model IEnumerable<TripBasicInfoViewModel>
-@if (Model.Count() > 0)
+﻿@model SearchTripViewModel
+@if (Model.Data.Count() > 0)
 {
-    foreach (var trip in Model)
+    foreach (var trip in Model.Data)
     {
         @Html.Partial("_Trip", trip)
     }
     <section class="col s8 offset-s2">
         <ul class="pagination">
             <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
-            @for (int i = 0; i < 10; i++)
+            @for (int i = 0; i < Model.TotalCount; i++)
             {
-                <li class="active">
-                    @Ajax.ActionLink((i + 1).ToString(),
+                if (i % 2 == 0)
+                {
+                    <li class="active">
+                        @Ajax.ActionLink((i / 2 + 1).ToString(),
                nameof(SearchController.LoadTrips),
-               new { page = i, origin = this.Request.QueryString["origin"], destination = this.Request.QueryString["destination"] },
+               new { page = i / 2 + 1, origin = this.Model.Origin, destination = this.Model.Destination },
                new AjaxOptions
                {
                    UpdateTargetId = "result",
                    InsertionMode = InsertionMode.Replace
                })
-                </li>
+                    </li>
+                }
             }
             <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
         </ul>

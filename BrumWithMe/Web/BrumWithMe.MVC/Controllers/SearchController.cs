@@ -38,8 +38,10 @@ namespace BrumWithMe.MVC.Controllers
             var trips = this.tripService.GetTripsFor(origin, destination, page);
             IEnumerable<TripBasicInfoViewModel> tripsViewModel =
                 this.mappingProvider.Map<IEnumerable<TripBasicInfo>, IEnumerable<TripBasicInfoViewModel>>(trips.FoundTrips);
+            model.Data = tripsViewModel;
+            model.TotalCount = trips.TotalTrips;
 
-            return this.PartialView("_TripSearchResult", tripsViewModel);
+            return this.PartialView("_TripSearchResult", model);
         }
 
 
