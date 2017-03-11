@@ -9,18 +9,15 @@ using Moq;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BrumWithMe.Services.Data.Tests.TripServiceTests
 {
     [TestFixture]
-    public class GetTripDetails_Should
+    public class GetLatestTripsBasicInfo_Should
     {
         [Test]
-        public void ReturnTripDetails_FromTheRepo()
+        public void ReturnLatestTrips_FromTheRepo()
         {
             // Arrange
             var mockedTripRepo = new Mock<IProjectableRepositoryEf<Trip>>();
@@ -38,26 +35,18 @@ namespace BrumWithMe.Services.Data.Tests.TripServiceTests
                 mockedTripRepo.Object,
                 mockedDateTimePorvider.Object);
 
-            TripDetails expected =  new TripDetails() { Id = 1 };
+            var expected = new List<TripBasicInfo>();
+            var data = new List<Trip>();
 
-            var data = new List<Trip>()
-            {
-                new Trip() { Id=1 }
-            };
-
-            mockedTripRepo.Setup(x => x.GetFirstMapped<TripDetails>(It.IsAny<Expression<Func<Trip, bool>>>()))
-                .Returns((Expression<Func<Trip, bool>> predicate) =>
-                {
-                    return data.Where(predicate.Compile())
-                    .Select(x => expected)
-                    .FirstOrDefault();
-                });
+            mockedTripRepo.Setup(x => x.GetAllMapped<DateTime, TripBasicInfo>(It.IsAny<Expression<Func<Trip, bool>>>(),
+                It.IsAny<Expression<Func<Trip, DateTime>>>(), It.IsAny<int>(), It.IsAny<int>()))
+                .Returns(expected);
 
             // Act
-            var result = tripService.GetTripDetails(1);
+            var result = tripService.GetLatestTripsBasicInfo(It.IsAny<int>());
 
             // Assert
-            Assert.AreSame(expected, result);
+            CollectionAssert.AreEquivalent(expected, result);
         }
     }
 }

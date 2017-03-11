@@ -91,6 +91,7 @@ namespace BrumWithMe.Services.Data.Services
         {
             // take the first set of sorted items
             int page = 0;
+
             var trips = this.tripRepo.GetAllMapped<DateTime, TripBasicInfo>(
                 x => !x.IsDeleted, x => x.DateCreated, page, countToTake);
 

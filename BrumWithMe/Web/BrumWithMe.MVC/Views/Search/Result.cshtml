@@ -4,7 +4,7 @@
     <div class="shadow-container z-depth-3 row">
         <h3 class="center-align">Намерени пътувания</h3>
         <div class="col s12">
-            @using (Ajax.BeginForm(nameof(SearchController.LoadTrips), null, new AjaxOptions
+            @using (Ajax.BeginForm(nameof(SearchController.LoadTrips), new { origin = this.Model.Origin, destination = this.Model.Destination }, new AjaxOptions
             {
                 UpdateTargetId = "result",
                 InsertionMode = InsertionMode.Replace
