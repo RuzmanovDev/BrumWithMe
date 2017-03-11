@@ -89,7 +89,10 @@ namespace BrumWithMe.Services.Data.Services
 
         public IEnumerable<TripBasicInfo> GetLatestTripsBasicInfo(int countToTake)
         {
-            var trips = this.tripRepo.GetAllMapped<TripBasicInfo>(x => !x.IsDeleted);
+            // take the first set of sorted items
+            int page = 0;
+            var trips = this.tripRepo.GetAllMapped<DateTime, TripBasicInfo>(
+                x => !x.IsDeleted, x => x.DateCreated, page, countToTake);
 
             return trips;
         }

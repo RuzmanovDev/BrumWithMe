@@ -27,7 +27,7 @@ namespace BrumWithMe.MVC.Controllers
             this.tripService = tripService;
         }
 
-        public ActionResult LoadTrips(string destination, string origin, int page = 0)
+        public ActionResult LoadTrips(SearchTripViewModel model, string destination, string origin, int page = 0)
         {
             if (page < 0)
             {
@@ -36,7 +36,7 @@ namespace BrumWithMe.MVC.Controllers
 
             //TODO Maybe redundant transformation?
             var trips = this.tripService.GetTripsFor(origin, destination, page);
-            IEnumerable<TripBasicInfoViewModel> tripsViewModel = 
+            IEnumerable<TripBasicInfoViewModel> tripsViewModel =
                 this.mappingProvider.Map<IEnumerable<TripBasicInfo>, IEnumerable<TripBasicInfoViewModel>>(trips.FoundTrips);
 
             return this.PartialView("_TripSearchResult", tripsViewModel);
@@ -50,7 +50,7 @@ namespace BrumWithMe.MVC.Controllers
 
             IEnumerable<TripBasicInfoViewModel> tripsViewModel =
                 this.mappingProvider.Map<IEnumerable<TripBasicInfo>, IEnumerable<TripBasicInfoViewModel>>(trips.FoundTrips);
-            searchModel.Data = tripsViewModel.ToList();
+            searchModel.Data = tripsViewModel;
             searchModel.TotalCount = trips.TotalTrips;
 
             return this.View(searchModel);

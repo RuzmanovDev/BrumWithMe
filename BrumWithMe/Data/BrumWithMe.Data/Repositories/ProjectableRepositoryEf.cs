@@ -66,5 +66,17 @@ namespace BrumWithMe.Data.Repositories
 
             return result;
         }
+
+        public IEnumerable<TDestination> GetAllMapped<T1, TDestination>(
+            Expression<Func<T, bool>> filterExpression,
+            Expression<Func<T, T1>> sort)
+        {
+            var result = this.All
+                .Where(filterExpression)
+                .OrderByDescending(sort)
+                .ProjectToList<TDestination>(this.mapper.ConfigurationProvider);
+
+            return result;
+        }
     }
 }

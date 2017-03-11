@@ -14,7 +14,7 @@ namespace BrumWithMe.Web.Models.Search
         [MinLength(2)]
         public string Destination { get; set; }
 
-        public IList<TripBasicInfoViewModel> Data { get; set; }
+        public IEnumerable<TripBasicInfoViewModel> Data { get; set; }
 
         public int TotalCount { get; set; }
     }
