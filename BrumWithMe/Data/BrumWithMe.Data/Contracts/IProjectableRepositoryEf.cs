@@ -11,5 +11,12 @@ namespace BrumWithMe.Data.Contracts
         IEnumerable<TDestination> GetAllMapped<TDestination>();
 
         IEnumerable<TDestination> GetAllMapped<TDestination>(Expression<Func<T, bool>> filterExpression);
+
+        IEnumerable<TDestination> GetAllMapped<TDestination>(Expression<Func<T, bool>> filterExpression, int page, int size);
+
+        IEnumerable<TDestination> GetAllMapped<T1, TDestination>(
+                Expression<Func<T, bool>> filterExpression,
+                Expression<Func<T, T1>> sort,
+                int page, int size);
     }
 }

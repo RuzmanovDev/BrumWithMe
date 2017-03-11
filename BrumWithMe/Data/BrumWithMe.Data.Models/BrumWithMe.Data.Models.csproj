@@ -58,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CompositeModels\Trip\TripSearchResult.cs" />
+    <Compile Include="CompositeModels\UserBasicInfo.cs" />
     <Compile Include="Contracts\IDeletableEntity.cs" />
     <Compile Include="Entities\Car.cs" />
     <Compile Include="Entities\City.cs" />

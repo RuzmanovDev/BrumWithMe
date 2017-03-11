@@ -12,9 +12,9 @@ namespace BrumWithMe.Services.Data.Services
 {
     public class TagService : BaseDataService, ITagService
     {
-        private readonly IRepositoryEf<Tag> tagRepo;
+        private readonly IProjectableRepositoryEf<Tag> tagRepo;
 
-        public TagService(IRepositoryEf<Tag> tagRepo, Func<IUnitOfWorkEF> unitOfWork, IMappingProvider mappingProvider)
+        public TagService(IProjectableRepositoryEf<Tag> tagRepo, Func<IUnitOfWorkEF> unitOfWork, IMappingProvider mappingProvider)
             : base(unitOfWork, mappingProvider)
         {
             Guard.WhenArgument(tagRepo, nameof(tagRepo)).IsNull().Throw();
@@ -24,11 +24,7 @@ namespace BrumWithMe.Services.Data.Services
 
         public IEnumerable<TagInfo> GetAllTags()
         {
-            return this.tagRepo.GetAll(w => !w.IsDeleted, s => new TagInfo()
-            {
-                Id = s.Id,
-                Name = s.Name
-            });
+            return this.tagRepo.GetAllMapped<TagInfo>(w => !w.IsDeleted);
         }
 
         public IEnumerable<Tag> GetTagsByIds(IEnumerable<int> tagIds)

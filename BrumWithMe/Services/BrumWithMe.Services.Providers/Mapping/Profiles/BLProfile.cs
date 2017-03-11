@@ -23,7 +23,7 @@ namespace BrumWithMe.Services.Providers.Mapping.Profiles
 
             CreateMap<Car, CarBasicInfo>();
 
-            CreateMap<User, UserBannerViewModel>();
+            CreateMap<User, UserBasicInfo>();
         }
     }
 }

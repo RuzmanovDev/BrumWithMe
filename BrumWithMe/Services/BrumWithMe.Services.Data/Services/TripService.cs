@@ -15,7 +15,6 @@ namespace BrumWithMe.Services.Data.Services
     public class TripService : BaseDataService, ITripService
     {
         private readonly IProjectableRepositoryEf<Trip> tripRepo;
-        private readonly IRepositoryEf<Trip> slowTest;
         private readonly ICityService cityService;
         private readonly ITagService tagService;
         private readonly IDateTimeProvider dateTimeProvider;
@@ -26,7 +25,6 @@ namespace BrumWithMe.Services.Data.Services
             IMappingProvider mappingProvider,
             ITagService tagService,
             IProjectableRepositoryEf<Trip> tripRepo,
-             IRepositoryEf<Trip> slowTest,
         IDateTimeProvider dateTimeProvider)
             : base(unitOfWork, mappingProvider)
         {
@@ -38,7 +36,6 @@ namespace BrumWithMe.Services.Data.Services
             this.cityService = cityService;
             this.tagService = tagService;
             this.dateTimeProvider = dateTimeProvider;
-            this.slowTest = slowTest;
         }
 
         public void CreateTrip(TripCreationInfo tripInfo)
@@ -85,44 +82,14 @@ namespace BrumWithMe.Services.Data.Services
 
         public TripDetails GetTripDetails(int tripId)
         {
-            //var trip = this.tripRepo.GetFirst(x => x.Id == tripId,
-            //    i => i.TripsUsers,
-            //    i => i.Car,
-            //    i => i.Car.Owner,
-            //    i => i.Destination,
-            //    i => i.Origin,
-            //    i => i.Tags);
+            var tripDetails = this.tripRepo.GetFirstMapped<TripDetails>(x => x.Id == tripId);
 
-            var trips = this.tripRepo.GetFirstMapped<TripDetails>(x => x.Id == tripId);
-            //var trips = this.tripRepo.GetFirst(x => x.Id == tripId);
-            //var resut = base.MappingProvider.Map<Trip, TripDetails>(trips);
-            return trips;
+            return tripDetails;
         }
 
         public IEnumerable<TripBasicInfo> GetLatestTripsBasicInfo(int countToTake)
         {
-            //var trips =
-            //    this.tripRepo
-            //        .GetAll(
-            //        x => !x.IsDeleted,
-            //        s => s,
-            //        s => s.DateCreated,
-            //        i => i.Car.Owner,
-            //        i => i.Destination,
-            //        i => i.Origin)
-            //        .Take(countToTake);
-
-            //var trips = this.tripRepo.GetAll(x => !x.IsDeleted,
-            //        s => s.DateCreated,
-            //        s => s,
-            //        i => i.Car.Owner,
-            //        i => i.Destination,
-            //        i => i.Origin)
-            //        .Take(countToTake);
-
             var trips = this.tripRepo.GetAllMapped<TripBasicInfo>(x => !x.IsDeleted);
-
-            //var result = base.MappingProvider.Map<IEnumerable<Trip>, IEnumerable<TripBasicInfo>>(trips);
 
             return trips;
         }
@@ -147,13 +114,11 @@ namespace BrumWithMe.Services.Data.Services
                 .Count();
 
             var trips = this.tripRepo
-                .GetAllMapped<TripBasicInfo>(
+                .GetAllMapped<DateTime, TripBasicInfo>(
                 where => where.Origin.Name.ToLower().Contains(origin)
-                && where.Destination.Name.ToLower().Contains(destination))
-                .Skip(page * size)
-                .Take(size);
+                && where.Destination.Name.ToLower().Contains(destination),
+                x => x.DateCreated, page, size);
 
-            //var data = base.MappingProvider.Map<IEnumerable<Trip>, IEnumerable<TripBasicInfo>>(trips);
             var result = new TripSearchResult();
 
             result.FoundTrips = trips;

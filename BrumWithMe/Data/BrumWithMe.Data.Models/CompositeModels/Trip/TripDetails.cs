@@ -6,6 +6,8 @@ namespace BrumWithMe.Data.Models.CompositeModels.Trip
 {
     public class TripDetails
     {
+        public int Id { get; set; }
+
         public string OriginName { get; set; }
 
         public string DestinationName { get; set; }
@@ -18,7 +20,7 @@ namespace BrumWithMe.Data.Models.CompositeModels.Trip
 
         public decimal Price { get; set; }
 
-        public User Driver { get; set; }
+        public UserBasicInfo Driver { get; set; }
 
         public string Description { get; set; }
 

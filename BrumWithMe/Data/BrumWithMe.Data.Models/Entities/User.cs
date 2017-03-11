@@ -36,12 +36,6 @@ namespace BrumWithMe.Data.Models.Entities
         [MaxLength(50)]
         public string AvataImageurl { get; set; }
 
-        [NotMapped]
-        public string FullName
-        {
-            get { return $"{this.FirstName} {this.LastName}"; }
-        }
-
         public virtual ICollection<UsersTrips> UsersTrips
         {
             get { return this.usersTrips; }
