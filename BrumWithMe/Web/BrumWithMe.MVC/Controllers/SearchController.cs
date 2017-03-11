@@ -20,45 +20,49 @@ namespace BrumWithMe.MVC.Controllers
 
         public SearchController(ITripService tripService, IMappingProvider mappingProvider)
         {
-            Guard.WhenArgument(tripService, nameof(tripService)).IsNull().Throw();
-            Guard.WhenArgument(mappingProvider, nameof(mappingProvider)).IsNull().Throw();
+            Guard.WhenArgument(tripService, nameof(ITripService)).IsNull().Throw();
+            Guard.WhenArgument(mappingProvider, nameof(IMappingProvider)).IsNull().Throw();
 
             this.mappingProvider = mappingProvider;
             this.tripService = tripService;
         }
 
-        public ActionResult LoadTrips(SearchTripViewModel searchModel)
+        public ActionResult LoadTrips(string destination, string origin, int page = 0)
         {
-            var trips = this.tripService.GetTripsFor(searchModel.Origin, searchModel.Destination);
+            if (page < 0)
+            {
+                page *= -1;
+            }
 
-            var recentTripsViewModel = this.mappingProvider.Map<IEnumerable<TripBasicInfo>, IEnumerable<TripBasicInfoViewModel>>(trips);
+            //TODO Maybe redundant transformation?
+            var trips = this.tripService.GetTripsFor(origin, destination, page);
+            IEnumerable<TripBasicInfoViewModel> tripsViewModel = 
+                this.mappingProvider.Map<IEnumerable<TripBasicInfo>, IEnumerable<TripBasicInfoViewModel>>(trips.FoundTrips);
 
-
-            return this.PartialView("_TripSearchResult", recentTripsViewModel);
+            return this.PartialView("_TripSearchResult", tripsViewModel);
         }
 
 
-        public ActionResult Trips(SearchTripViewModel searchModel)
+        public ActionResult Result(SearchTripViewModel searchModel)
         {
-            //var model = new SearchTripResultViewModel();
+            //TODO Maybe redundant transformation?
+            var trips = this.tripService.GetTripsFor(searchModel.Origin, searchModel.Destination);
 
-            //if (!this.ModelState.IsValid)
-            //{
-            //    return this.View(model);
-            //}
-
-            //var trips = this.tripService.GetTripsFor(searchModel.Origin, searchModel.Destination);
-            //var recentTripsViewModel = this.mappingProvider.Map<IEnumerable<TripBasicInfo>, IEnumerable<TripBasicInfoViewModel>>(trips);
-            //model.Trips = recentTripsViewModel;
+            IEnumerable<TripBasicInfoViewModel> tripsViewModel =
+                this.mappingProvider.Map<IEnumerable<TripBasicInfo>, IEnumerable<TripBasicInfoViewModel>>(trips.FoundTrips);
+            searchModel.Data = tripsViewModel.ToList();
+            searchModel.TotalCount = trips.TotalTrips;
 
             return this.View(searchModel);
         }
 
+        [ChildActionOnly]
         public ActionResult Search()
         {
             var searchModel = new SearchTripViewModel();
 
             return this.PartialView("_TripQuickSearch", searchModel);
         }
+
     }
 }

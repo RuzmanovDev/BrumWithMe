@@ -1,6 +1,6 @@
 ﻿@model SearchTripViewModel
 
-@using (Html.BeginForm(nameof(SearchController.Trips), "Search", FormMethod.Get, new { autocomplete = "off" }))
+@using (Html.BeginForm(nameof(SearchController.Result), "Search", FormMethod.Get, new { autocomplete = "off" }))
 {
     <div class="col l3 offset-l3">
         @Html.TextBoxFor(x => x.Origin, new { @class = "quick-travel-search-input autocomplete", placeholder = "От" })

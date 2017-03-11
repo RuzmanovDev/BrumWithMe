@@ -23,7 +23,30 @@
 
         </div>
         <section id="result">
-          @Html.Action(nameof(SearchController.LoadTrips))
+            @Html.Partial("_TripSearchResult", Model.Data)
+        </section>
+        <section class="col s8 offset-s2">
+            <ul class="pagination">
+                <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
+
+                @for (int i = 0; i < Model.TotalCount; i++)
+                {
+                    if (i % 2 == 0)
+                    {
+                        <li class="waves-effect">
+                            @Ajax.ActionLink((i / 2 + 1).ToString(),
+                           nameof(SearchController.LoadTrips),
+                           new { page = (i / 2 + 1), origin = Model.Origin, destination = Model.Destination },
+                           new AjaxOptions
+                           {
+                               UpdateTargetId = "result",
+                               InsertionMode = InsertionMode.Replace
+                           })
+                        </li>
+                    }
+                }
+                <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+            </ul>
         </section>
     </div>
 </section>

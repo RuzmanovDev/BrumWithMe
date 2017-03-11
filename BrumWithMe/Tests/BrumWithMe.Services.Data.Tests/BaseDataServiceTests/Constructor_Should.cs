@@ -14,33 +14,29 @@ namespace BrumWithMe.Services.Data.Tests.BaseDataServiceTests
         public void ThrowArgumentNullException_WithMessageContainsUnitOfWork_WhenUnitOfWorkIsNull()
         {
             // Arrange
-            var unitOfWork = new Mock<Func<IUnitOfWork>>();
             var mappingProvider = new Mock<IMappingProvider>();
-            var expectedMessage = nameof(unitOfWork);
 
             //Act & Assert
             Assert.That(() => new DerivedDataService(null, mappingProvider.Object),
-                Throws.ArgumentNullException.With.Message.Contain(expectedMessage));
+                Throws.ArgumentNullException.With.Message.Contain(nameof(Func<IUnitOfWorkEF>)));
         }
 
         [Test]
         public void ThrowArgumentNullException_WithMessageContainingMappingProvider_WhenMappingProviderIsNull()
         {
             // Arrange
-            var unitOfWork = new Mock<Func<IUnitOfWork>>();
-            var mappingProvider = new Mock<IMappingProvider>();
-            var expectedMessage = nameof(mappingProvider);
+            var unitOfWork = new Mock<Func<IUnitOfWorkEF>>();
 
             //Act & Assert
             Assert.That(() => new DerivedDataService(unitOfWork.Object, null),
-                Throws.ArgumentNullException.With.Message.Contain(expectedMessage));
+                Throws.ArgumentNullException.With.Message.Contain(nameof(IMappingProvider)));
         }
 
         [Test]
         public void NotThrow_WhenAllArgumentsAreValid()
         {
             // Arrange
-            var unitOfWork = new Mock<Func<IUnitOfWork>>();
+            var unitOfWork = new Mock<Func<IUnitOfWorkEF>>();
             var mappingProvider = new Mock<IMappingProvider>();
 
             //Act & Assert
@@ -51,7 +47,7 @@ namespace BrumWithMe.Services.Data.Tests.BaseDataServiceTests
         public void AssignCorrectParams()
         {
             // Arrange
-            var unitOfWork = new Mock<Func<IUnitOfWork>>();
+            var unitOfWork = new Mock<Func<IUnitOfWorkEF>>();
             var mappingProvider = new Mock<IMappingProvider>();
 
             //Act

@@ -12,9 +12,9 @@ namespace BrumWithMe.Services.Data.Services
 {
     public class TagService : BaseDataService, ITagService
     {
-        private readonly IRepository<Tag> tagRepo;
+        private readonly IRepositoryEf<Tag> tagRepo;
 
-        public TagService(IRepository<Tag> tagRepo, Func<IUnitOfWork> unitOfWork, IMappingProvider mappingProvider)
+        public TagService(IRepositoryEf<Tag> tagRepo, Func<IUnitOfWorkEF> unitOfWork, IMappingProvider mappingProvider)
             : base(unitOfWork, mappingProvider)
         {
             Guard.WhenArgument(tagRepo, nameof(tagRepo)).IsNull().Throw();

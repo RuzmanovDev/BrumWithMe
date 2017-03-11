@@ -10,9 +10,9 @@ namespace BrumWithMe.Services.Data.Services
 {
     public class CityService : BaseDataService, ICityService
     {
-        private readonly IRepository<City> cityRepo;
+        private readonly IRepositoryEf<City> cityRepo;
 
-        public CityService(IRepository<City> cityRepo, Func<IUnitOfWork> unitOfWork, IMappingProvider mappingProvider)
+        public CityService(IRepositoryEf<City> cityRepo, Func<IUnitOfWorkEF> unitOfWork, IMappingProvider mappingProvider)
             : base(unitOfWork, mappingProvider)
         {
             Guard.WhenArgument(cityRepo, nameof(cityRepo)).IsNull().Throw();
@@ -22,7 +22,9 @@ namespace BrumWithMe.Services.Data.Services
 
         public City GetCityByName(string cityName)
         {
-            var city = this.cityRepo.GetFirst(x => x.Name == cityName);
+            cityName = cityName?.ToLower();
+
+            var city = this.cityRepo.GetFirst(x => x.Name.ToLower() == cityName);
 
             return city;
         }

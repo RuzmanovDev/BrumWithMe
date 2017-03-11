@@ -24,10 +24,10 @@ namespace BrumWithMe.MVC.Controllers
             ICarService carService,
             IMappingProvider mappingProvider)
         {
-            Guard.WhenArgument(tripService, nameof(tripService)).IsNull().Throw();
-            Guard.WhenArgument(tagService, nameof(tagService)).IsNull().Throw();
-            Guard.WhenArgument(carService, nameof(carService)).IsNull().Throw();
-            Guard.WhenArgument(mappingProvider, nameof(mappingProvider)).IsNull().Throw();
+            Guard.WhenArgument(tripService, nameof(ITripService)).IsNull().Throw();
+            Guard.WhenArgument(tagService, nameof(ITagService)).IsNull().Throw();
+            Guard.WhenArgument(carService, nameof(ICarService)).IsNull().Throw();
+            Guard.WhenArgument(mappingProvider, nameof(IMappingProvider)).IsNull().Throw();
 
             this.tripService = tripService;
             this.tagService = tagService;

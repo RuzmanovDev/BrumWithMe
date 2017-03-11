@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 
 namespace BrumWithMe.MVC.Controllers
 {
@@ -27,28 +23,6 @@ namespace BrumWithMe.MVC.Controllers
         {
             ViewBag.Message = "Your contact page.";
 
-            return View();
-        }
-
-        public ActionResult LoadComments(int page = 0)
-        {
-
-            return PartialView("AjaxTest");
-        }
-
-        [HttpPost]
-        public ActionResult PostComment()
-        {
-            throw new NotImplementedException();
-        }
-
-        public ActionResult Profiles(string username = "aad")
-        {
-            return Content(username);
-        }
-
-        public ActionResult TestHomePage()
-        {
             return View();
         }
     }

@@ -11,9 +11,9 @@ namespace BrumWithMe.Services.Data.Services
 {
     public class CarService : BaseDataService, ICarService
     {
-        private readonly IRepository<Car> carRepo;
+        private readonly IRepositoryEf<Car> carRepo;
 
-        public CarService(IRepository<Car> carRepo, Func<IUnitOfWork> unitOfWork, IMappingProvider mappingProvider)
+        public CarService(IRepositoryEf<Car> carRepo, Func<IUnitOfWorkEF> unitOfWork, IMappingProvider mappingProvider)
             : base(unitOfWork, mappingProvider)
         {
             Guard.WhenArgument(carRepo, nameof(carRepo)).IsNull().Throw();

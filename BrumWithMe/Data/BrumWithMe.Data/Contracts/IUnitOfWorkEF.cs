@@ -2,7 +2,7 @@
 
 namespace BrumWithMe.Data.Contracts
 {
-    public interface IUnitOfWork : IDisposable
+    public interface IUnitOfWorkEF : IDisposable
     {
         bool Commit();
     }

@@ -14,11 +14,11 @@ namespace BrumWithMe.Console
     {
         static void Main(string[] args)
         {
-            var context = BrumWithMeDbContext.Create();
-            var repo = new EfGenericRepository<City>(context);
-            var city = repo.GetFirst(x => x.Name == null);
+            string cityName = "pesho";
+            cityName =
+                cityName?.ToLower();
 
-            System.Console.WriteLine(city);
+            System.Console.WriteLine(cityName);
         }
     }
 }

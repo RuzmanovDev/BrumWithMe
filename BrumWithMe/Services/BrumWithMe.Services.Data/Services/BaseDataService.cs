@@ -7,19 +7,19 @@ namespace BrumWithMe.Services.Data.Services
 {
     public abstract class BaseDataService
     {
-        private readonly Func<IUnitOfWork> unitOfWork;
+        private readonly Func<IUnitOfWorkEF> unitOfWork;
         private readonly IMappingProvider mappingProvider;
 
-        protected BaseDataService(Func<IUnitOfWork> unitOfWork, IMappingProvider mappingProvider)
+        protected BaseDataService(Func<IUnitOfWorkEF> unitOfWork, IMappingProvider mappingProvider)
         {
-            Guard.WhenArgument(unitOfWork, nameof(unitOfWork)).IsNull().Throw();
-            Guard.WhenArgument(mappingProvider, nameof(mappingProvider)).IsNull().Throw();
+            Guard.WhenArgument(unitOfWork, nameof(Func<IUnitOfWorkEF>)).IsNull().Throw();
+            Guard.WhenArgument(mappingProvider, nameof(IMappingProvider)).IsNull().Throw();
 
             this.unitOfWork = unitOfWork;
             this.mappingProvider = mappingProvider;
         }
 
-        protected Func<IUnitOfWork> UnitOfWork
+        protected Func<IUnitOfWorkEF> UnitOfWork
         {
             get { return this.unitOfWork; }
         }

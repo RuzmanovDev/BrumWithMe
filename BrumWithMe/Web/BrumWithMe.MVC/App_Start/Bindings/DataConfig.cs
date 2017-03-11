@@ -14,8 +14,9 @@ namespace BrumWithMe.MVC.App_Start.Bindings
         public override void Load()
         {
             this.Bind<DbContext>().To<BrumWithMeDbContext>().InRequestScope();
-            this.Bind(typeof(IRepository<>)).To(typeof(EfGenericRepository<>)).InRequestScope();
-            this.Bind<Func<IUnitOfWork>>().ToMethod(ctx => () => ctx.Kernel.Get<EfUnitOfWork>()).InRequestScope();
+            this.Bind(typeof(IRepositoryEf<>)).To(typeof(EfGenericRepository<>)).InRequestScope();
+            this.Bind(typeof(IProjectableRepositoryEf<>)).To(typeof(ProjectableRepositoryEf<>)).InRequestScope();
+            this.Bind<Func<IUnitOfWorkEF>>().ToMethod(ctx => () => ctx.Kernel.Get<EfUnitOfWork>()).InRequestScope();
         }
     }
 }

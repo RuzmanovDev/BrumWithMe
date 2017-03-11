@@ -314,7 +314,7 @@
     <Content Include="Views\Trip\TripDetails.cshtml" />
     <Content Include="Views\Manage\RegisterCar.cshtml" />
     <Content Include="Views\Shared\_UserBanner.cshtml" />
-    <Content Include="Views\Search\Trips.cshtml" />
+    <Content Include="Views\Search\Result.cshtml" />
     <Content Include="Views\Shared\_TripQuickSearch.cshtml" />
     <Content Include="Views\Shared\_Trip.cshtml" />
     <Content Include="Views\Search\_TripSearchResult.cshtml" />

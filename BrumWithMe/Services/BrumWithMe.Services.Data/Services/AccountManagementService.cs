@@ -10,13 +10,13 @@ namespace BrumWithMe.Services.Data.Services
 {
     public class AccountManagementService : BaseDataService, IAccountManagementService
     {
-        private readonly IRepository<Car> carsRepo;
+        private readonly IRepositoryEf<Car> carsRepo;
         private readonly IFileUploadProvider fileUploadProvider;
 
         public AccountManagementService(
-            IRepository<Car> carsRepo,
+            IRepositoryEf<Car> carsRepo,
             IFileUploadProvider fileUploadProvider,
-            Func<IUnitOfWork> unitOfWork, IMappingProvider mappingProvider)
+            Func<IUnitOfWorkEF> unitOfWork, IMappingProvider mappingProvider)
             :base(unitOfWork, mappingProvider)
         {
             Guard.WhenArgument(carsRepo, nameof(carsRepo)).IsNull().Throw();

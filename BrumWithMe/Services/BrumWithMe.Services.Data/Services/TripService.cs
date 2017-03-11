@@ -14,18 +14,20 @@ namespace BrumWithMe.Services.Data.Services
 {
     public class TripService : BaseDataService, ITripService
     {
-        private readonly IRepository<Trip> tripRepo;
+        private readonly IProjectableRepositoryEf<Trip> tripRepo;
+        private readonly IRepositoryEf<Trip> slowTest;
         private readonly ICityService cityService;
         private readonly ITagService tagService;
         private readonly IDateTimeProvider dateTimeProvider;
 
         public TripService(
-            Func<IUnitOfWork> unitOfWork,
+            Func<IUnitOfWorkEF> unitOfWork,
             ICityService cityService,
             IMappingProvider mappingProvider,
             ITagService tagService,
-            IRepository<Trip> tripRepo,
-            IDateTimeProvider dateTimeProvider)
+            IProjectableRepositoryEf<Trip> tripRepo,
+             IRepositoryEf<Trip> slowTest,
+        IDateTimeProvider dateTimeProvider)
             : base(unitOfWork, mappingProvider)
         {
             Guard.WhenArgument(tripRepo, nameof(tripRepo)).IsNull().Throw();
@@ -36,6 +38,7 @@ namespace BrumWithMe.Services.Data.Services
             this.cityService = cityService;
             this.tagService = tagService;
             this.dateTimeProvider = dateTimeProvider;
+            this.slowTest = slowTest;
         }
 
         public void CreateTrip(TripCreationInfo tripInfo)
@@ -82,39 +85,79 @@ namespace BrumWithMe.Services.Data.Services
 
         public TripDetails GetTripDetails(int tripId)
         {
-            var trip = this.tripRepo.GetFirst(x => x.Id == tripId,
-                x => x.TripsUsers,
-                x => x.Car,
-                x => x.Destination,
-                x => x.Origin,
-                x => x.Tags);
+            //var trip = this.tripRepo.GetFirst(x => x.Id == tripId,
+            //    i => i.TripsUsers,
+            //    i => i.Car,
+            //    i => i.Car.Owner,
+            //    i => i.Destination,
+            //    i => i.Origin,
+            //    i => i.Tags);
 
-            var resut = base.MappingProvider.Map<Trip, TripDetails>(trip);
-            return resut;
+            var trips = this.tripRepo.GetFirstMapped<TripDetails>(x => x.Id == tripId);
+            //var trips = this.tripRepo.GetFirst(x => x.Id == tripId);
+            //var resut = base.MappingProvider.Map<Trip, TripDetails>(trips);
+            return trips;
         }
 
         public IEnumerable<TripBasicInfo> GetLatestTripsBasicInfo(int countToTake)
         {
-            var trips = this.tripRepo
-                .GetAll(x => true, x => x, i => i.Car.Owner, i => i.Destination, i => i.Origin)
-                .OrderByDescending(x => x.DateCreated)
-                .Take(countToTake);
+            //var trips =
+            //    this.tripRepo
+            //        .GetAll(
+            //        x => !x.IsDeleted,
+            //        s => s,
+            //        s => s.DateCreated,
+            //        i => i.Car.Owner,
+            //        i => i.Destination,
+            //        i => i.Origin)
+            //        .Take(countToTake);
 
-            var result = base.MappingProvider.Map<IEnumerable<Trip>, IEnumerable<TripBasicInfo>>(trips);
+            //var trips = this.tripRepo.GetAll(x => !x.IsDeleted,
+            //        s => s.DateCreated,
+            //        s => s,
+            //        i => i.Car.Owner,
+            //        i => i.Destination,
+            //        i => i.Origin)
+            //        .Take(countToTake);
 
-            return result;
+            var trips = this.tripRepo.GetAllMapped<TripBasicInfo>(x => !x.IsDeleted);
+
+            //var result = base.MappingProvider.Map<IEnumerable<Trip>, IEnumerable<TripBasicInfo>>(trips);
+
+            return trips;
         }
 
-        public IEnumerable<TripBasicInfo> GetTripsFor(string origin, string destination)
+        public TripSearchResult GetTripsFor(string origin, string destination, int page = 0)
         {
-            origin = origin.ToLower();
-            destination = destination.ToLower();
+            origin = origin?.ToLower();
+            destination = destination?.ToLower();
+
+            int size = 2;
+
+            // handle zero based paging
+            page =
+                page - 1 >= 0
+                ?
+                page - 1 : 0;
+
+            int totalCount = this.tripRepo
+                .GetAll(x => x.Origin.Name.ToLower().Contains(origin)
+                && x.Destination.Name.ToLower().Contains(destination),
+                x => x.Id, i => i.Destination, i => i.Origin)
+                .Count();
 
             var trips = this.tripRepo
-                .GetAll(x => x.Origin.Name.Contains(origin) && x.Destination.Name.Contains(destination), x => x, i => i.Car.Owner, i => i.Destination, i => i.Origin)
-                .OrderByDescending(x => x.DateCreated);
+                .GetAllMapped<TripBasicInfo>(
+                where => where.Origin.Name.ToLower().Contains(origin)
+                && where.Destination.Name.ToLower().Contains(destination))
+                .Skip(page * size)
+                .Take(size);
 
-            var result = base.MappingProvider.Map<IEnumerable<Trip>, IEnumerable<TripBasicInfo>>(trips);
+            //var data = base.MappingProvider.Map<IEnumerable<Trip>, IEnumerable<TripBasicInfo>>(trips);
+            var result = new TripSearchResult();
+
+            result.FoundTrips = trips;
+            result.TotalTrips = totalCount;
 
             return result;
         }

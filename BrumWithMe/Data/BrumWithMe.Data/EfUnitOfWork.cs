@@ -4,7 +4,7 @@ using Bytes2you.Validation;
 
 namespace BrumWithMe.Data
 {
-    public class EfUnitOfWork : IUnitOfWork
+    public class EfUnitOfWork : IUnitOfWorkEF
     {
         private readonly DbContext context;
 
