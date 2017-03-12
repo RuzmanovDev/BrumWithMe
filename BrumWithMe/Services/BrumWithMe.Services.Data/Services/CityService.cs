@@ -1,9 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using BrumWithMe.Data.Contracts;
 using BrumWithMe.Data.Models.Entities;
 using BrumWithMe.Services.Data.Contracts;
 using Bytes2you.Validation;
-using System.Collections.Generic;
 
 namespace BrumWithMe.Services.Data.Services
 {
@@ -38,6 +38,8 @@ namespace BrumWithMe.Services.Data.Services
                 {
                     Name = cityName
                 };
+
+                this.cityRepo.Add(city);
 
                 uow.Commit();
 
