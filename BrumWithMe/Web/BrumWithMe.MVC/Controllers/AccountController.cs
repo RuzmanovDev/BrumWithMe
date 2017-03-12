@@ -51,7 +51,7 @@ namespace BrumWithMe.MVC.Controllers
                     return View("Lockout");
                 case SignInStatus.Failure:
                 default:
-                    ModelState.AddModelError("", "Неуспешен опит за вход!");
+                    ModelState.AddModelError("", "Грешно потребителско име или парола!");
                     return View(model);
             }
         }

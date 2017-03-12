@@ -6,19 +6,18 @@
         @using (Html.BeginForm(nameof(AccountController.Login), "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { role = "form" }))
         {
             @Html.AntiForgeryToken()
-            @Html.ValidationSummary(true)
+            @Html.ValidationSummary(true, "", new { @class = "col s8 offset-s4 error-sumarry" })
             <div class="input-field col s6 offset-s3">
                 @Html.LabelFor(m => m.Email)
                 @Html.TextBoxFor(m => m.Email)
-                @Html.ValidationMessageFor(m => m.Email)
+                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "validation-error" })
             </div>
             <div class="input-field col s6 offset-s3">
                 @Html.LabelFor(m => m.Password)
                 @Html.PasswordFor(m => m.Password)
-                @Html.ValidationMessageFor(m => m.Password)
+                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "validation-error" })
             </div>
             <div class="input-field col s6 offset-s3">
-                @*@Html.ActionLink("Регистрация", nameof(AccountController.Register), null, new { @class = "btn red accent-3" })*@
                 <input type="submit" value="Вход" class="btn" />
             </div>
         }
