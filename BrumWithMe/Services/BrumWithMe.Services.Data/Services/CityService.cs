@@ -3,7 +3,6 @@ using BrumWithMe.Data.Contracts;
 using BrumWithMe.Data.Models.Entities;
 using BrumWithMe.Services.Data.Contracts;
 using Bytes2you.Validation;
-using BrumWithMe.Services.Providers.Mapping.Contracts;
 using System.Collections.Generic;
 
 namespace BrumWithMe.Services.Data.Services
@@ -24,7 +23,7 @@ namespace BrumWithMe.Services.Data.Services
         {
             cityName = cityName?.ToLower();
 
-            var city = this.cityRepo.GetFirst(x => x.Name.ToLower() == cityName);
+            var city = this.cityRepo.GetFirst(x => !x.IsDeleted && x.Name.ToLower() == cityName);
 
             return city;
         }

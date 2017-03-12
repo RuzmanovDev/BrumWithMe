@@ -63,6 +63,8 @@
     <Compile Include="CarServiceTests\AddCarToUser_Should.cs" />
     <Compile Include="CarServiceTests\Constructor_Should.cs" />
     <Compile Include="CarServiceTests\GetUserCars_Should.cs" />
+    <Compile Include="CityServiceTests\Constructor_Should.cs" />
+    <Compile Include="CityServiceTests\GetCityByName_Should.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TagServiceTests\Constructor_Should.cs" />
     <Compile Include="TagServiceTests\GetAllTags_Should.cs" />
