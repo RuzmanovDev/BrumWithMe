@@ -5,7 +5,6 @@ using BrumWithMe.Data.Models.CompositeModels;
 using BrumWithMe.Data.Contracts;
 using BrumWithMe.Data.Models.Entities;
 using Bytes2you.Validation;
-using BrumWithMe.Services.Providers.Mapping.Contracts;
 
 namespace BrumWithMe.Services.Data.Services
 {
