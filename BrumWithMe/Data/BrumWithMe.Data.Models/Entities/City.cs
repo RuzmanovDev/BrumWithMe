@@ -1,6 +1,6 @@
-﻿using BrumWithMe.Data.Models.Contracts;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using BrumWithMe.Data.Models.Contracts;
 
 namespace BrumWithMe.Data.Models.Entities
 {

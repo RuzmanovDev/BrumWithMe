@@ -25,7 +25,7 @@ namespace BrumWithMe.Data.Models.Entities
             set { this.tripsUser = value; }
         }
 
-        [Range(0,10000)]
+        [Range(0,1000)]
         public decimal Price { get; set; }
 
         [Required]

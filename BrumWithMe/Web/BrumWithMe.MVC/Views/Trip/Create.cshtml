@@ -10,30 +10,37 @@
             <div class="col l6 input-field">
                 @Html.LabelFor(m => m.OriginName, "От")
                 @Html.TextBoxFor(x => x.OriginName, new { id = "origin-name" })
+                @Html.ValidationMessageFor(m => m.OriginName, "", new { @class = "validation-error" })
             </div>
             <div class="col l6 input-field">
                 @Html.LabelFor(m => m.DestinationName, "До")
                 @Html.TextBoxFor(x => x.DestinationName)
+                @Html.ValidationMessageFor(m => m.DestinationName, "", new { @class = "validation-error" })
             </div>
             <div class="col l6">
                 <label for="date">Дата на потегляне</label>
                 @Html.TextBoxFor(x => x.DateOfDeparture, new { @class = "datepicker" })
+                @Html.ValidationMessageFor(m => m.DateOfDeparture, "", new { @class = "validation-error" })
             </div>
             <div class="col l6">
                 <label for="hour">Час на потегляне</label>
                 @Html.TextBoxFor(x => x.HourOfDeparture, new { @class = "timepicker" })
+                @Html.ValidationMessageFor(m => m.HourOfDeparture, "", new { @class = "validation-error" })
             </div>
             <div class="col l6 input-field">
                 @Html.LabelFor(m => m.TotalSeats, "Брой места")
-                @Html.TextBoxFor(x => x.TotalSeats)
+                @Html.TextBoxFor(x => x.TotalSeats, new { type = "number" })
+                @Html.ValidationMessageFor(m => m.TotalSeats, "", new { @class = "validation-error" })
             </div>
             <div class="col l6 input-field">
                 @Html.LabelFor(m => m.Price, "Цена")
-                @Html.TextBoxFor(x => x.Price)
+                @Html.TextBoxFor(x => x.Price, new { type = "number" })
+                @Html.ValidationMessageFor(m => m.Price, "", new { @class = "validation-error" })
             </div>
             <div class="col l12">
                 <label for="car">Автомобил</label>
                 @Html.DropDownListFor(c => c.CarId, new SelectList(Model.UserCars, "Id", "Name"))
+                @Html.ValidationMessageFor(m => m.CarId, "", new { @class = "validation-error" })
             </div>
             <div class="col l6">
                 <label for="car">Тагове</label>
@@ -49,6 +56,7 @@
             <div class="col l6 input-field">
                 @Html.LabelFor(m => m.Description, "Описание")
                 @Html.TextAreaFor(x => x.Description, new { @class = "materialize-textarea" })
+                @Html.ValidationMessageFor(m => m.Description, "", new { @class = "validation-error" })
             </div>
             <input type="submit" name="name" value="Създай" class="btn col l12" />
         }
@@ -56,6 +64,8 @@
 </section>
 
 @section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+
     <link rel="stylesheet" type="text/css" href="~/Content/materialize/css/materialize.clockpicker.css" />
 
     <script src="~/Content/materialize/js/materialize.clockpicker.js"></script>
