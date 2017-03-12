@@ -86,8 +86,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Account\ExternalLoginConfirmationViewModel.cs" />
-    <Compile Include="Account\ExternalLoginListViewModel.cs" />
     <Compile Include="Account\LoginViewModel.cs" />
     <Compile Include="Account\RegisterViewModel.cs" />
     <Compile Include="Manage\ChangePasswordViewModel.cs" />

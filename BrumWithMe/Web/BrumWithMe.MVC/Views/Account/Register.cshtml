@@ -1,38 +1,43 @@
 ﻿@model RegisterViewModel
 
-<div class="container">
-    <div class="row z-depth-3 shadow-container">
+<section class="container">
+    <section class="row z-depth-3 shadow-container">
         @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "col s12", role = "form" }))
         {
             @Html.AntiForgeryToken()
-            <h4>Създаване на потребител.</h4>
-            @Html.ValidationSummary("", new { @class = "text-danger" })
+            <h4 class="center-align">Създаване на потребител</h4>
+            @Html.ValidationSummary("", new { @class = "col s8 offset-s3 error-sumarry" })
             <div class="input-field col s6">
                 <label for="first-name">Име</label>
                 @Html.TextBoxFor(m => m.FirstName, new { @class = "validate" })
+                @Html.ValidationMessageFor(m => m.FirstName, "", new { @class = "validation-error" })
             </div>
             <div class="input-field col s6">
                 <label for="last-name">Фамилия</label>
                 @Html.TextBoxFor(m => m.LastName, new { @class = "validate" })
+                @Html.ValidationMessageFor(m => m.LastName, "", new { @class = "validation-error" })
             </div>
             <div class="input-field col s12">
                 @Html.LabelFor(m => m.Email)
                 @Html.TextBoxFor(m => m.Email, new { @class = "validate" })
+                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "validation-error" })
             </div>
             <div class="input-field col s12">
                 <label for="passowrd">Парола</label>
                 @Html.PasswordFor(m => m.Password, new { @class = "validate", id = "password" })
+                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "validation-error" })
             </div>
             <div class="input-field col s12">
                 <label for="passowrd-confirmation">Потвържадаве на паролата</label>
                 @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "validate", id = "password-confirmation" })
+                @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "validation-error" })
             </div>
             <div class="input-field col s6">
                 <input type="submit" class="btn" value="Регистрация" />
             </div>
         }
-    </div>
-</div>
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+        </section>
+    </section>
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    }

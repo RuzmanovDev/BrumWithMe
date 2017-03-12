@@ -51,7 +51,7 @@ namespace BrumWithMe.Auth.Identity.Services
         {
             throw new NotImplementedException();
         }
-        
+
         public string GetLoggedUserId(IPrincipal loggedUser)
         {
             Guard.WhenArgument(loggedUser, nameof(loggedUser)).IsNull().Throw();
