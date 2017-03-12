@@ -14,8 +14,8 @@ namespace BrumWithMe.Services.Data.Services
     {
         private readonly IProjectableRepositoryEf<Tag> tagRepo;
 
-        public TagService(IProjectableRepositoryEf<Tag> tagRepo, Func<IUnitOfWorkEF> unitOfWork, IMappingProvider mappingProvider)
-            : base(unitOfWork, mappingProvider)
+        public TagService(IProjectableRepositoryEf<Tag> tagRepo, Func<IUnitOfWorkEF> unitOfWork)
+            : base(unitOfWork)
         {
             Guard.WhenArgument(tagRepo, nameof(tagRepo)).IsNull().Throw();
 

@@ -11,10 +11,10 @@ namespace BrumWithMe.Services.Data.Services
 {
     public class CarService : BaseDataService, ICarService
     {
-        private readonly IRepositoryEf<Car> carRepo;
+        private readonly IProjectableRepositoryEf<Car> carRepo;
 
-        public CarService(IRepositoryEf<Car> carRepo, Func<IUnitOfWorkEF> unitOfWork, IMappingProvider mappingProvider)
-            : base(unitOfWork, mappingProvider)
+        public CarService(IProjectableRepositoryEf<Car> carRepo, Func<IUnitOfWorkEF> unitOfWork)
+            : base(unitOfWork)
         {
             Guard.WhenArgument(carRepo, nameof(carRepo)).IsNull().Throw();
 
@@ -38,15 +38,7 @@ namespace BrumWithMe.Services.Data.Services
         {
             Guard.WhenArgument(userId, nameof(userId)).IsNullOrEmpty().Throw();
 
-            return this.carRepo.GetAll(w => !w.IsDeleted && w.OwenerId == userId, s => new CarBasicInfo()
-            {
-                Id = s.Id,
-                Make = s.Make,
-                Model = s.Model,
-                Year = s.Year,
-                ImageUrl = s.ImageUrl,
-                Color = s.Color
-            });
+            return this.carRepo.GetAllMapped<CarBasicInfo>(w => !w.IsDeleted && w.OwenerId == userId);
         }
     }
 }

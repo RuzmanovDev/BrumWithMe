@@ -20,7 +20,6 @@ namespace BrumWithMe.Services.Data.Tests.TagServiceTests
         {
             // Arrange
             var mockedUOW = new Mock<IUnitOfWorkEF>();
-            var mockedMappingProvider = new Mock<IMappingProvider>();
             var tagRepo = new Mock<IProjectableRepositoryEf<Tag>>();
 
             var data = new List<Tag>()
@@ -42,7 +41,7 @@ namespace BrumWithMe.Services.Data.Tests.TagServiceTests
                 })
                 .ToList());
 
-            var tagService = new TagService(tagRepo.Object, () => mockedUOW.Object, mockedMappingProvider.Object);
+            var tagService = new TagService(tagRepo.Object, () => mockedUOW.Object);
 
             // Act
             var result = tagService.GetAllTags().ToList();
@@ -58,7 +57,6 @@ namespace BrumWithMe.Services.Data.Tests.TagServiceTests
         {
             // Arrange
             var mockedUOW = new Mock<IUnitOfWorkEF>();
-            var mockedMappingProvider = new Mock<IMappingProvider>();
             var tagRepo = new Mock<IProjectableRepositoryEf<Tag>>();
 
             var data = new List<Tag>()
@@ -80,7 +78,7 @@ namespace BrumWithMe.Services.Data.Tests.TagServiceTests
                 })
                 .ToList());
 
-            var tagService = new TagService(tagRepo.Object, () => mockedUOW.Object, mockedMappingProvider.Object);
+            var tagService = new TagService(tagRepo.Object, () => mockedUOW.Object);
 
             // Act
             var result = tagService.GetAllTags();

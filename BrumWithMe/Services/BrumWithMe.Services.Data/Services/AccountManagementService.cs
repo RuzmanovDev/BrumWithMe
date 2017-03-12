@@ -16,8 +16,8 @@ namespace BrumWithMe.Services.Data.Services
         public AccountManagementService(
             IRepositoryEf<Car> carsRepo,
             IFileUploadProvider fileUploadProvider,
-            Func<IUnitOfWorkEF> unitOfWork, IMappingProvider mappingProvider)
-            :base(unitOfWork, mappingProvider)
+            Func<IUnitOfWorkEF> unitOfWork)
+            :base(unitOfWork)
         {
             Guard.WhenArgument(carsRepo, nameof(carsRepo)).IsNull().Throw();
 

@@ -18,6 +18,7 @@ namespace BrumWithMe.Services.Data.Services
         private readonly ICityService cityService;
         private readonly ITagService tagService;
         private readonly IDateTimeProvider dateTimeProvider;
+        private readonly IMappingProvider mappingProvider;
 
         public TripService(
             Func<IUnitOfWorkEF> unitOfWork,
@@ -25,17 +26,19 @@ namespace BrumWithMe.Services.Data.Services
             IMappingProvider mappingProvider,
             ITagService tagService,
             IProjectableRepositoryEf<Trip> tripRepo,
-        IDateTimeProvider dateTimeProvider)
-            : base(unitOfWork, mappingProvider)
+            IDateTimeProvider dateTimeProvider)
+            : base(unitOfWork)
         {
             Guard.WhenArgument(tripRepo, nameof(tripRepo)).IsNull().Throw();
             Guard.WhenArgument(cityService, nameof(cityService)).IsNull().Throw();
             Guard.WhenArgument(tagService, nameof(tagService)).IsNull().Throw();
+            Guard.WhenArgument(mappingProvider, nameof(mappingProvider)).IsNull().Throw();
 
             this.tripRepo = tripRepo;
             this.cityService = cityService;
             this.tagService = tagService;
             this.dateTimeProvider = dateTimeProvider;
+            this.mappingProvider = mappingProvider;
         }
 
         public void CreateTrip(TripCreationInfo tripInfo)
@@ -58,7 +61,7 @@ namespace BrumWithMe.Services.Data.Services
 
             using (var uow = base.UnitOfWork())
             {
-                var trip = base.MappingProvider.Map<TripCreationInfo, Trip>(tripInfo);
+                var trip = this.mappingProvider.Map<TripCreationInfo, Trip>(tripInfo);
 
                 trip.Tags = tags;
                 trip.Origin = origin;

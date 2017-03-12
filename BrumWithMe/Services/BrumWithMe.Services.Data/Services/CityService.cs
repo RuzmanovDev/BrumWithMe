@@ -12,8 +12,8 @@ namespace BrumWithMe.Services.Data.Services
     {
         private readonly IRepositoryEf<City> cityRepo;
 
-        public CityService(IRepositoryEf<City> cityRepo, Func<IUnitOfWorkEF> unitOfWork, IMappingProvider mappingProvider)
-            : base(unitOfWork, mappingProvider)
+        public CityService(IRepositoryEf<City> cityRepo, Func<IUnitOfWorkEF> unitOfWork)
+            : base(unitOfWork)
         {
             Guard.WhenArgument(cityRepo, nameof(cityRepo)).IsNull().Throw();
 

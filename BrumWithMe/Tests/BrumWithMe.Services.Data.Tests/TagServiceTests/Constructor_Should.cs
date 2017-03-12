@@ -15,11 +15,10 @@ namespace BrumWithMe.Services.Data.Tests.TagServiceTests
         {
             // Arrange
             var mockedUOW = new Mock<IUnitOfWorkEF>();
-            var mockedMappingProvider = new Mock<IMappingProvider>();
             IProjectableRepositoryEf<Tag> tagRepo = null;
 
             // Act & Assert 
-            Assert.That(() => new TagService(null, () => mockedUOW.Object, mockedMappingProvider.Object),
+            Assert.That(() => new TagService(null, () => mockedUOW.Object),
                 Throws.ArgumentNullException.With.Message.Contain(nameof(tagRepo)));
         }
 
@@ -28,11 +27,10 @@ namespace BrumWithMe.Services.Data.Tests.TagServiceTests
         {
             // Arrange
             var mockedUOW = new Mock<IUnitOfWorkEF>();
-            var mockedMappingProvider = new Mock<IMappingProvider>();
             var tagRepo = new Mock<IProjectableRepositoryEf<Tag>>();
 
             // Act & Assert 
-            Assert.DoesNotThrow(() => new TagService(tagRepo.Object, () => mockedUOW.Object, mockedMappingProvider.Object));
+            Assert.DoesNotThrow(() => new TagService(tagRepo.Object, () => mockedUOW.Object));
         }
     }
 }
