@@ -9,6 +9,8 @@ namespace BrumWithMe.Data.Models.Entities
         public int Id { get; set; }
 
         [Required]
+        [MinLength(3)]
+        [MaxLength(30)]
         public string Color { get; set; }
 
         [MinLength(3)]

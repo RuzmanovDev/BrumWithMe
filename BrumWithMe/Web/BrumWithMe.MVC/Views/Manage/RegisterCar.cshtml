@@ -9,18 +9,22 @@
             <div class="input-field col s6">
                 <label for="make">Марка</label>
                 @Html.TextBoxFor(m => m.Make, new { @class = "validate" })
+                @Html.ValidationMessageFor(m => m.Make, "", new { @class = "validation-error" })
             </div>
             <div class="input-field col s6">
                 <label for="model">Модел</label>
                 @Html.TextBoxFor(m => m.Model, new { @class = "validate" })
+                @Html.ValidationMessageFor(m => m.Model, "", new { @class = "validation-error" })
             </div>
             <div class="input-field col s6">
                 <label for="year">Година</label>
-                @Html.TextBoxFor(m => m.Year, new { @class = "validate" })
+                @Html.TextBoxFor(m => m.Year, new { @class = "validate", type = "number" })
+                @Html.ValidationMessageFor(m => m.Year, "", new { @class = "validation-error" })
             </div>
             <div class="input-field col s6">
                 <label for="color">Цвят</label>
                 @Html.TextBoxFor(m => m.Color, new { @class = "validate" })
+                @Html.ValidationMessageFor(m => m.Color, "", new { @class = "validation-error" })
             </div>
             <div class="file-field input-field col s6">
                 <div class="btn">
@@ -37,3 +41,7 @@
         }
     </section>
 </section>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
