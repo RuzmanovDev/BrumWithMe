@@ -6,7 +6,6 @@ using BrumWithMe.Data.Contracts;
 using BrumWithMe.Data.Models.CompositeModels;
 using BrumWithMe.Data.Models.Entities;
 using BrumWithMe.Services.Data.Services;
-using BrumWithMe.Services.Providers.Mapping.Contracts;
 using Moq;
 using NUnit.Framework;
 

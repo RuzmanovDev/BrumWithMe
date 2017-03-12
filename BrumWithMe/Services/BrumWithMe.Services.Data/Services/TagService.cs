@@ -1,12 +1,11 @@
-﻿using BrumWithMe.Services.Data.Contracts;
+﻿using System;
+using BrumWithMe.Services.Data.Contracts;
 using System.Collections.Generic;
 using System.Linq;
 using BrumWithMe.Data.Models.Entities;
 using BrumWithMe.Data.Models.CompositeModels;
 using BrumWithMe.Data.Contracts;
 using Bytes2you.Validation;
-using System;
-using BrumWithMe.Services.Providers.Mapping.Contracts;
 
 namespace BrumWithMe.Services.Data.Services
 {
@@ -29,6 +28,8 @@ namespace BrumWithMe.Services.Data.Services
 
         public IEnumerable<Tag> GetTagsByIds(IEnumerable<int> tagIds)
         {
+            Guard.WhenArgument(tagIds, nameof(tagIds)).IsNull().Throw();
+
             if (tagIds.Count() == 0)
             {
                 return new List<Tag>();
