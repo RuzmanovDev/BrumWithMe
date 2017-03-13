@@ -1,6 +1,6 @@
 ﻿@model TripDetailsViewModel
 <div class="container z-depth-3">
-<div id="map" class="col l12" style="height:300px"></div>
+    <div id="map" class="col l12" style="height:300px"></div>
     <div class="row">
         <h3 class="col s11 offset-s1">
             <span id="origin">@Model.OriginName</span> - <span id="destination">@Model.DestinationName</span>
@@ -27,14 +27,24 @@
                 {
                     <div class="chip">#@tag.Name</div>
                 }
-                <a href="#" class="btn col s12">Запази място</a>
+
+                @if (!Model.IsSeatReservedByCurrentUser)
+                {
+                    @Ajax.ActionLink("Запази място", nameof(TripController.RequestToJoinTheTrip), new { tripId = Model.Id },
+                    new AjaxOptions() { HttpMethod = "post", OnSuccess = "successToast" }, new { @class = "col s12 btn" })
+                }
+                else
+                {
+                    <a href="#" class="btn red">Вече сте записан</a>
+                }
+
             </div>
             <div class="col s6">
                 <div class="col s6">
                     @Html.Partial("_CarAssignedToTravel", Model.Car)
                 </div>
                 <div class="col s6">
-                  @Html.Partial("_UserBanner", Model.Driver)
+                    @Html.Partial("_UserBanner", Model.Driver)
                 </div>
                 <div width="300px">
                     <h5>Описание</h5>
@@ -43,14 +53,22 @@
                     </p>
                 </div>
             </div>
-        </div> 
+        </div>
     </div>
-    <div class="row">
-        <h4 class="center-align">Отзиви за шофьора</h4>
+    @if (this.User.Identity.IsAuthenticated)
+    {
+        <div class="row">
+            <h4 class="center-align">Отзиви за шофьора</h4>
 
-    </div>
+        </div>
+    }
 </div>
 @section scripts{
+    <script>
+        function successToast() {
+            Materialize.toast('I am a toast!', 3000, 'rounded');
+        }
+    </script>
     <script>
         function initMap() {
             var directionsService = new google.maps.DirectionsService;

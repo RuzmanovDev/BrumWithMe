@@ -75,7 +75,7 @@ namespace BrumWithMe.MVC.Controllers
                     Email = model.Email,
                     FirstName = model.FirstName,
                     LastName = model.LastName,
-                    AvataImageurl = "~/UserAvatars/default.png"
+                    AvataImageurl = "/UserAvatars/default.png"
                 };
 
                 IdentityResult result = await this.AuthService.Register(user, model.Password);

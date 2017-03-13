@@ -6,6 +6,8 @@ namespace BrumWithMe.Web.Models.Trip
 {
     public class TripDetailsViewModel
     {
+        public int Id { get; set; }
+
         public string OriginName { get; set; }
 
         public string DestinationName { get; set; }
@@ -25,5 +27,7 @@ namespace BrumWithMe.Web.Models.Trip
         public CarViewModel Car{ get; set; }
 
         public IEnumerable<TagViewModel> Tags { get; set; }
+
+        public bool IsSeatReservedByCurrentUser { get; set; }
     }
 }

@@ -220,6 +220,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseAuthController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
@@ -318,6 +319,7 @@
     <Content Include="Views\Shared\_TripQuickSearch.cshtml" />
     <Content Include="Views\Shared\_Trip.cshtml" />
     <Content Include="Views\Search\_TripSearchResult.cshtml" />
+    <Content Include="Views\Dashboard\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -326,7 +328,6 @@
     <Folder Include="Areas\Api\Models\" />
     <Folder Include="Areas\Api\Views\City\" />
     <Folder Include="Areas\Api\Views\Shared\" />
-    <Folder Include="UserAvatars\Cars\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

@@ -24,6 +24,16 @@ namespace BrumWithMe.Services.Providers.Mapping.Profiles
             CreateMap<Car, CarBasicInfo>();
 
             CreateMap<User, UserBasicInfo>();
+
+            CreateMap<UsersTrips, TripBasicInfo>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Trip.Id))
+                .ForMember(dest => dest.OriginName, opt => opt.MapFrom(src => src.Trip.Origin.Name))
+                .ForMember(dest => dest.DestinationName, opt => opt.MapFrom(src => src.Trip.Destination.Name))
+                .ForMember(dest => dest.TotalSeats, opt => opt.MapFrom(src => src.Trip.TotalSeats))
+                .ForMember(dest => dest.TakenSeats, opt => opt.MapFrom(src => src.Trip.TakenSeats))
+                .ForMember(dest => dest.Price, opt => opt.MapFrom(src => src.Trip.Price))
+                .ForMember(dest => dest.TimeOfDeparture, opt => opt.MapFrom(src => src.Trip.TimeOfDeparture))
+                .ForMember(dest => dest.UserAvatarImageUrl, opt => opt.MapFrom(src => src.User.AvataImageurl));
         }
     }
 }

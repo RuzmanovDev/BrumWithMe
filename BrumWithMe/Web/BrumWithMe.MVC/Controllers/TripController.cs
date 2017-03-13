@@ -38,7 +38,17 @@ namespace BrumWithMe.MVC.Controllers
         public ActionResult TripDetails(int id)
         {
             TripDetails tripDetails = this.tripService.GetTripDetails(id);
+
             TripDetailsViewModel tripDetailsView = this.mappingProvider.Map<TripDetails, TripDetailsViewModel>(tripDetails);
+
+            bool isUserAlreadyAppliedToTrip = false;
+
+            if (base.GetLoggedUserId != null)
+            {
+                isUserAlreadyAppliedToTrip = this.tripService.isUserInTrip(base.GetLoggedUserId, id);
+            }
+
+            tripDetailsView.IsSeatReservedByCurrentUser = isUserAlreadyAppliedToTrip;
 
             return View(tripDetailsView);
         }
@@ -66,7 +76,11 @@ namespace BrumWithMe.MVC.Controllers
             var timeOfDeparture = tripInfo.DateOfDeparture.Add(hourOfDeparture);
             var currentUSerId = base.GetLoggedUserId;
 
-            var selectedTags = tripInfo.Tags.Where(x => x.IsSelected).Select(x => x.Id);
+
+            var selectedTags = tripInfo.Tags
+                ?.Where(x => x.IsSelected)
+                ?.Select(x => x.Id);
+            selectedTags = selectedTags ?? new List<int>();
 
             var trip = this.mappingProvider.Map<CreateTripViewModel, TripCreationInfo>(tripInfo);
 
@@ -79,7 +93,6 @@ namespace BrumWithMe.MVC.Controllers
             return RedirectToAction(nameof(this.Create));
         }
 
-
         [Authorize]
         public ActionResult Create()
         {
@@ -87,9 +100,9 @@ namespace BrumWithMe.MVC.Controllers
             var userId = base.GetLoggedUserId;
 
             var cars = this.carService.GetUserCars(userId);
-            if (cars == null)
+            if (cars == null || cars.Count() < 1)
             {
-                this.RedirectToAction(nameof(ManageController.RegisterCar), "Manage");
+                return this.RedirectToAction(nameof(ManageController.RegisterCar), "Manage");
             }
 
             var model = new CreateTripViewModel();
@@ -101,6 +114,20 @@ namespace BrumWithMe.MVC.Controllers
             model.Tags = tagsvModel;
 
             return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult RequestToJoinTheTrip(int tripId)
+        {
+            var userId = base.GetLoggedUserId;
+            var result =  this.tripService.RequestToJoinTrip(tripId, userId);
+
+            if (!result)
+            {
+                // ERROR
+            }
+
+            return this.TripDetails(tripId);
         }
     }
 }

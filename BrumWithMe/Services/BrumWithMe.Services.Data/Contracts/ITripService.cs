@@ -13,5 +13,10 @@ namespace BrumWithMe.Services.Data.Contracts
         IEnumerable<TripBasicInfo> GetLatestTripsBasicInfo(int v);
 
         TripSearchResult GetTripsFor(string origin, string destination, int page = 0);
+
+        IEnumerable<TripBasicInfo> GetTripsCreatedByUser(string userId);
+        bool RequestToJoinTrip(int tripId, string userId);
+
+        bool isUserInTrip(string userId, int tripId);
     }
 }

@@ -66,8 +66,10 @@
     <Compile Include="Entities\Subscription.cs" />
     <Compile Include="Entities\Tag.cs" />
     <Compile Include="Entities\Trip.cs" />
+    <Compile Include="Entities\UserTripStatus.cs" />
     <Compile Include="Entities\User.cs" />
     <Compile Include="Entities\UsersTrips.cs" />
+    <Compile Include="Enums\UserTripStatusType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CompositeModels\CarBasicInfo.cs" />
     <Compile Include="CompositeModels\TagInfo.cs" />

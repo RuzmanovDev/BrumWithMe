@@ -9,12 +9,14 @@ using System.Linq;
 using BrumWithMe.Services.Providers.TimeProviders;
 using BrumWithMe.Services.Providers.Mapping.Contracts;
 using BrumWithMe.Data.Models.CompositeModels.Trip;
+using BrumWithMe.Data.Models.Enums;
 
 namespace BrumWithMe.Services.Data.Services
 {
     public class TripService : BaseDataService, ITripService
     {
         private readonly IProjectableRepositoryEf<Trip> tripRepo;
+        private readonly IProjectableRepositoryEf<UsersTrips> userTripsRepo;
         private readonly ICityService cityService;
         private readonly ITagService tagService;
         private readonly IDateTimeProvider dateTimeProvider;
@@ -22,6 +24,7 @@ namespace BrumWithMe.Services.Data.Services
 
         public TripService(
             Func<IUnitOfWorkEF> unitOfWork,
+            IProjectableRepositoryEf<UsersTrips> userTripsRepo,
             ICityService cityService,
             IMappingProvider mappingProvider,
             ITagService tagService,
@@ -39,6 +42,7 @@ namespace BrumWithMe.Services.Data.Services
             this.tagService = tagService;
             this.dateTimeProvider = dateTimeProvider;
             this.mappingProvider = mappingProvider;
+            this.userTripsRepo = userTripsRepo;
         }
 
         public void CreateTrip(TripCreationInfo tripInfo)
@@ -72,7 +76,8 @@ namespace BrumWithMe.Services.Data.Services
                 {
                     Trip = trip,
                     UserId = tripInfo.DriverId,
-                    IsDriver = true
+                    IsOwner = true,
+                    UserTripStatusId = (int)UserTripStatusType.Accepted
                 };
 
                 trip.TripsUsers = new List<UsersTrips>() { userTrips };
@@ -132,6 +137,40 @@ namespace BrumWithMe.Services.Data.Services
             result.TotalTrips = totalCount;
 
             return result;
+        }
+
+        public IEnumerable<TripBasicInfo> GetTripsCreatedByUser(string userId)
+        {
+            return this.userTripsRepo.GetAllMapped<TripBasicInfo>(x => x.UserId == userId && x.IsOwner);
+        }
+
+        public bool RequestToJoinTrip(int tripId, string userId)
+        {
+            using (var uow = this.UnitOfWork())
+            {
+                this.userTripsRepo.Add(new UsersTrips()
+                {
+                    TripId = tripId,
+                    UserId = userId,
+                    IsOwner = false,
+                    UserTripStatusId = (int)UserTripStatusType.Pending,
+                });
+
+                return uow.Commit();
+            }
+        }
+
+        public bool isUserInTrip(string userId, int tripId)
+        {
+            var fountTrip = this.userTripsRepo.GetFirst(x => x.UserId == userId && x.TripId == tripId);
+
+            bool isIntrip = false;
+            if (fountTrip != null)
+            {
+                isIntrip = true;
+            }
+
+            return isIntrip;
         }
     }
 }

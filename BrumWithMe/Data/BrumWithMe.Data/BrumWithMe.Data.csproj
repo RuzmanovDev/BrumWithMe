@@ -90,7 +90,6 @@
     <Compile Include="Repositories\EfGenericRepository.cs" />
     <Compile Include="EfUnitOfWork.cs" />
     <Compile Include="Repositories\ProjectableRepositoryEf.cs" />
-    <Compile Include="Repositories\ProjectionRepository.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

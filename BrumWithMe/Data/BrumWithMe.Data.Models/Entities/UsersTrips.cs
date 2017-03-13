@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BrumWithMe.Data.Models.Entities
 {
@@ -16,10 +11,15 @@ namespace BrumWithMe.Data.Models.Entities
         [Key, Column(Order = 1)]
         public int TripId { get; set; }
 
-        public bool IsDriver { get; set; }
+        public bool IsOwner { get; set; }
 
         public virtual User User { get; set; }
 
         public virtual Trip Trip { get; set; }
+
+        [ForeignKey("UserTripStatus")]
+        public  int UserTripStatusId { get; set; }
+
+        public virtual UserTripStatus UserTripStatus { get; set; }
     }
 }

@@ -106,5 +106,6 @@ namespace BrumWithMe.MVC.Controllers
 
             return View(model);
         }
+
     }
 }

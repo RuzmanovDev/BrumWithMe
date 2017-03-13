@@ -1,0 +1,7 @@
+﻿@model DashBoardViewModel
+<h1>Пътувания споделени от мен</h1>
+
+@foreach (var trip in Model.TripsCreatedByUser)
+{
+    @Html.Partial("_TripInfo", trip)
+}
