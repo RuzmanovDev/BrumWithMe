@@ -117,17 +117,71 @@ namespace BrumWithMe.MVC.Controllers
         }
 
         [HttpPost]
-        public ActionResult RequestToJoinTheTrip(int tripId)
+        public ActionResult RequestToJoinTheTrip(int tripId, bool isUserOwner)
         {
             var userId = base.GetLoggedUserId;
-            var result =  this.tripService.RequestToJoinTrip(tripId, userId);
+            var isScucessfullyJoined = this.tripService.RequestToJoinTrip(tripId, userId);
 
-            if (!result)
+            var model = new JoinTripBtnViewModel();
+            model.IsUserOwner = isUserOwner;
+            model.IsUserInTrip = isScucessfullyJoined;
+            model.TripId = tripId;
+
+            return this.PartialView("_JoinTripBtn", model);
+        }
+
+        [HttpPost]
+        public ActionResult SignOutOftheTrip(int tripId, bool isUserOwner)
+        {
+            var userId = base.GetLoggedUserId;
+            var result = this.tripService.SignOutOfTrip(tripId, userId);
+            bool isUserInTrip = true;
+
+            if (result)
             {
-                // ERROR
+                isUserInTrip = false;
             }
 
-            return this.TripDetails(tripId);
+            var model = new JoinTripBtnViewModel();
+            model.IsUserOwner = isUserOwner;
+            model.IsUserInTrip = isUserInTrip;
+            model.TripId = tripId;
+
+            return this.PartialView("_JoinTripBtn", model);
         }
+
+        [ChildActionOnly]
+        public ActionResult JoinBtn(string ownerId, bool isUserInTrip, int tripId)
+        {
+            var userId = base.GetLoggedUserId;
+            bool isUserOwner = false;
+
+            if (userId == ownerId)
+            {
+                isUserOwner = true;
+            }
+
+            var model = new JoinTripBtnViewModel();
+            model.IsUserOwner = isUserOwner;
+            model.IsUserInTrip = isUserInTrip;
+            model.TripId = tripId;
+
+            return this.PartialView("_JoinTripBtn", model);
+        }
+
+        public ActionResult DeleteTrip()
+        {
+            return null;
+        }
+
+    }
+
+    public class JoinTripBtnViewModel
+    {
+        public bool IsUserOwner { get; set; }
+
+        public bool IsUserInTrip { get; set; }
+
+        public int TripId { get; set; }
     }
 }

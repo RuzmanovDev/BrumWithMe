@@ -28,16 +28,10 @@
                     <div class="chip">#@tag.Name</div>
                 }
 
-                @if (!Model.IsSeatReservedByCurrentUser)
-                {
-                    @Ajax.ActionLink("Запази място", nameof(TripController.RequestToJoinTheTrip), new { tripId = Model.Id },
-                    new AjaxOptions() { HttpMethod = "post", OnSuccess = "successToast" }, new { @class = "col s12 btn" })
-                }
-                else
-                {
-                    <a href="#" class="btn red">Вече сте записан</a>
-                }
-
+                <section id="join-trip-btn-container">
+                    @Html.Action(nameof(TripController.JoinBtn), 
+                    new { ownerId = Model.Driver.Id, isUserInTrip = Model.IsSeatReservedByCurrentUser, tripId = Model.Id })
+                </section>
             </div>
             <div class="col s6">
                 <div class="col s6">
@@ -66,7 +60,7 @@
 @section scripts{
     <script>
         function successToast() {
-            Materialize.toast('I am a toast!', 3000, 'rounded');
+            Materialize.toast('Записахте се успешно!', 3000, 'rounded');
         }
     </script>
     <script>

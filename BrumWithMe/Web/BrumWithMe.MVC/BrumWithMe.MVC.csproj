@@ -320,6 +320,7 @@
     <Content Include="Views\Shared\_Trip.cshtml" />
     <Content Include="Views\Search\_TripSearchResult.cshtml" />
     <Content Include="Views\Dashboard\Index.cshtml" />
+    <Content Include="Views\Trip\_JoinTripBtn.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -159,6 +159,16 @@ namespace BrumWithMe.Services.Data.Services
                 return uow.Commit();
             }
         }
+        public bool SignOutOfTrip(int tripId, string userId)
+        {
+            using (var uow = this.UnitOfWork())
+            {
+                var trip = this.userTripsRepo.GetFirst(x => x.TripId == tripId);
+                this.userTripsRepo.Delete(trip);
+
+                return uow.Commit();
+            }
+        }
 
         public bool isUserInTrip(string userId, int tripId)
         {
