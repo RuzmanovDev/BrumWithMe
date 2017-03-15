@@ -12,13 +12,13 @@ html {
 
 .error-sumarry {
     font-size: 20px;
-    color: #b71c1c ;
+    color: #b71c1c;
     font-weight: bold;
 }
 
 .validation-error {
     font-size: 15px;
-    color: #b71c1c ;
+    color: #b71c1c;
     font-weight: bold;
 }
 
@@ -165,3 +165,14 @@ ul.autocomplete-content.dropdown-content {
     width: 300px !important;
     z-index: 9999;
 }
+
+.users-in-trip td {
+    text-align: center;
+    width: 90px;
+}
+
+    .users-in-trip td a {
+        height: 30px;
+        width: 30px;
+        padding: 3px;
+    }

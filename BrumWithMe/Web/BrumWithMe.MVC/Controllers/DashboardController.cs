@@ -30,7 +30,7 @@ namespace BrumWithMe.MVC.Controllers
             var loggedUserId = this.User.Identity.GetUserId();
 
             var data = this.tripService.GetTripsCreatedByUser(loggedUserId);
-            
+
             var model = new DashBoardViewModel();
             model.TripsCreatedByUser = data;
 
@@ -41,9 +41,9 @@ namespace BrumWithMe.MVC.Controllers
         [Authorize]
         public ActionResult AcceptUserInTrip(string userId, int tripId)
         {
-            this.tripService.JoinUserToTrip(userId, tripId);
+            var updatedTripInfo = this.tripService.JoinUserToTrip(userId, tripId);
 
-            return new EmptyResult();
+            return this.PartialView("_TripsSharedByCurrentUser", updatedTripInfo);
         }
     }
 

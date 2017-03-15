@@ -187,7 +187,7 @@ namespace BrumWithMe.Services.Data.Services
             return isIntrip;
         }
 
-        public void JoinUserToTrip(string userId, int tripId)
+        public TripInfoWithUserRequests JoinUserToTrip(string userId, int tripId)
         {
             using (var uow = base.UnitOfWork())
             {
@@ -198,7 +198,16 @@ namespace BrumWithMe.Services.Data.Services
                     IsOwner = false,
                     UserTripStatusId = (int)UserTripStatusType.Accepted
                 });
+
+                var trip = this.tripRepo
+                    .GetFirst(x => !x.IsDeleted && x.Id == tripId);
+                trip.TakenSeats++;
+
                 uow.Commit();
+
+                var tripInfo = this.mappingProvider.Map<Trip, TripInfoWithUserRequests>(trip);
+
+                return tripInfo;
             }
         }
     }
