@@ -51,7 +51,11 @@
                                         new { userId = user.Id, tripId = Model.Id },
                                         new AjaxOptions() { HttpMethod = "POST", UpdateTargetId = "trip-" + @Model.Id },
                                         new { @class = "btn small material-icons" })
-                            <a href="#" class="btn red small material-icons">not_interested</a>
+
+                            @Ajax.ActionLink("not_interested",nameof(DashboardController.RejectUserInTrip),
+                                        new { userId = user.Id, tripId = Model.Id },
+                                        new AjaxOptions() { HttpMethod = "POST", UpdateTargetId = "trip-" + @Model.Id },
+                                        new { @class = "btn red small material-icons" })
                         </td>
                     </tr>
                 }

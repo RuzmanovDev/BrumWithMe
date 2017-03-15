@@ -45,6 +45,15 @@ namespace BrumWithMe.MVC.Controllers
 
             return this.PartialView("_TripsSharedByCurrentUser", updatedTripInfo);
         }
+
+        [HttpPost]
+        [Authorize]
+        public ActionResult RejectUserInTrip(string userId, int tripId)
+        {
+            var updatedTripInfo = this.tripService.RejectUserToJoinTrip(userId, tripId);
+
+            return this.PartialView("_TripsSharedByCurrentUser", updatedTripInfo);
+        }
     }
 
     public class DashBoardViewModel

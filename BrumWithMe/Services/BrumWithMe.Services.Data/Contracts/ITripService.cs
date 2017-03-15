@@ -23,5 +23,7 @@ namespace BrumWithMe.Services.Data.Contracts
         bool SignOutOfTrip(int tripId, string userId);
 
         TripInfoWithUserRequests JoinUserToTrip(string userId, int tripId);
+
+        TripInfoWithUserRequests RejectUserToJoinTrip(string userId, int tripId);
     }
 }

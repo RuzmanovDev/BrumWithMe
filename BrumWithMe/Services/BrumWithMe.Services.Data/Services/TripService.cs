@@ -163,6 +163,7 @@ namespace BrumWithMe.Services.Data.Services
                 return uow.Commit();
             }
         }
+
         public bool SignOutOfTrip(int tripId, string userId)
         {
             using (var uow = this.UnitOfWork())
@@ -208,6 +209,24 @@ namespace BrumWithMe.Services.Data.Services
                 var tripInfo = this.mappingProvider.Map<Trip, TripInfoWithUserRequests>(trip);
 
                 return tripInfo;
+            }
+        }
+
+        public TripInfoWithUserRequests RejectUserToJoinTrip(string userId, int tripId)
+        {
+            using(var uow = base.UnitOfWork())
+            {
+                this.userTripsRepo.Delete(new UsersTrips()
+                {
+                    UserId = userId,
+                    TripId = tripId
+                });
+
+                uow.Commit();
+
+                var trip = this.tripRepo.GetFirstMapped<TripInfoWithUserRequests>(x => x.Id == tripId);
+
+                return trip;
             }
         }
     }
