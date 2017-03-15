@@ -139,9 +139,13 @@ namespace BrumWithMe.Services.Data.Services
             return result;
         }
 
-        public IEnumerable<TripBasicInfo> GetTripsCreatedByUser(string userId)
+        public IEnumerable<TripInfoWithUserRequests> GetTripsCreatedByUser(string userId)
         {
-            return this.userTripsRepo.GetAllMapped<TripBasicInfo>(x => x.UserId == userId && x.IsOwner);
+            var tripIdsUserOwns = this.userTripsRepo.GetAll(x => x.IsOwner && x.UserId == userId, x => x.TripId);
+            var tripsInfo = this.tripRepo.GetAllMapped<TripInfoWithUserRequests>(x => tripIdsUserOwns.Contains(x.Id) && !x.IsDeleted);
+
+            return tripsInfo;
+
         }
 
         public bool RequestToJoinTrip(int tripId, string userId)
@@ -181,6 +185,21 @@ namespace BrumWithMe.Services.Data.Services
             }
 
             return isIntrip;
+        }
+
+        public void JoinUserToTrip(string userId, int tripId)
+        {
+            using (var uow = base.UnitOfWork())
+            {
+                this.userTripsRepo.Update(new UsersTrips()
+                {
+                    UserId = userId,
+                    TripId = tripId,
+                    IsOwner = false,
+                    UserTripStatusId = (int)UserTripStatusType.Accepted
+                });
+                uow.Commit();
+            }
         }
     }
 }

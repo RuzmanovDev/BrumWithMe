@@ -57,6 +57,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CompositeModels\Trip\PassangerInfo.cs" />
+    <Compile Include="CompositeModels\Trip\TripInfoWithUserRequests.cs" />
     <Compile Include="CompositeModels\Trip\TripSearchResult.cs" />
     <Compile Include="CompositeModels\UserBasicInfo.cs" />
     <Compile Include="Contracts\IDeletableEntity.cs" />

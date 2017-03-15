@@ -1,7 +1,66 @@
 ﻿@model DashBoardViewModel
-<h1>Пътувания споделени от мен</h1>
+<div class="container">
+    <div class="row z-depth-3 shadow-container">
+        <h1>Пътувания споделени от мен</h1>
 
-@foreach (var trip in Model.TripsCreatedByUser)
-{
-    @Html.Partial("_TripInfo", trip)
-}
+        @foreach (var trip in Model.TripsCreatedByUser)
+        {
+            <div class="card small col s4">
+                <div class="card-content col s12">
+                    <span class="card-title activator grey-text text-darken-4">Card Title<i class="material-icons right">more_vert</i></span>
+                    <a href="/trip/tripdetails/@trip.Id">
+                        <div>
+                            <div class="trip-avatar-container col s2">
+                                <img src="@trip.CarAvatarImage" alt="Alternate Text" class="circle avatar" />
+                            </div>
+                            <div class="trip-info col s9">
+                                <div class="primary col s12">
+                                    <div class="origin col s12">От @trip.OriginName</div>
+                                    <div class="destination col s8">До @trip.DestinationName</div>
+                                    <div class="trip-price col s4">$@trip.Price</div>
+                                </div>
+                                <div class="secondary col s12">
+                                    <span class="date" title="Дата на погегляне"><i class="material-icons">today</i> @trip.TimeOfDeparture.ToString("dd.MMM")</span>
+                                    <span class="time" title="Час на потегляне"><i class="material-icons">query_builder</i> @trip.TimeOfDeparture.ToString("hh.mm")</span>
+                                    <span class="seats" title="Места">
+                                        <i class="material-icons">perm_identity</i> @trip.TakenSeats/@trip.TotalSeats
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    <p><a href="#">This is a link</a></p>
+                </div>
+                <div class="card-reveal">
+                    <span class="card-title grey-text text-darken-4">Card Title<i class="material-icons right">close</i></span>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th data-field="id">Име</th>
+                                <th data-field="name">Статус</th>
+                                <th data-field="price">Действие</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var user in trip.Passangers)
+                            {
+                                <tr>
+                                    <td>@user.Name</td>
+                                    <td>@user.LastName</td>
+                                    <td>
+                                        <a href="#" class="btn red">отхвърли</a>
+                                        @Ajax.ActionLink("Потвърди", nameof(DashboardController.AcceptUserInTrip),
+                                        new { userId = user.Id, tripId = trip.Id },
+                                        new AjaxOptions() { HttpMethod = "POST" },
+                                        new { @class = "btn" })
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        }
+    </div>
+</div>

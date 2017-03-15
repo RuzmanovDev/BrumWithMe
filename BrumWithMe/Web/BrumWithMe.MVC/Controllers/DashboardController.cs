@@ -30,16 +30,25 @@ namespace BrumWithMe.MVC.Controllers
             var loggedUserId = this.User.Identity.GetUserId();
 
             var data = this.tripService.GetTripsCreatedByUser(loggedUserId);
-            var vm = this.mappingProvider.Map<IEnumerable<TripBasicInfo>, IEnumerable<TripBasicInfoViewModel>>(data);
+            
             var model = new DashBoardViewModel();
-            model.TripsCreatedByUser = vm;
+            model.TripsCreatedByUser = data;
 
             return View(model);
+        }
+
+        [HttpPost]
+        [Authorize]
+        public ActionResult AcceptUserInTrip(string userId, int tripId)
+        {
+            this.tripService.JoinUserToTrip(userId, tripId);
+
+            return new EmptyResult();
         }
     }
 
     public class DashBoardViewModel
     {
-        public IEnumerable<TripBasicInfoViewModel> TripsCreatedByUser { get; set; }
+        public IEnumerable<TripInfoWithUserRequests> TripsCreatedByUser { get; set; }
     }
 }

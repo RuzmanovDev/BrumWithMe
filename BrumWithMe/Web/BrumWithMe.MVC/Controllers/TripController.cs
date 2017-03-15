@@ -117,6 +117,7 @@ namespace BrumWithMe.MVC.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public ActionResult RequestToJoinTheTrip(int tripId, bool isUserOwner)
         {
             var userId = base.GetLoggedUserId;
@@ -131,6 +132,7 @@ namespace BrumWithMe.MVC.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public ActionResult SignOutOftheTrip(int tripId, bool isUserOwner)
         {
             var userId = base.GetLoggedUserId;
@@ -169,6 +171,7 @@ namespace BrumWithMe.MVC.Controllers
             return this.PartialView("_JoinTripBtn", model);
         }
 
+        [Authorize]
         public ActionResult DeleteTrip()
         {
             return null;

@@ -9,7 +9,7 @@
                             new AjaxOptions()
                             {
                                 HttpMethod = "post",
-                                OnSuccess = "successToast",
+                                OnSuccess = "deleteToast",
                                 UpdateTargetId = "join-trip-btn-container",
                                 InsertionMode = InsertionMode.Replace
                             }, new { @class = "col s12 btn" });
@@ -23,7 +23,7 @@
                             new AjaxOptions()
                             {
                                 HttpMethod = "post",
-                                OnSuccess = "successToast",
+                                OnSuccess = "leaveTripToast",
                                 UpdateTargetId = "join-trip-btn-container",
                                 InsertionMode = InsertionMode.Replace
                             }, new { @class = "col s12 btn red " })
@@ -35,10 +35,25 @@
                      new AjaxOptions()
                      {
                          HttpMethod = "post",
-                         OnSuccess = "successToast",
+                         OnSuccess = "joinTripToast",
                          UpdateTargetId = "join-trip-btn-container",
                          InsertionMode = InsertionMode.Replace
                      }, new { @class = "col s12 btn" })
         }
     }
+}
+@section scripts{
+    <script>
+        function joinTripToast() {
+            Materialize.toast('Записахте се успешно!', 3000, 'rounded');
+        }
+
+        function leaveTripToast() {
+            Materialize.toast('Отписахте се успешно!', 3000, 'rounded');
+        }
+
+        function deleteToast() {
+            Materialize.toast('Изтрихте пътуването успешно', 3000, 'rounded');
+        }
+    </script>
 }
