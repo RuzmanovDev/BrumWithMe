@@ -7,22 +7,20 @@
         </span>
         <a href="/trip/tripdetails/@Model.Id">
             <div>
-                <div class="trip-avatar-container col s2">
-                    <img src="@Model.CarAvatarImage" alt="Alternate Text" class="circle avatar" />
+                <div class="card-image waves-effect waves-block waves-light mytrip-car-image">
+                    <img class="activator" src="@Model.CarAvatarImage">
                 </div>
-                <div class="trip-info col s9">
-                    <div class="primary col s12">
-                        <div class="origin col s12">От @Model.OriginName</div>
-                        <div class="destination col s8">До @Model.DestinationName</div>
-                        <div class="trip-price col s4">$@Model.Price</div>
-                    </div>
-                    <div class="secondary col s12">
-                        <span class="date" title="Дата на погегляне"><i class="material-icons">today</i> @Model.TimeOfDeparture.ToString("dd.MMM")</span>
-                        <span class="time" title="Час на потегляне"><i class="material-icons">query_builder</i> @Model.TimeOfDeparture.ToString("hh.mm")</span>
-                        <span class="seats" title="Места">
-                            <i class="material-icons">perm_identity</i> @Model.TakenSeats/@Model.TotalSeats
-                        </span>
-                    </div>
+                <div class="col s8 offset-s2">
+                    <span class="date" title="Дата на погегляне"><i class="material-icons">today</i> @Model.TimeOfDeparture.ToString("dd.MMM")</span>
+                    <span class="time" title="Час на потегляне"><i class="material-icons">query_builder</i> @Model.TimeOfDeparture.ToString("hh.mm")</span>
+                </div>
+                <div class="col s8 offset-s2">
+                    <span class="seats" title="Места">
+                        <i class="material-icons">perm_identity</i> @Model.TakenSeats/@Model.TotalSeats
+                    </span>
+                    <span class="seats" title="Места">
+                        <i class="material-icons">loyalty</i> $@Model.Price
+                    </span>
                 </div>
             </div>
         </a>
@@ -52,7 +50,7 @@
                                         new AjaxOptions() { HttpMethod = "POST", UpdateTargetId = "trip-" + @Model.Id },
                                         new { @class = "btn small material-icons" })
 
-                            @Ajax.ActionLink("not_interested",nameof(DashboardController.RejectUserInTrip),
+                            @Ajax.ActionLink("not_interested", nameof(DashboardController.RejectUserInTrip),
                                         new { userId = user.Id, tripId = Model.Id },
                                         new AjaxOptions() { HttpMethod = "POST", UpdateTargetId = "trip-" + @Model.Id },
                                         new { @class = "btn red small material-icons" })

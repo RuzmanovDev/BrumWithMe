@@ -38,7 +38,7 @@
                          OnSuccess = "joinTripToast",
                          UpdateTargetId = "join-trip-btn-container",
                          InsertionMode = InsertionMode.Replace
-                     }, new { @class = "col s12 btn" })
+                     }, new { @class = "col s12 btn", id = "join-trip-btn" })
         }
     }
 }
@@ -56,4 +56,5 @@
             Materialize.toast('Изтрихте пътуването успешно', 3000, 'rounded');
         }
     </script>
+
 }

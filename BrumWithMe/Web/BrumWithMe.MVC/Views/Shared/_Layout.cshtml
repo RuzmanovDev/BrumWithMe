@@ -8,6 +8,7 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
+
     @* TODO: ADD TO FILE*@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
@@ -59,6 +60,8 @@
     </footer>
 
     @Scripts.Render("~/bundles/jquery")
+    <script src="~/Scripts/jquery.signalR-2.2.1.min.js"></script>
+    <script src="~/signalr/hubs" type="text/javascript"></script>
     @Scripts.Render("~/bundles/materialize")
     @RenderSection("scripts", required: false)
     <script>

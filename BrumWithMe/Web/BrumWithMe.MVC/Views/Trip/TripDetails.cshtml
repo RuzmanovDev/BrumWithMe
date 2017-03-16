@@ -29,7 +29,7 @@
                 }
 
                 <section id="join-trip-btn-container">
-                    @Html.Action(nameof(TripController.JoinBtn), 
+                    @Html.Action(nameof(TripController.JoinBtn),
                     new { ownerId = Model.Driver.Id, isUserInTrip = Model.IsSeatReservedByCurrentUser, tripId = Model.Id })
                 </section>
             </div>
@@ -88,5 +88,23 @@
     </script>
     <script async defer
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAmM0B0JfIJKoF6KQfUfotRFcmzvI4Qn3w&callback=initMap">
+    </script>
+    <script>
+        $(document).ready(function () {
+            $.connection.hub.start();
+
+            var notificationHub = $.connection.notification;
+
+            $('#join-trip-btn').on('click', function () {
+                notificationHub.server.log();
+                console.log('zakachen e eventa');
+            });
+
+            notificationHub.client.test = function (value) {
+                console.log(value)
+            }
+        })
+
+
     </script>
 }

@@ -176,3 +176,11 @@ ul.autocomplete-content.dropdown-content {
         width: 30px;
         padding: 3px;
     }
+
+.mytrip-car-image {
+    width: 200px;
+}
+
+.card-title {
+    font-size: 1.5vw !important;
+}
