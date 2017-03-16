@@ -168,8 +168,12 @@ namespace BrumWithMe.Services.Data.Services
         {
             using (var uow = this.UnitOfWork())
             {
-                var trip = this.userTripsRepo.GetFirst(x => x.TripId == tripId);
-                this.userTripsRepo.Delete(trip);
+                var userTrip = this.userTripsRepo.GetFirst(x => x.TripId == tripId);
+                var trip = this.tripRepo
+                    .GetFirst(x => !x.IsDeleted && x.Id == tripId);
+                trip.TakenSeats--;
+
+                this.userTripsRepo.Delete(userTrip);
 
                 return uow.Commit();
             }
@@ -192,6 +196,16 @@ namespace BrumWithMe.Services.Data.Services
         {
             using (var uow = base.UnitOfWork())
             {
+                var trip = this.tripRepo
+                    .GetFirst(x => !x.IsDeleted && x.Id == tripId);
+
+                var incrementedSeats = trip.TakenSeats++;
+
+                if (incrementedSeats > trip.TotalSeats)
+                {
+                    throw new InvalidOperationException("There aren't any more free seats!");
+                }
+
                 this.userTripsRepo.Update(new UsersTrips()
                 {
                     UserId = userId,
@@ -199,10 +213,6 @@ namespace BrumWithMe.Services.Data.Services
                     IsOwner = false,
                     UserTripStatusId = (int)UserTripStatusType.Accepted
                 });
-
-                var trip = this.tripRepo
-                    .GetFirst(x => !x.IsDeleted && x.Id == tripId);
-                trip.TakenSeats++;
 
                 uow.Commit();
 

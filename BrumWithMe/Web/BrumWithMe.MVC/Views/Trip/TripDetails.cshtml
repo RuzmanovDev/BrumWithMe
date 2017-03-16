@@ -29,8 +29,15 @@
                 }
 
                 <section id="join-trip-btn-container">
-                    @Html.Action(nameof(TripController.JoinBtn),
-                    new { ownerId = Model.Driver.Id, isUserInTrip = Model.IsSeatReservedByCurrentUser, tripId = Model.Id })
+                    @if (Model.TakenSeats >= Model.TotalSeats && !Model.IsSeatReservedByCurrentUser)
+                    {
+                        <a href="!#" class="btn red disabled">Няма налични места</a>
+                    }
+                    else
+                    {
+                        @Html.Action(nameof(TripController.JoinBtn),
+                        new { ownerId = Model.Driver.Id, isUserInTrip = Model.IsSeatReservedByCurrentUser, tripId = Model.Id })
+                    }
                 </section>
             </div>
             <div class="col s6">
