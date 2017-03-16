@@ -97,6 +97,7 @@
     <Compile Include="Shared\UserBannerViewModel.cs" />
     <Compile Include="Trip\CarViewModel.cs" />
     <Compile Include="Trip\CreateTripViewModel.cs" />
+    <Compile Include="Trip\JoinTripBtnViewModel.cs" />
     <Compile Include="Trip\TagViewModel.cs" />
     <Compile Include="Trip\TripBasicInfoViewModel.cs" />
     <Compile Include="Trip\TripDetailsViewModel.cs" />
