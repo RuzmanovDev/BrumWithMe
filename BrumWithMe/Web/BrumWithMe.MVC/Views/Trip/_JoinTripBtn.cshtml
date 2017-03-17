@@ -1,60 +1,24 @@
 ﻿@model JoinTripBtnViewModel
 
-@if (this.User.Identity.IsAuthenticated)
+@if (Model.IsUserPassangerInTheTrip)
 {
-    if (Model.IsUserOwner)
-    {
-        @Ajax.ActionLink("Изтрии пътуването", nameof(TripController.DeleteTrip),
-        new { tripId = Model.TripId },
+    @Ajax.ActionLink("Отпиши се", nameof(TripController.SignOutOftheTrip),
+            new { tripId = Model.TripId },
                             new AjaxOptions()
                             {
                                 HttpMethod = "post",
-                                OnSuccess = "deleteToast",
-                                UpdateTargetId = "join-trip-btn-container",
-                                InsertionMode = InsertionMode.Replace
-                            }, new { @class = "col s12 red btn" });
-    }
-    else
-    {
-        if (Model.IsUserInTrip)
-        {
-            @Ajax.ActionLink("Отпиши се", nameof(TripController.SignOutOftheTrip),
-            new { tripId = Model.TripId, isUserOwner = Model.IsUserOwner },
-                            new AjaxOptions()
-                            {
-                                HttpMethod = "post",
-                                OnSuccess = "leaveTripToast",
                                 UpdateTargetId = "join-trip-btn-container",
                                 InsertionMode = InsertionMode.Replace
                             }, new { @class = "col s12 btn red " })
-        }
-        else
-        {
-            @Ajax.ActionLink("Запази място", nameof(TripController.RequestToJoinTheTrip),
-            new { tripId = Model.TripId, isUserOwner = Model.IsUserOwner },
+}
+else
+{
+    @Ajax.ActionLink("Запази място", nameof(TripController.RequestToJoinTheTrip),
+            new { tripId = Model.TripId },
                      new AjaxOptions()
                      {
                          HttpMethod = "post",
-                         OnSuccess = "joinTripToast",
                          UpdateTargetId = "join-trip-btn-container",
                          InsertionMode = InsertionMode.Replace
                      }, new { @class = "col s12 btn", id = "join-trip-btn" })
-        }
-    }
-}
-@section scripts{
-    <script>
-        function joinTripToast() {
-            Materialize.toast('Записахте се успешно!', 3000, 'rounded');
-        }
-
-        function leaveTripToast() {
-            Materialize.toast('Отписахте се успешно!', 3000, 'rounded');
-        }
-
-        function deleteToast() {
-            Materialize.toast('Изтрихте пътуването успешно', 3000, 'rounded');
-        }
-    </script>
-
 }

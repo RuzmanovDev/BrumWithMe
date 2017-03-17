@@ -18,7 +18,7 @@ namespace BrumWithMe.Services.Data.Contracts
 
         bool RequestToJoinTrip(int tripId, string userId);
 
-        bool isUserInTrip(string userId, int tripId);
+        bool IsPassengerInTrip(string userId, int tripId);
 
         bool SignOutOfTrip(int tripId, string userId);
 

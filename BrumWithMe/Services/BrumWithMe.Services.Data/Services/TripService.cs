@@ -151,6 +151,13 @@ namespace BrumWithMe.Services.Data.Services
         {
             using (var uow = this.UnitOfWork())
             {
+                bool isUserOwner = this.IsUserOwnerOfTrip(userId, tripId);
+
+                if (isUserOwner)
+                {
+                    throw new InvalidOperationException("Trip owner cannot join trip created by him!");
+                }
+
                 this.userTripsRepo.Add(new UsersTrips()
                 {
                     TripId = tripId,
@@ -186,23 +193,31 @@ namespace BrumWithMe.Services.Data.Services
             }
         }
 
-        public bool isUserInTrip(string userId, int tripId)
+        public bool IsPassengerInTrip(string passangerId, int tripId)
         {
-            var fountTrip = this.userTripsRepo.GetFirst(x => x.UserId == userId && x.TripId == tripId);
+            var fountTrip = this.userTripsRepo
+                .GetFirst(x => x.UserId == passangerId && x.TripId == tripId && !x.IsOwner);
 
-            bool isIntrip = false;
+            bool isPassangerInTrip = false;
             if (fountTrip != null)
             {
-                isIntrip = true;
+                isPassangerInTrip = true;
             }
 
-            return isIntrip;
+            return isPassangerInTrip;
         }
 
         public TripInfoWithUserRequests JoinUserToTrip(string userId, int tripId)
         {
             using (var uow = base.UnitOfWork())
             {
+                bool isUserOwner = this.IsUserOwnerOfTrip(userId, tripId);
+
+                if (isUserOwner)
+                {
+                    throw new InvalidOperationException("Trip owner cannot join trip created by him!");
+                }
+
                 var trip = this.tripRepo
                     .GetFirst(x => !x.IsDeleted && x.Id == tripId);
 
@@ -246,6 +261,17 @@ namespace BrumWithMe.Services.Data.Services
 
                 return trip;
             }
+        }
+
+        private bool IsUserOwnerOfTrip(string userId, int tripId)
+        {
+            var userTrip = this.userTripsRepo.GetFirst(x => x.UserId == userId && x.TripId == tripId && x.IsOwner);
+            if (userTrip != null)
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }

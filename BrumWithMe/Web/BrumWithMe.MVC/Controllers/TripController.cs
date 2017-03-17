@@ -42,13 +42,16 @@ namespace BrumWithMe.MVC.Controllers
             TripDetailsViewModel tripDetailsView = this.mappingProvider.Map<TripDetails, TripDetailsViewModel>(tripDetails);
 
             bool isUserAlreadyAppliedToTrip = false;
+            bool isUserOwner =
+                base.GetLoggedUserId == tripDetailsView.Driver.Id;
 
             if (base.GetLoggedUserId != null)
             {
-                isUserAlreadyAppliedToTrip = this.tripService.isUserInTrip(base.GetLoggedUserId, id);
+                isUserAlreadyAppliedToTrip = this.tripService.IsPassengerInTrip(base.GetLoggedUserId, id);
             }
 
-            tripDetailsView.IsSeatReservedByCurrentUser = isUserAlreadyAppliedToTrip;
+            tripDetailsView.IsCurrentUserPassangerInTheTrip = isUserAlreadyAppliedToTrip;
+            tripDetailsView.IsCurrentUserOwner = isUserOwner;
 
             return View(tripDetailsView);
         }
@@ -118,14 +121,13 @@ namespace BrumWithMe.MVC.Controllers
 
         [HttpPost]
         [Authorize]
-        public ActionResult RequestToJoinTheTrip(int tripId, bool isUserOwner)
+        public ActionResult RequestToJoinTheTrip(int tripId)
         {
             var userId = base.GetLoggedUserId;
             var isScucessfullyJoined = this.tripService.RequestToJoinTrip(tripId, userId);
 
             var model = new JoinTripBtnViewModel();
-            model.IsUserOwner = isUserOwner;
-            model.IsUserInTrip = isScucessfullyJoined;
+            model.IsUserPassangerInTheTrip = isScucessfullyJoined;
             model.TripId = tripId;
 
             return this.PartialView("_JoinTripBtn", model);
@@ -133,7 +135,7 @@ namespace BrumWithMe.MVC.Controllers
 
         [HttpPost]
         [Authorize]
-        public ActionResult SignOutOftheTrip(int tripId, bool isUserOwner)
+        public ActionResult SignOutOftheTrip(int tripId)
         {
             var userId = base.GetLoggedUserId;
             var result = this.tripService.SignOutOfTrip(tripId, userId);
@@ -145,33 +147,29 @@ namespace BrumWithMe.MVC.Controllers
             }
 
             var model = new JoinTripBtnViewModel();
-            model.IsUserOwner = isUserOwner;
-            model.IsUserInTrip = isUserInTrip;
+            model.IsUserPassangerInTheTrip = isUserInTrip;
             model.TripId = tripId;
 
             return this.PartialView("_JoinTripBtn", model);
         }
 
         [ChildActionOnly]
-        public ActionResult JoinBtn(string ownerId, bool isUserInTrip, int tripId)
+        public ActionResult JoinBtn(int tripId)
         {
             var userId = base.GetLoggedUserId;
-            bool isUserOwner = false;
 
-            if (userId == ownerId)
-            {
-                isUserOwner = true;
-            }
+            var isUserPassangerInTheTrip = this.tripService.IsPassengerInTrip(userId, tripId);
 
             var model = new JoinTripBtnViewModel();
-            model.IsUserOwner = isUserOwner;
-            model.IsUserInTrip = isUserInTrip;
+
             model.TripId = tripId;
+            model.IsUserPassangerInTheTrip = isUserPassangerInTheTrip;
 
             return this.PartialView("_JoinTripBtn", model);
         }
 
         [Authorize]
+        [ChildActionOnly]
         public ActionResult DeleteTrip()
         {
             return null;

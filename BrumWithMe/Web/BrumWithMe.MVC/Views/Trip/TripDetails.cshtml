@@ -29,14 +29,20 @@
                 }
 
                 <section id="join-trip-btn-container">
-                    @if (Model.TakenSeats >= Model.TotalSeats && !Model.IsSeatReservedByCurrentUser)
+                    @if (this.User.Identity.IsAuthenticated)
                     {
-                        <a href="!#" class="btn red disabled">Няма налични места</a>
-                    }
-                    else
-                    {
-                        @Html.Action(nameof(TripController.JoinBtn),
-                        new { ownerId = Model.Driver.Id, isUserInTrip = Model.IsSeatReservedByCurrentUser, tripId = Model.Id })
+                        if (Model.IsCurrentUserOwner)
+                        {
+                            @Html.ActionLink("Приключи пътуването", nameof(TripController.DeleteTrip), null, new { @class = "btn red" });
+                        }
+                        else if (Model.TakenSeats >= Model.TotalSeats && !Model.IsCurrentUserPassangerInTheTrip)
+                        {
+                            <a href="!#" class="btn red disabled">Няма налични места</a>
+                        }
+                        else
+                        {
+                            @Html.Action(nameof(TripController.JoinBtn), new { tripId = Model.Id });
+                        }
                     }
                 </section>
             </div>
