@@ -212,6 +212,14 @@ ul.autocomplete-content.dropdown-content {
     font-size: 15px;
 }
 
-.report-button a{
+.report-button a {
     font-family: GillSans, Calibri, Trebuchet, sans-serif;
+}
+
+.tabs a {
+    font-weight: bold;
+}
+
+.tabs .indicator {
+    background-color: #004d40;
 }

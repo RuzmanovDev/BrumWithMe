@@ -1,8 +1,17 @@
 ﻿@model DashboardViewModel
-<div class="container">
+<section class="container">
     <div class="row z-depth-3 shadow-container">
-        <h1>Пътувания споделени от мен</h1>
-
+        <div class="row  teal-text text-darken-4">
+            <div class="col s12">
+                <ul class="tabs">
+                    <li class="tab col s6"><a href="#test1" class="teal-text text-darken-4">Пътувания споделени от мен</a></li>
+                    <li class="tab col s6"><a href="#test2" class="teal-text text-darken-4">Пътувания в който участвам</a></li>
+                </ul>
+            </div>
+            <div id="test1" class="col s12">Test 1</div>
+            <div id="test2" class="col s12">Test 2</div>
+        </div>
+        <h2>Пътувания споделени от мен</h2>
         @foreach (var trip in Model.TripsCreatedByUser)
         {
             <section id="trip-@trip.Id">
@@ -10,4 +19,12 @@
             </section>
         }
     </div>
-</div>
+</section>
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('ul.tabs').tabs();
+        });
+
+    </script>
+}
