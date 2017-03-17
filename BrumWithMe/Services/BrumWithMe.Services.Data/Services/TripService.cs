@@ -151,6 +151,13 @@ namespace BrumWithMe.Services.Data.Services
             return tripsInfo;
         }
 
+        public IEnumerable<TripBasicInfoWithStatus> GetTripsJoinedByUser(string userId)
+        {
+            var result = this.userTripsRepo.GetAllMapped<TripBasicInfoWithStatus>(x => x.UserId == userId && x.UserTripStatusId != (int)UserTripStatusType.Owner);
+
+            return result;
+        }
+
         public bool RequestToJoinTrip(int tripId, string userId)
         {
             using (var uow = this.UnitOfWork())

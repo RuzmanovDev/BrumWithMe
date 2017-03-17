@@ -1,5 +1,4 @@
-﻿using BrumWithMe.Data.Models.CompositeModels;
-using BrumWithMe.Data.Models.CompositeModels.Trip;
+﻿using BrumWithMe.Data.Models.CompositeModels.Trip;
 using System.Collections.Generic;
 
 namespace BrumWithMe.Services.Data.Contracts
@@ -16,6 +15,8 @@ namespace BrumWithMe.Services.Data.Contracts
 
         IEnumerable<TripInfoWithUserRequests> GetTripsCreatedByUser(string userId);
 
+        IEnumerable<TripBasicInfoWithStatus> GetTripsJoinedByUser(string userId);
+
         bool RequestToJoinTrip(int tripId, string userId);
 
         bool IsPassengerInTrip(string userId, int tripId);
@@ -25,6 +26,7 @@ namespace BrumWithMe.Services.Data.Contracts
         TripInfoWithUserRequests JoinUserToTrip(string userId, int tripId);
 
         TripInfoWithUserRequests RejectUserToJoinTrip(string userId, int tripId);
+
         bool MarkTripAsFinished(int tripId, string userId);
     }
 }

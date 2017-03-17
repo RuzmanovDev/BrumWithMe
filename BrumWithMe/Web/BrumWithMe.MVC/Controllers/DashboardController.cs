@@ -8,7 +8,7 @@ using Microsoft.AspNet.Identity;
 namespace BrumWithMe.MVC.Controllers
 {
     [Authorize]
-    public class DashboardController : Controller
+    public class DashboardController : BaseController
     {
         private readonly ITripService tripService;
         private readonly IMappingProvider mappingProvider;
@@ -37,7 +37,10 @@ namespace BrumWithMe.MVC.Controllers
 
         public ActionResult TripsJoinedByMe()
         {
-            return new EmptyResult();
+            var userId = base.GetLoggedUserId;
+            var trips = this.tripService.GetTripsJoinedByUser(userId);
+
+            return this.PartialView("_TripsJoinedByUser", trips);
         }
 
         [HttpPost]
