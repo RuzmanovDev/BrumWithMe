@@ -4,6 +4,7 @@
     <div class="row">
         <h3 class="col s11 offset-s1">
             <span id="origin">@Model.OriginName</span> - <span id="destination">@Model.DestinationName</span>
+            
         </h3>
         <div class="col s12">
             <div class="col s6">
@@ -23,12 +24,13 @@
                     <i class="material-icons" title="цена">loyalty</i>
                     цена @Model.Price лева
                 </span>
-                @foreach (var tag in Model.Tags)
-                {
-                    <div class="chip">#@tag.Name</div>
-                }
-
-                <section id="join-trip-btn-container">
+                <section class="tags-container">
+                    @foreach (var tag in Model.Tags)
+                    {
+                        <div class="chip">#@tag.Name</div>
+                    }
+                </section>
+                <section id="join-trip-btn-container" class="col s9 offset-s2">
                     @if (this.User.Identity.IsAuthenticated)
                     {
                         if (Model.IsCurrentUserOwner)
@@ -45,6 +47,7 @@
                         }
                     }
                 </section>
+              
             </div>
             <div class="col s6">
                 <div class="col s6">
@@ -53,12 +56,16 @@
                 <div class="col s6">
                     @Html.Partial("_UserBanner", Model.Driver)
                 </div>
-                <div class="trip-description">
+                <div class="trip-description col s12">
                     <h5>Описание</h5>
                     <p>
                         @Model.Description
                     </p>
                 </div>
+                <span class="report-button col s3 offset-s9">
+                    <i class="material-icons">warning</i>
+                    <a href="#" class="large material-icons">Докладвай</a>
+                </span>
             </div>
         </div>
     </div>

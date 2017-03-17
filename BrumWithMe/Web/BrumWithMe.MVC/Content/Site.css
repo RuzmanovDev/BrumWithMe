@@ -195,6 +195,23 @@ ul.autocomplete-content.dropdown-content {
 
 .trip-description {
     width: 300px;
-    height: 150px;
+    height: 200px;
     overflow: scroll;
+    overflow-y: auto;
+    overflow-x: auto;
+}
+
+.tags-container {
+    height: 220px;
+    overflow-y: auto;
+    overflow-x: auto;
+}
+
+.report-button i, .report-button a {
+    color: #b71c1c;
+    font-size: 15px;
+}
+
+.report-button a{
+    font-family: GillSans, Calibri, Trebuchet, sans-serif;
 }
