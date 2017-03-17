@@ -44,7 +44,7 @@ namespace BrumWithMe.Services.Providers.Mapping.Profiles
                 .ForMember(dest => dest.LastName, opt => opt.MapFrom(src => src.User.LastName))
                 .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.UserTripStatus.Name));
 
-            
+
             CreateMap<Trip, TripInfoWithUserRequests>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.OriginName, opt => opt.MapFrom(src => src.Origin.Name))
@@ -54,7 +54,7 @@ namespace BrumWithMe.Services.Providers.Mapping.Profiles
                 .ForMember(dest => dest.Price, opt => opt.MapFrom(src => src.Price))
                 .ForMember(dest => dest.TimeOfDeparture, opt => opt.MapFrom(src => src.TimeOfDeparture))
                 .ForMember(dest => dest.CarAvatarImage, opt => opt.MapFrom(src => src.Car.ImageUrl))
-                .ForMember(dest => dest.Passangers, opt => opt.MapFrom(src => src.TripsUsers.Where(x => !x.IsOwner)));
+                .ForMember(dest => dest.Passangers, opt => opt.MapFrom(src => src.TripsUsers.Where(x => x.UserTripStatusId != (int)UserTripStatusType.Owner)));
         }
     }
 }

@@ -31,7 +31,7 @@ namespace BrumWithMe.Data.Migrations
             context.UserTripStatus.AddOrUpdate(new UserTripStatus()
             {
                 Id = 3,
-                Name = "Declined"
+                Name = "Owner"
             });
 
             //  This method will be called after migrating to the latest version.

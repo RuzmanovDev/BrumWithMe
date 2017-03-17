@@ -76,8 +76,7 @@ namespace BrumWithMe.Services.Data.Services
                 {
                     Trip = trip,
                     UserId = tripInfo.DriverId,
-                    IsOwner = true,
-                    UserTripStatusId = (int)UserTripStatusType.Accepted
+                    UserTripStatusId = (int)UserTripStatusType.Owner
                 };
 
                 trip.TripsUsers = new List<UsersTrips>() { userTrips };
@@ -141,7 +140,12 @@ namespace BrumWithMe.Services.Data.Services
 
         public IEnumerable<TripInfoWithUserRequests> GetTripsCreatedByUser(string userId)
         {
-            var tripIdsUserOwns = this.userTripsRepo.GetAll(x => x.IsOwner && x.UserId == userId, x => x.TripId);
+            var tripIdsUserOwns =
+                this.userTripsRepo.GetAll(
+                    x => x.UserTripStatusId == (int)UserTripStatusType.Owner
+                    && x.UserId == userId,
+                    x => x.TripId);
+
             var tripsInfo = this.tripRepo.GetAllMapped<TripInfoWithUserRequests>(x => tripIdsUserOwns.Contains(x.Id) && !x.IsDeleted);
 
             return tripsInfo;
@@ -162,7 +166,6 @@ namespace BrumWithMe.Services.Data.Services
                 {
                     TripId = tripId,
                     UserId = userId,
-                    IsOwner = false,
                     UserTripStatusId = (int)UserTripStatusType.Pending,
                 });
 
@@ -196,7 +199,7 @@ namespace BrumWithMe.Services.Data.Services
         public bool IsPassengerInTrip(string passangerId, int tripId)
         {
             var fountTrip = this.userTripsRepo
-                .GetFirst(x => x.UserId == passangerId && x.TripId == tripId && !x.IsOwner);
+                .GetFirst(x => x.UserId == passangerId && x.TripId == tripId && x.UserTripStatusId != (int)UserTripStatusType.Owner);
 
             bool isPassangerInTrip = false;
             if (fountTrip != null)
@@ -232,7 +235,6 @@ namespace BrumWithMe.Services.Data.Services
                 {
                     UserId = userId,
                     TripId = tripId,
-                    IsOwner = false,
                     UserTripStatusId = (int)UserTripStatusType.Accepted
                 });
 
@@ -248,14 +250,7 @@ namespace BrumWithMe.Services.Data.Services
         {
             using (var uow = base.UnitOfWork())
             {
-                this.userTripsRepo.Update(new UsersTrips()
-                {
-                    UserId = userId,
-                    TripId = tripId,
-                    UserTripStatusId = (int)UserTripStatusType.Declined
-                });
-
-                uow.Commit();
+                this.SignOutOfTrip(tripId, userId);
 
                 var trip = this.tripRepo.GetFirstMapped<TripInfoWithUserRequests>(x => x.Id == tripId);
 
@@ -265,7 +260,7 @@ namespace BrumWithMe.Services.Data.Services
 
         private bool IsUserOwnerOfTrip(string userId, int tripId)
         {
-            var userTrip = this.userTripsRepo.GetFirst(x => x.UserId == userId && x.TripId == tripId && x.IsOwner);
+            var userTrip = this.userTripsRepo.GetFirst(x => x.UserId == userId && x.TripId == tripId && x.UserTripStatusId == (int)UserTripStatusType.Owner);
             if (userTrip != null)
             {
                 return true;
