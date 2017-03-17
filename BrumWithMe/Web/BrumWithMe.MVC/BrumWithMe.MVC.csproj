@@ -332,7 +332,8 @@
     <Content Include="Views\Search\_TripSearchResult.cshtml" />
     <Content Include="Views\Dashboard\Index.cshtml" />
     <Content Include="Views\Trip\_JoinTripBtn.cshtml" />
-    <Content Include="Views\Dashboard\_TripsSharedByCurrentUser.cshtml" />
+    <Content Include="Views\Dashboard\_TripSharedByUserInfo.cshtml" />
+    <Content Include="Views\Dashboard\_AllTripsSharedByUser.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

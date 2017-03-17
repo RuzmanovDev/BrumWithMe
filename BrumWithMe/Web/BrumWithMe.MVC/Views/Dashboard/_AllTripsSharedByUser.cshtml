@@ -1,0 +1,8 @@
+﻿@model IEnumerable<BrumWithMe.Data.Models.CompositeModels.Trip.TripInfoWithUserRequests>
+
+@foreach (var trip in Model)
+{
+    <section id="trip-@trip.Id">
+        @Html.Partial("_TripSharedByUserInfo", trip)
+    </section>
+}

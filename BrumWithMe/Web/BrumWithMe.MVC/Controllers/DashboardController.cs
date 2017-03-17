@@ -23,14 +23,21 @@ namespace BrumWithMe.MVC.Controllers
 
         public ActionResult Index()
         {
+            return View();
+        }
+
+        public ActionResult TripsSharedByMe()
+        {
             var loggedUserId = this.User.Identity.GetUserId();
 
             var data = this.tripService.GetTripsCreatedByUser(loggedUserId);
 
-            var model = new DashboardViewModel();
-            model.TripsCreatedByUser = data;
+            return this.PartialView("_AllTripsSharedByUser", data);
+        }
 
-            return View(model);
+        public ActionResult TripsJoinedByMe()
+        {
+            return new EmptyResult();
         }
 
         [HttpPost]
@@ -38,7 +45,7 @@ namespace BrumWithMe.MVC.Controllers
         {
             var updatedTripInfo = this.tripService.JoinUserToTrip(userId, tripId);
 
-            return this.PartialView("_TripsSharedByCurrentUser", updatedTripInfo);
+            return this.PartialView("_TripSharedByUserInfo", updatedTripInfo);
         }
 
         [HttpPost]
@@ -46,9 +53,9 @@ namespace BrumWithMe.MVC.Controllers
         {
             var updatedTripInfo = this.tripService.RejectUserToJoinTrip(userId, tripId);
 
-            return this.PartialView("_TripsSharedByCurrentUser", updatedTripInfo);
+            return this.PartialView("_TripSharedByUserInfo", updatedTripInfo);
         }
     }
 
-  
+
 }
