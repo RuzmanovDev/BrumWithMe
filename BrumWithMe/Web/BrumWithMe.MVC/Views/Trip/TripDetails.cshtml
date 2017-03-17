@@ -33,7 +33,7 @@
                     {
                         if (Model.IsCurrentUserOwner)
                         {
-                            @Html.ActionLink("Приключи пътуването", nameof(TripController.DeleteTrip), null, new { @class = "btn red" });
+                            @Html.ActionLink("Приключи пътуването", nameof(TripController.MarkTripAsFinished), new { tripId = Model.Id }, new { @class = "btn red" });
                         }
                         else if (Model.TakenSeats >= Model.TotalSeats && !Model.IsCurrentUserPassangerInTheTrip)
                         {
@@ -53,7 +53,7 @@
                 <div class="col s6">
                     @Html.Partial("_UserBanner", Model.Driver)
                 </div>
-                <div width="300px">
+                <div class="trip-description">
                     <h5>Описание</h5>
                     <p>
                         @Model.Description

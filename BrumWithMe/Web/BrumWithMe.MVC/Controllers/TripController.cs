@@ -169,10 +169,18 @@ namespace BrumWithMe.MVC.Controllers
         }
 
         [Authorize]
-        [ChildActionOnly]
-        public ActionResult DeleteTrip()
+        public ActionResult MarkTripAsFinished(int tripId)
         {
-            return null;
+            var userId = base.GetLoggedUserId;
+
+            bool result = this.tripService.MarkTripAsFinished(tripId, userId);
+
+            if (!result)
+            {
+                return this.RedirectToAction(nameof(TripController.TripDetails), new { id = tripId });
+            }
+
+            return this.RedirectToAction(nameof(HomeController.Index));
         }
     }
 }

@@ -29,6 +29,9 @@ namespace BrumWithMe.Web.Models.Trip
         public IEnumerable<TagViewModel> Tags { get; set; }
 
         public bool IsCurrentUserPassangerInTheTrip { get; set; }
+
         public bool IsCurrentUserOwner{ get; set; }
+
+        public bool IsDeleted { get; set; }
     }
 }

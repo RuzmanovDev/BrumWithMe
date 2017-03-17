@@ -189,6 +189,11 @@ namespace BrumWithMe.Services.Data.Services
                         throw new InvalidOperationException("The number of taken seats cannot be negative!");
                     }
                 }
+                else if (userTrip.UserTripStatusId == (int)UserTripStatusType.Owner)
+                {
+                    // owners cannot be removed from the trip
+                    return false;
+                }
 
                 this.userTripsRepo.Delete(userTrip);
 
@@ -248,14 +253,12 @@ namespace BrumWithMe.Services.Data.Services
 
         public TripInfoWithUserRequests RejectUserToJoinTrip(string userId, int tripId)
         {
-            using (var uow = base.UnitOfWork())
-            {
-                this.SignOutOfTrip(tripId, userId);
+            this.SignOutOfTrip(tripId, userId);
 
-                var trip = this.tripRepo.GetFirstMapped<TripInfoWithUserRequests>(x => x.Id == tripId);
+            var updatedTripInfo = this.tripRepo.GetFirstMapped<TripInfoWithUserRequests>(x => x.Id == tripId);
 
-                return trip;
-            }
+            return updatedTripInfo;
+
         }
 
         private bool IsUserOwnerOfTrip(string userId, int tripId)
@@ -267,6 +270,22 @@ namespace BrumWithMe.Services.Data.Services
             }
 
             return false;
+        }
+
+        public bool MarkTripAsFinished(int tripId, string userId)
+        {
+            bool isUserOwner = this.IsUserOwnerOfTrip(userId, tripId);
+
+            if (!isUserOwner)
+            {
+                return false;
+            }
+
+            using (var uow = base.UnitOfWork())
+            {
+                this.tripRepo.GetFirst(x => x.Id == tripId).IsDeleted = true;
+                return uow.Commit();
+            }
         }
     }
 }

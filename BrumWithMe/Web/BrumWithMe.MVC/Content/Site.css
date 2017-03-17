@@ -184,3 +184,17 @@ ul.autocomplete-content.dropdown-content {
 .card-title {
     font-size: 1.5vw !important;
 }
+
+.banner {
+    height: 50px;
+}
+
+    .banner .banner-image {
+        margin-right: 10px;
+    }
+
+.trip-description {
+    width: 300px;
+    height: 150px;
+    overflow: scroll;
+}

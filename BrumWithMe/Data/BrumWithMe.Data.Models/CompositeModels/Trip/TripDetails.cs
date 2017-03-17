@@ -27,5 +27,7 @@ namespace BrumWithMe.Data.Models.CompositeModels.Trip
         public IEnumerable<TagInfo> Tags { get; set; }
 
         public CarBasicInfo Car { get; set; }
+
+        public bool IsDeleted { get; set; }
     }
 }
