@@ -1,17 +1,13 @@
-﻿using BrumWithMe.Data.Models.CompositeModels.Trip;
+﻿using System.Web.Mvc;
 using BrumWithMe.Services.Data.Contracts;
 using BrumWithMe.Services.Providers.Mapping.Contracts;
-using BrumWithMe.Web.Models.Trip;
+using BrumWithMe.Web.Models.Dashboard;
 using Bytes2you.Validation;
 using Microsoft.AspNet.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
 
 namespace BrumWithMe.MVC.Controllers
 {
+    [Authorize]
     public class DashboardController : Controller
     {
         private readonly ITripService tripService;
@@ -31,14 +27,13 @@ namespace BrumWithMe.MVC.Controllers
 
             var data = this.tripService.GetTripsCreatedByUser(loggedUserId);
 
-            var model = new DashBoardViewModel();
+            var model = new DashboardViewModel();
             model.TripsCreatedByUser = data;
 
             return View(model);
         }
 
         [HttpPost]
-        [Authorize]
         public ActionResult AcceptUserInTrip(string userId, int tripId)
         {
             var updatedTripInfo = this.tripService.JoinUserToTrip(userId, tripId);
@@ -47,7 +42,6 @@ namespace BrumWithMe.MVC.Controllers
         }
 
         [HttpPost]
-        [Authorize]
         public ActionResult RejectUserInTrip(string userId, int tripId)
         {
             var updatedTripInfo = this.tripService.RejectUserToJoinTrip(userId, tripId);
@@ -56,8 +50,5 @@ namespace BrumWithMe.MVC.Controllers
         }
     }
 
-    public class DashBoardViewModel
-    {
-        public IEnumerable<TripInfoWithUserRequests> TripsCreatedByUser { get; set; }
-    }
+  
 }

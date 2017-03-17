@@ -97,7 +97,7 @@ namespace BrumWithMe.Services.Data.Services
 
         public IEnumerable<TripBasicInfo> GetLatestTripsBasicInfo(int countToTake)
         {
-            // take the first set of sorted items
+            // takes the first set of sorted items
             int page = 0;
 
             var trips = this.tripRepo.GetAllMapped<DateTime, TripBasicInfo>(
@@ -145,7 +145,6 @@ namespace BrumWithMe.Services.Data.Services
             var tripsInfo = this.tripRepo.GetAllMapped<TripInfoWithUserRequests>(x => tripIdsUserOwns.Contains(x.Id) && !x.IsDeleted);
 
             return tripsInfo;
-
         }
 
         public bool RequestToJoinTrip(int tripId, string userId)
@@ -169,9 +168,17 @@ namespace BrumWithMe.Services.Data.Services
             using (var uow = this.UnitOfWork())
             {
                 var userTrip = this.userTripsRepo.GetFirst(x => x.TripId == tripId);
-                var trip = this.tripRepo
-                    .GetFirst(x => !x.IsDeleted && x.Id == tripId);
-                trip.TakenSeats--;
+
+                if (userTrip.UserTripStatusId == (int)UserTripStatusType.Accepted)
+                {
+                    var trip = userTrip.Trip;
+                    trip.TakenSeats--;
+
+                    if (trip.TakenSeats < 0)
+                    {
+                        throw new InvalidOperationException("The number of taken seats cannot be negative!");
+                    }
+                }
 
                 this.userTripsRepo.Delete(userTrip);
 
@@ -199,7 +206,7 @@ namespace BrumWithMe.Services.Data.Services
                 var trip = this.tripRepo
                     .GetFirst(x => !x.IsDeleted && x.Id == tripId);
 
-                var incrementedSeats = trip.TakenSeats++;
+                var incrementedSeats = ++trip.TakenSeats;
 
                 if (incrementedSeats > trip.TotalSeats)
                 {
@@ -216,7 +223,7 @@ namespace BrumWithMe.Services.Data.Services
 
                 uow.Commit();
 
-                var tripInfo = this.mappingProvider.Map<Trip, TripInfoWithUserRequests>(trip);
+                var tripInfo = this.tripRepo.GetFirstMapped<TripInfoWithUserRequests>(x => x.Id == tripId && !x.IsDeleted);
 
                 return tripInfo;
             }
@@ -224,12 +231,13 @@ namespace BrumWithMe.Services.Data.Services
 
         public TripInfoWithUserRequests RejectUserToJoinTrip(string userId, int tripId)
         {
-            using(var uow = base.UnitOfWork())
+            using (var uow = base.UnitOfWork())
             {
-                this.userTripsRepo.Delete(new UsersTrips()
+                this.userTripsRepo.Update(new UsersTrips()
                 {
                     UserId = userId,
-                    TripId = tripId
+                    TripId = tripId,
+                    UserTripStatusId = (int)UserTripStatusType.Declined
                 });
 
                 uow.Commit();

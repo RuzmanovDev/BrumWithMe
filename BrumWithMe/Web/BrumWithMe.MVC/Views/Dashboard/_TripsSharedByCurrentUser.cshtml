@@ -45,11 +45,13 @@
                         <td>@user.Name</td>
                         <td>@user.Status</td>
                         <td>
-                            @Ajax.ActionLink("done", nameof(DashboardController.AcceptUserInTrip),
-                                        new { userId = user.Id, tripId = Model.Id },
-                                        new AjaxOptions() { HttpMethod = "POST", UpdateTargetId = "trip-" + @Model.Id },
-                                        new { @class = "btn small material-icons" })
-
+                            @if (Model.TakenSeats < Model.TotalSeats && user.Status != "Accepted")
+                            {
+                                @Ajax.ActionLink("done", nameof(DashboardController.AcceptUserInTrip),
+                                                 new { userId = user.Id, tripId = Model.Id },
+                                                 new AjaxOptions() { HttpMethod = "POST", UpdateTargetId = "trip-" + @Model.Id },
+                                                 new { @class = "btn small material-icons" })
+                            }
                             @Ajax.ActionLink("not_interested", nameof(DashboardController.RejectUserInTrip),
                                         new { userId = user.Id, tripId = Model.Id },
                                         new AjaxOptions() { HttpMethod = "POST", UpdateTargetId = "trip-" + @Model.Id },

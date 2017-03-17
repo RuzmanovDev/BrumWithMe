@@ -5,7 +5,7 @@
             <h4>Порталът за споделено пътуване, който предлага повече!</h4>
             @if (this.User.Identity.IsAuthenticated)
             {
-                @Html.ActionLink("Dashboard", nameof(AccountController.Register), "Account", null, new { @class = "btn", autocomplete = "off" })
+                @Html.ActionLink("Dashboard", nameof(DashboardController.Index), "Dashboard", null, new { @class = "btn", autocomplete = "off" })
             }
             else
             {

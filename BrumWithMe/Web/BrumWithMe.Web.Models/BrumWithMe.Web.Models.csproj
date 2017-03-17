@@ -88,6 +88,7 @@
   <ItemGroup>
     <Compile Include="Account\LoginViewModel.cs" />
     <Compile Include="Account\RegisterViewModel.cs" />
+    <Compile Include="Dashboard\DashboardViewModel.cs" />
     <Compile Include="Manage\ChangePasswordViewModel.cs" />
     <Compile Include="Manage\IndexViewModel.cs" />
     <Compile Include="Manage\RegisterCarViewModel.cs" />
@@ -104,6 +105,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Data\BrumWithMe.Data.Models\BrumWithMe.Data.Models.csproj">
+      <Project>{144806C1-2813-4871-845F-3D2D708052F7}</Project>
+      <Name>BrumWithMe.Data.Models</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

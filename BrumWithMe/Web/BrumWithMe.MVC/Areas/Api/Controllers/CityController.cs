@@ -15,6 +15,7 @@ namespace BrumWithMe.MVC.Areas.Api.Controllers
             this.cityService = cityService;
         }
 
+        [OutputCache(Duration = 5 * 60, Location = System.Web.UI.OutputCacheLocation.ServerAndClient)]
         public ActionResult All()
         {
             var cities = this.cityService.GetAllCityNames();
