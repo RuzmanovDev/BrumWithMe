@@ -1,32 +1,48 @@
 ﻿@model IEnumerable<BrumWithMe.Data.Models.CompositeModels.Trip.TripBasicInfoWithStatus>
 
-<h2>Joine by me</h2>
+<h2>Пътувания, в които участвам</h2>
 @foreach (var trip in Model)
 {
     <a href="/trip/tripdetails/@trip.Id">
         <div class="newly-shared-trip z-depth-5">
-            <div class="trip-info col s9">
+            <div class="trip-info col s12">
                 <div class="primary col s12">
-                    <div class="origin col s12">От @trip.OriginName</div>
-                    <div class="destination col s8">До @trip.DestinationName</div>
-                    <div class="trip-price col s4">$@trip.Price</div>
+                    <h5 class="center-align">@trip.OriginName - @trip.DestinationName</h5>
                 </div>
-                <div class="secondary col s12">
-                    <span class="date" title="Дата на погегляне"><i class="material-icons">today</i> @trip.TimeOfDeparture.ToString("dd.MMM")</span>
-                    <span class="time" title="Час на потегляне"><i class="material-icons">query_builder</i> @trip.TimeOfDeparture.ToString("hh.mm")</span>
-                    <span class="seats" title="Места">
-                        <i class="material-icons">perm_identity</i> @trip.TakenSeats/@trip.TotalSeats
-                    </span>
-                    <span class="seats" title="Места">
-                        <i class="material-icons">perm_identity</i> @trip.Status
-                    </span>
+                <div class="col s7">
+                    <ul>
+                        <li>
+                            <span class="date" title="Дата на погегляне"><i class="material-icons">today</i> @trip.TimeOfDeparture.ToString("dd.MMM")</span>
+                        </li>
+                        <li>
+                            <span class="time" title="Час на потегляне"><i class="material-icons">query_builder</i> @trip.TimeOfDeparture.ToString("hh.mm")</span>
+                        </li>
+                        <li>
+                            <span class="time" title="Час на потегляне"><i class="material-icons">loyalty</i>$@trip.Price</span>
+                        </li>
+                        <li>
+                            <span class="seats" title="Места">
+                                <i class="material-icons">perm_identity</i> @trip.TakenSeats/@trip.TotalSeats
+                            </span>
+                        </li>
+                    </ul>
                 </div>
+                <div class="trip-status  col s5" title="Статус">
+                    Статус
+                    @if (trip.Status == "Accepted")
+                    {
+                        <i class="material-icons teal-text darken-4">done</i>
+                    }
+                    else if (trip.Status == "Pending")
+                    {
+                        <i class="material-icons yellow-text darken-4">error_outline</i>
+                    }
+                    <strong>@trip.Status</strong>
+                </div>
+
             </div>
         </div>
     </a>
-
-
-
 }
 
 

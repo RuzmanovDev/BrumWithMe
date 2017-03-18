@@ -181,7 +181,7 @@ ul.autocomplete-content.dropdown-content {
     width: 200px;
 }
 
-.card-title {
+.card-title, h5 {
     font-size: 1.5vw !important;
 }
 
@@ -223,3 +223,12 @@ ul.autocomplete-content.dropdown-content {
 .tabs .indicator {
     background-color: #004d40;
 }
+
+
+.trip-status {
+    font-size: 20px;
+}
+
+    .trip-status i {
+        font-size: 60px;
+    }
