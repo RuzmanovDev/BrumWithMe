@@ -15,6 +15,7 @@
                 <td>@user.Name</td>
                 <td>@user.Status</td>
                 <td>
+
                     @if (@*Model.TakenSeats < Model.TotalSeats && *@ user.Status != "Accepted")
                     {
                         @Ajax.ActionLink("done", nameof(DashboardController.AcceptUserInTrip),
