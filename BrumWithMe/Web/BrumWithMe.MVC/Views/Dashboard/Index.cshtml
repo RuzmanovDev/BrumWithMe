@@ -4,14 +4,14 @@
             <div class="col s12">
                 <ul class="tabs">
                     <li class="tab col s6">
-                        @Ajax.ActionLink("Пътувания споделени от мен",
+                        @Ajax.ActionLink("Споделени от мен",
                        nameof(DashboardController.TripsSharedByMe),
                        null,
                        new AjaxOptions() { HttpMethod = "get", UpdateTargetId = "dashboard-container", InsertionMode = InsertionMode.Replace },
                        new { @class = "teal-text text-darken-4" })
                     </li>
                     <li class="tab col s6">
-                       @Ajax.ActionLink("Пътувания, в които съм се присъединил",
+                       @Ajax.ActionLink("Заявени",
                        nameof(DashboardController.TripsJoinedByMe),
                        null,
                        new AjaxOptions() { HttpMethod = "get", UpdateTargetId = "dashboard-container", InsertionMode = InsertionMode.Replace },
@@ -20,17 +20,9 @@
                 </ul>
             </div>
         </div>
-
+        <h3 class="center-align">Моите активни пътувания</h3>
         <section id="dashboard-container">
 
         </section>
     </div>
 </section>
-@section scripts{
-    <script>
-        $(document).ready(function () {
-            $('ul.tabs').tabs();
-        });
-
-    </script>
-}

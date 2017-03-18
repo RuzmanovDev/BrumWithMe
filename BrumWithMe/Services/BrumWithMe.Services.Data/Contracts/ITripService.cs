@@ -15,6 +15,8 @@ namespace BrumWithMe.Services.Data.Contracts
 
         IEnumerable<TripInfoWithUserRequests> GetTripsCreatedByUser(string userId);
 
+        IEnumerable<PassangerInfo> GetPassengersForTheTrip(int tripId);
+
         IEnumerable<TripBasicInfoWithStatus> GetTripsJoinedByUser(string userId);
 
         bool RequestToJoinTrip(int tripId, string userId);

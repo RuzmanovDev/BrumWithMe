@@ -1,7 +1,6 @@
 ﻿using System.Web.Mvc;
 using BrumWithMe.Services.Data.Contracts;
 using BrumWithMe.Services.Providers.Mapping.Contracts;
-using BrumWithMe.Web.Models.Dashboard;
 using Bytes2you.Validation;
 using Microsoft.AspNet.Identity;
 
@@ -44,6 +43,14 @@ namespace BrumWithMe.MVC.Controllers
         }
 
         [HttpPost]
+        public ActionResult PassangersInfo(int tripId)
+        {
+            var passangers = this.tripService.GetPassengersForTheTrip(tripId);
+
+            return this.PartialView("_Passangers", passangers);
+        }
+
+        [HttpPost]
         public ActionResult AcceptUserInTrip(string userId, int tripId)
         {
             var updatedTripInfo = this.tripService.JoinUserToTrip(userId, tripId);
@@ -59,6 +66,4 @@ namespace BrumWithMe.MVC.Controllers
             return this.PartialView("_TripSharedByUserInfo", updatedTripInfo);
         }
     }
-
-
 }

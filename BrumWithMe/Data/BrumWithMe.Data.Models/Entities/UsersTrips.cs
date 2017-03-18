@@ -11,8 +11,6 @@ namespace BrumWithMe.Data.Models.Entities
         [Key, Column(Order = 1)]
         public int TripId { get; set; }
 
-        //public bool IsOwner { get; set; }
-
         public virtual User User { get; set; }
 
         public virtual Trip Trip { get; set; }

@@ -22,6 +22,6 @@ namespace BrumWithMe.Data.Models.CompositeModels.Trip
 
         public string CarAvatarImage { get; set; }
 
-        public IEnumerable<PassangerInfo> Passangers { get; set; }
+        //public IEnumerable<PassangerInfo> Passangers { get; set; }
     }
 }

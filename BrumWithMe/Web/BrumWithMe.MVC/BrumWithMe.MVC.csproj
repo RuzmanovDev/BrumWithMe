@@ -333,6 +333,7 @@
     <Content Include="Views\Dashboard\_TripSharedByUserInfo.cshtml" />
     <Content Include="Views\Dashboard\_AllTripsSharedByUser.cshtml" />
     <Content Include="Views\Dashboard\_TripsJoinedByUser.cshtml" />
+    <Content Include="Views\Dashboard\_Passangers.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

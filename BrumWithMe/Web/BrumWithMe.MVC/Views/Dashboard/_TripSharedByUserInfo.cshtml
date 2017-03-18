@@ -3,7 +3,9 @@
     <div class="card-content col s12">
         <span class="card-title activator grey-text text-darken-4">
             @Model.OriginName - @Model.DestinationName
-            <i class="material-icons right">more_vert</i>
+            @Ajax.ActionLink("more_vert", nameof(DashboardController.PassangersInfo), new { tripId = Model.Id },
+           new AjaxOptions() { HttpMethod = "post", InsertionMode = InsertionMode.Replace, UpdateTargetId = string.Concat("passangers-info", Model.Id) },
+           new { @class = "material-icons right activator" })
         </span>
         <a href="/trip/tripdetails/@Model.Id">
             <div>
@@ -30,37 +32,6 @@
             @Model.OriginName - @Model.DestinationName
             <i class="material-icons right">close</i>
         </span>
-        <table class="users-in-trip">
-            <thead>
-                <tr>
-                    <th data-field="id">Име</th>
-                    <th data-field="name">Статус</th>
-                    <th data-field="price">Действие</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var user in Model.Passangers)
-                {
-                    <tr>
-                        <td>@user.Name</td>
-                        <td>@user.Status</td>
-                        <td>
-                            @if (Model.TakenSeats < Model.TotalSeats && user.Status != "Accepted")
-                            {
-                                @Ajax.ActionLink("done", nameof(DashboardController.AcceptUserInTrip),
-                                                 new { userId = user.Id, tripId = Model.Id },
-                                                 new AjaxOptions() { HttpMethod = "POST", UpdateTargetId = "trip-" + @Model.Id },
-                                                 new { @class = "btn small material-icons" })
-                            }
-                            @Ajax.ActionLink("not_interested", nameof(DashboardController.RejectUserInTrip),
-                                        new { userId = user.Id, tripId = Model.Id },
-                                        new AjaxOptions() { HttpMethod = "POST", UpdateTargetId = "trip-" + @Model.Id },
-                                        new { @class = "btn red small material-icons" })
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-
+        <section id=@string.Concat("passangers-info", Model.Id)></section>
     </div>
 </section>

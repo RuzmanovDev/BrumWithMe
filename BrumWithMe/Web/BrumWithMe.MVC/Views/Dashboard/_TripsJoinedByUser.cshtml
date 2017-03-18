@@ -1,6 +1,5 @@
 ﻿@model IEnumerable<BrumWithMe.Data.Models.CompositeModels.Trip.TripBasicInfoWithStatus>
 
-<h2>Пътувания, в които участвам</h2>
 @foreach (var trip in Model)
 {
     <a href="/trip/tripdetails/@trip.Id">
@@ -35,7 +34,7 @@
                     }
                     else if (trip.Status == "Pending")
                     {
-                        <i class="material-icons yellow-text darken-4">error_outline</i>
+                        <i class="material-icons amber-text darken-4">error_outline</i>
                     }
                     <strong>@trip.Status</strong>
                 </div>
