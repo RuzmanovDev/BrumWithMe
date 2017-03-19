@@ -1,4 +1,6 @@
 ﻿using BrumWithMe.Data;
+using BrumWithMe.Web.Models.Review;
+using BrumWithMe.Web.Models.Shared;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
@@ -15,11 +17,14 @@ namespace BrumWithMe.MVC.Controllers
             var ctx = new BrumWithMeDbContext();
 
             var comments = ctx.DriverReviews.Where(x => x.ReviewedUserId == userId)
-                .OrderBy(x => x.CreatedOn)
+                .OrderByDescending(x => x.CreatedOn)
                 .Select(x => new CommentViewModel()
                 {
-                    AuthorId = x.CreatorId,
-                    AuthroImageUrl = x.Creator.AvataImageurl,
+                    Author = new UserBannerViewModel()
+                    {
+                       AvataImageurl = x.Creator.AvataImageurl,
+                       FullName = x.Creator.FirstName + x.Creator.LastName
+                    },
                     PostedOn = x.CreatedOn,
                     Content = x.Content,
                     Rating = x.Rating
@@ -53,27 +58,5 @@ namespace BrumWithMe.MVC.Controllers
             var model = new PostCommentViewModel() { ReviewsUserId = reviewFor };
             return this.PartialView("_PostComment", model);
         }
-    }
-
-    public class CommentViewModel
-    {
-        public string AuthorId { get; set; }
-
-        public string AuthroImageUrl { get; set; }
-
-        public string Content { get; set; }
-
-        public double Rating { get; set; }
-
-        public DateTime PostedOn { get; set; }
-    }
-
-    public class PostCommentViewModel
-    {
-        public string Content { get; set; }
-
-        public double Rating { get; set; }
-
-        public string ReviewsUserId { get; set; }
     }
 }

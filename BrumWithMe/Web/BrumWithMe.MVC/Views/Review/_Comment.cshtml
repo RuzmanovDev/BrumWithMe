@@ -2,9 +2,12 @@
 
 @foreach (var comment in Model)
 {
-    <div>@comment.AuthorId</div>
-    <div>@comment.AuthroImageUrl</div>
-    <div>@comment.Content</div>
-    <div>@comment.PostedOn</div>
-    <div>@comment.Rating</div>
+    <section class="col s12">
+        <div class="col s3">@Html.Partial("_UserBanner", comment.Author)</div>
+        <div class="col s9">
+            <div class="col s12"><h6>Оценка: @comment.Rating</h6></div>
+            <p>@comment.Content</p>
+            <div clsas="col s12">Публикувано на: @comment.PostedOn</div>
+        </div>
+    </section>
 }

@@ -93,6 +93,8 @@
     <Compile Include="Manage\IndexViewModel.cs" />
     <Compile Include="Manage\RegisterCarViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Review\CommentViewModel.cs" />
+    <Compile Include="Review\PostCommentViewModel.cs" />
     <Compile Include="Search\SearchTripResultViewModel.cs" />
     <Compile Include="Search\SearchTripViewModel.cs" />
     <Compile Include="Shared\UserBannerViewModel.cs" />
