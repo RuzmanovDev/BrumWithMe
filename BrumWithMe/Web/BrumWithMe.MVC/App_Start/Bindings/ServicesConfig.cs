@@ -38,6 +38,7 @@ namespace BrumWithMe.MVC.App_Start.Bindings
             this.Bind<ICarService>().To<CarService>().InRequestScope();
             this.Bind<ICityService>().To<CityService>().InRequestScope();
             this.Bind<ITagService>().To<TagService>().InRequestScope();
+            this.Bind<IReviewService>().To<ReviewService>().InRequestScope();
         }
     }
 }

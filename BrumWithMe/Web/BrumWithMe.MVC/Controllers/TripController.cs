@@ -16,23 +16,27 @@ namespace BrumWithMe.MVC.Controllers
         private readonly ITripService tripService;
         private readonly ITagService tagService;
         private readonly ICarService carService;
+        private readonly IReviewService reviewsService;
         private readonly IMappingProvider mappingProvider;
 
         public TripController(
             ITripService tripService,
             ITagService tagService,
             ICarService carService,
+            IReviewService reviewsService,
             IMappingProvider mappingProvider)
         {
             Guard.WhenArgument(tripService, nameof(ITripService)).IsNull().Throw();
             Guard.WhenArgument(tagService, nameof(ITagService)).IsNull().Throw();
             Guard.WhenArgument(carService, nameof(ICarService)).IsNull().Throw();
             Guard.WhenArgument(mappingProvider, nameof(IMappingProvider)).IsNull().Throw();
+            Guard.WhenArgument(reviewsService, nameof(reviewsService)).IsNull().Throw();
 
             this.tripService = tripService;
             this.tagService = tagService;
             this.carService = carService;
             this.mappingProvider = mappingProvider;
+            this.reviewsService = reviewsService;
         }
 
         public ActionResult TripDetails(int id)
@@ -52,6 +56,9 @@ namespace BrumWithMe.MVC.Controllers
 
             tripDetailsView.IsCurrentUserPassangerInTheTrip = isUserAlreadyAppliedToTrip;
             tripDetailsView.IsCurrentUserOwner = isUserOwner;
+
+            var driverAverageRating = this.reviewsService.GetAverageUserRating(tripDetailsView.Driver.Id);
+            tripDetailsView.Driver.Rating = driverAverageRating;
 
             return View(tripDetailsView);
         }

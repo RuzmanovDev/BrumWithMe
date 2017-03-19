@@ -1,0 +1,10 @@
+﻿@model IEnumerable<CommentViewModel>
+
+@foreach (var comment in Model)
+{
+    <div>@comment.AuthorId</div>
+    <div>@comment.AuthroImageUrl</div>
+    <div>@comment.Content</div>
+    <div>@comment.PostedOn</div>
+    <div>@comment.Rating</div>
+}

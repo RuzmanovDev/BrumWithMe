@@ -228,6 +228,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseAuthController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\CommentController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -334,6 +335,8 @@
     <Content Include="Views\Dashboard\_AllTripsSharedByUser.cshtml" />
     <Content Include="Views\Dashboard\_TripsJoinedByUser.cshtml" />
     <Content Include="Views\Dashboard\_Passangers.cshtml" />
+    <Content Include="Views\Comment\_PostComment.cshtml" />
+    <Content Include="Views\Comment\_Comment.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

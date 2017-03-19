@@ -6,7 +6,7 @@
 
         public string FullName { get; set; }
 
-        //public string UserName { get; set; }
+        public double Rating { get; set; }
 
         public string AvataImageurl { get; set; }
 

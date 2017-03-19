@@ -4,7 +4,7 @@
     <div class="row">
         <h3 class="col s11 offset-s1">
             <span id="origin">@Model.OriginName</span> - <span id="destination">@Model.DestinationName</span>
-            
+
         </h3>
         <div class="col s12">
             <div class="col s6">
@@ -47,7 +47,7 @@
                         }
                     }
                 </section>
-              
+
             </div>
             <div class="col s6">
                 <div class="col s6">
@@ -69,12 +69,16 @@
             </div>
         </div>
     </div>
+    <hr />
     @if (this.User.Identity.IsAuthenticated)
     {
-        <div class="row">
+        <section class="row">
             <h4 class="center-align">Отзиви за шофьора</h4>
-
-        </div>
+            @Html.Action(nameof(CommentController.GetPostComment), "Comment", new { reviewFor = Model.Driver.Id })
+            <section id="comments">
+                @Html.Action(nameof(CommentController.CommentsForUser), "Comment" ,new { userId = Model.Driver.Id })
+            </section>
+        </section>
     }
 </div>
 @section scripts{
@@ -108,23 +112,5 @@
     </script>
     <script async defer
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAmM0B0JfIJKoF6KQfUfotRFcmzvI4Qn3w&callback=initMap">
-    </script>
-    <script>
-        $(document).ready(function () {
-            $.connection.hub.start();
-
-            var notificationHub = $.connection.notification;
-
-            $('#join-trip-btn').on('click', function () {
-                notificationHub.server.log();
-                console.log('zakachen e eventa');
-            });
-
-            notificationHub.client.test = function (value) {
-                console.log(value)
-            }
-        })
-
-
     </script>
 }
