@@ -25,7 +25,9 @@ namespace BrumWithMe.Services.Providers.Mapping.Profiles
 
             CreateMap<Car, CarBasicInfo>();
 
-            CreateMap<User, UserBasicInfo>();
+            CreateMap<User, UserBasicInfo>()
+                     .ForMember(dest => dest.Rating, opt => opt.MapFrom(src => src.ReviewsForHim.Select(x=>x.Rating).Average()));
+
 
             CreateMap<UsersTrips, TripBasicInfo>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Trip.Id))

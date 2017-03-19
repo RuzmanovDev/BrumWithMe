@@ -10,6 +10,8 @@
         }
         public string UserName { get; set; }
 
+        public double Rating { get; set; }
+
         public string AvataImageurl { get; set; }
 
         public string FirstName { get; set; }

@@ -1,6 +1,6 @@
 ﻿@model PostCommentViewModel
 
-@using (Ajax.BeginForm(nameof(CommentController.PostComment),
+@using (Ajax.BeginForm(nameof(ReviewController.PostComment),
                 null,
                 new AjaxOptions() { HttpMethod = "Post", UpdateTargetId = "comments", InsertionMode = InsertionMode.Replace },
                 new { @class = "col s6" }))

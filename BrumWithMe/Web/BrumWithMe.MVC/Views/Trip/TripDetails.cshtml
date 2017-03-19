@@ -74,9 +74,9 @@
     {
         <section class="row">
             <h4 class="center-align">Отзиви за шофьора</h4>
-            @Html.Action(nameof(CommentController.GetPostComment), "Comment", new { reviewFor = Model.Driver.Id })
+            @Html.Action(nameof(ReviewController.GetPostComment), "Review", new { reviewFor = Model.Driver.Id })
             <section id="comments">
-                @Html.Action(nameof(CommentController.CommentsForUser), "Comment" ,new { userId = Model.Driver.Id })
+                @Html.Action(nameof(ReviewController.CommentsForUser), "Review", new { userId = Model.Driver.Id })
             </section>
         </section>
     }

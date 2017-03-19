@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace BrumWithMe.MVC.Controllers
 {
-    public class CommentController : Controller
+    public class ReviewController : Controller
     {
         public ActionResult CommentsForUser(string userId)
         {
