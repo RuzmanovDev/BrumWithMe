@@ -6,6 +6,6 @@
 
         public double Rating { get; set; }
 
-        public string ReviewsUserId { get; set; }
+        public string ReviewedUserId { get; set; }
     }
 }

@@ -1,10 +1,10 @@
-﻿using AutoMapper;
-using BrumWithMe.Data.Contracts;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
+using AutoMapper;
+using BrumWithMe.Data.Contracts;
 
 namespace BrumWithMe.Data.Repositories
 {
@@ -35,19 +35,6 @@ namespace BrumWithMe.Data.Repositories
         public IEnumerable<TDestination> GetAllMapped<TDestination>(Expression<Func<T, bool>> filterExpression)
         {
             var result = this.All.Where(filterExpression).ProjectToList<TDestination>(this.mapper.ConfigurationProvider);
-
-            return result;
-        }
-
-        public IEnumerable<TDestination> GetAllMapped<TDestination>(
-            Expression<Func<T, bool>> filterExpression, 
-            int page, int size)
-        {
-            var result = this.All
-                .Where(filterExpression)
-                .Skip(page * size)
-                .Take(size)
-                .ProjectToList<TDestination>(this.mapper.ConfigurationProvider);
 
             return result;
         }

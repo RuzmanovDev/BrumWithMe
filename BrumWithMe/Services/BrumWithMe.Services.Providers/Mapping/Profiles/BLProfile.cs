@@ -5,6 +5,7 @@ using BrumWithMe.Data.Models.CompositeModels.Trip;
 using BrumWithMe.Web.Models.Shared;
 using System.Linq;
 using BrumWithMe.Data.Models.Enums;
+using BrumWithMe.Data.Models.CompositeModels.Review;
 
 namespace BrumWithMe.Services.Providers.Mapping.Profiles
 {
@@ -67,6 +68,9 @@ namespace BrumWithMe.Services.Providers.Mapping.Profiles
                .ForMember(dest => dest.Price, opt => opt.MapFrom(src => src.Trip.Price))
                .ForMember(dest => dest.TimeOfDeparture, opt => opt.MapFrom(src => src.Trip.TimeOfDeparture))
                .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.UserTripStatus.Name));
+
+            CreateMap<Review, CommentInfo>()
+               .ForMember(dest => dest.Author, opt => opt.MapFrom(src => src.Creator));
         }
     }
 }

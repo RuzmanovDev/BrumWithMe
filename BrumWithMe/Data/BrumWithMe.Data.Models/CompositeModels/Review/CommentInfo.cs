@@ -1,19 +1,17 @@
 ﻿using System;
-using BrumWithMe.Web.Models.Shared;
 
-namespace BrumWithMe.Web.Models.Review
+namespace BrumWithMe.Data.Models.CompositeModels.Review
 {
-    public class CommentViewModel
+    public class CommentInfo
     {
         public int Id { get; set; }
 
-        public UserBannerViewModel Author { get; set; }
+        public UserBasicInfo Author { get; set; }
 
         public string Content { get; set; }
 
         public double Rating { get; set; }
 
         public DateTime CreatedOn { get; set; }
-
     }
 }

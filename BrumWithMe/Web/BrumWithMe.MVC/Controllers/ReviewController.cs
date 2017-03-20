@@ -1,17 +1,30 @@
-﻿using BrumWithMe.Data;
-using BrumWithMe.Web.Models.Review;
-using BrumWithMe.Web.Models.Shared;
-using Microsoft.AspNet.Identity;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
+
+using BrumWithMe.Data.Models.CompositeModels.Review;
+using BrumWithMe.Data.Models.Entities;
+using BrumWithMe.Services.Data.Contracts;
+using BrumWithMe.Services.Providers.Mapping.Contracts;
+using BrumWithMe.Web.Models.Review;
+using Bytes2you.Validation;
 
 namespace BrumWithMe.MVC.Controllers
 {
-    public class ReviewController : Controller
+    public class ReviewController : BaseController
     {
+        private readonly IMappingProvider mappingProvider;
+        private readonly IReviewService reviewService;
+
+        public ReviewController(IMappingProvider mappingProvider, IReviewService reviewService)
+        {
+            Guard.WhenArgument(mappingProvider, nameof(mappingProvider)).IsNull().Throw();
+            Guard.WhenArgument(reviewService, nameof(reviewService)).IsNull().Throw();
+
+            this.mappingProvider = mappingProvider;
+            this.reviewService = reviewService;
+        }
+
         public ActionResult CommentsForUser(string userId, int page = 0)
         {
             if (this.TempData["page"] == null)
@@ -25,26 +38,10 @@ namespace BrumWithMe.MVC.Controllers
                 this.TempData["page"] = page;
             }
 
-            var ctx = new BrumWithMeDbContext();
+            IEnumerable<CommentInfo> data = this.reviewService.GetCommentsFor(userId, page);
 
-            var comments = ctx.DriverReviews.Where(x => x.ReviewedUserId == userId)
-                .OrderByDescending(x => x.CreatedOn)
-                .Select(x => new CommentViewModel()
-                {
-                    Author = new UserBannerViewModel()
-                    {
-                        AvataImageurl = x.Creator.AvataImageurl,
-                        FullName = x.Creator.FirstName + x.Creator.LastName,
-                        Rating = x.Creator.ReviewsForHim.Select(z => z.Rating).Average()
-                    },
-                    PostedOn = x.CreatedOn,
-                    Content = x.Content,
-                    Rating = x.Rating,
-                    Id = x.Id
-                })
-                .Skip(page * 5)
-                .Take(5)
-                .ToList();
+            IEnumerable<CommentViewModel> comments =
+                this.mappingProvider.Map<IEnumerable<CommentInfo>, IEnumerable<CommentViewModel>>(data);
 
             return this.PartialView("_Comment", comments);
         }
@@ -53,24 +50,24 @@ namespace BrumWithMe.MVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult PostComment(PostCommentViewModel comment)
         {
-            var ctx = new BrumWithMeDbContext();
-            ctx.DriverReviews.Add(new Data.Models.Entities.Review()
+            if (!this.ModelState.IsValid)
             {
-                Content = comment.Content,
-                CreatedOn = DateTime.UtcNow,
-                CreatorId = this.User.Identity.GetUserId(),
-                Rating = comment.Rating,
-                ReviewedUserId = comment.ReviewsUserId
-            });
+                // TODO handle errors and wrtie validation logic
+                return null;
+            }
 
-            ctx.SaveChanges();
+            var review = this.mappingProvider.Map<PostCommentViewModel, Review>(comment);
+            review.CreatorId = base.GetLoggedUserId;
+            review.CreatedOn = DateTime.UtcNow;
 
-            return this.CommentsForUser(comment.ReviewsUserId);
+            this.reviewService.CreateReview(review);
+
+            return this.CommentsForUser(comment.ReviewedUserId);
         }
 
         public ActionResult GetPostComment(string reviewFor)
         {
-            var model = new PostCommentViewModel() { ReviewsUserId = reviewFor };
+            var model = new PostCommentViewModel() { ReviewedUserId = reviewFor };
             return this.PartialView("_PostComment", model);
         }
     }
