@@ -80,14 +80,17 @@
                 @Html.Action(nameof(ReviewController.CommentsForUser), "Review", new { userId = Model.Driver.Id })
             </section>
             <section class="col s3 offset-s5">
-                @Ajax.ActionLink("Виж още", nameof(ReviewController.CommentsForUser), "Review",
-                   new { userId = Model.Driver.Id },
-                   new AjaxOptions()
-                   {
-                       InsertionMode = InsertionMode.InsertAfter,
-                       OnSuccess = "appendNewCommentsToDom",
-                   },
-                   new { @class = "btn", id = "load-more-btn" })
+                @using (Ajax.BeginForm(nameof(ReviewController.CommentsForUser), "Review", new { userId = Model.Driver.Id }, new AjaxOptions()
+                {
+                    InsertionMode = InsertionMode.InsertAfter,
+                    HttpMethod = "GET",
+                    OnSuccess = "appendNewCommentsToDom",
+                    OnBegin = "getNextPage"
+                }))
+                {
+                    <input type="hidden" id="comment-page-number-hidden" name="page" />
+                    <input type="submit" class="btn" id="load-more-btn" value="Виж още" />
+                }
             </section>
 
         </section>
@@ -128,6 +131,11 @@
     <script>
         function appendNewCommentsToDom(result) {
             $("#comments section.comment-container").last().after(result);
+        }
+
+        function getNextPage() {
+            var page = ($("#comments").children("section.comment-container").length / 5);
+            $("#comment-page-number-hidden").val(page);
         }
     </script>
 }

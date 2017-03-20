@@ -27,17 +27,6 @@ namespace BrumWithMe.MVC.Controllers
 
         public ActionResult CommentsForUser(string userId, int page = 0)
         {
-            if (this.TempData["page"] == null)
-            {
-                this.TempData["page"] = page;
-            }
-            else
-            {
-                page = int.Parse(this.TempData["page"].ToString());
-                ++page;
-                this.TempData["page"] = page;
-            }
-
             IEnumerable<CommentInfo> data = this.reviewService.GetCommentsFor(userId, page);
 
             IEnumerable<CommentViewModel> comments =
