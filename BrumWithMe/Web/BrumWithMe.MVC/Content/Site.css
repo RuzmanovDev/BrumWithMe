@@ -232,3 +232,20 @@ ul.autocomplete-content.dropdown-content {
     .trip-status i {
         font-size: 60px;
     }
+
+.comment-container {
+    margin-bottom: 15px;
+}
+
+.comment-avatar {
+    margin-top: 18px;
+}
+
+.comment-content {
+    overflow: scroll;
+    height: 65px;
+}
+
+#load-more-btn {
+    margin-bottom: 20px;
+}

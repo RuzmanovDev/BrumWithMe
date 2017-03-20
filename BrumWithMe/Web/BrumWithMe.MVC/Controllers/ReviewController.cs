@@ -12,8 +12,19 @@ namespace BrumWithMe.MVC.Controllers
 {
     public class ReviewController : Controller
     {
-        public ActionResult CommentsForUser(string userId)
+        public ActionResult CommentsForUser(string userId, int page = 0)
         {
+            if (this.TempData["page"] == null)
+            {
+                this.TempData["page"] = page;
+            }
+            else
+            {
+                page = int.Parse(this.TempData["page"].ToString());
+                ++page;
+                this.TempData["page"] = page;
+            }
+
             var ctx = new BrumWithMeDbContext();
 
             var comments = ctx.DriverReviews.Where(x => x.ReviewedUserId == userId)
@@ -22,13 +33,17 @@ namespace BrumWithMe.MVC.Controllers
                 {
                     Author = new UserBannerViewModel()
                     {
-                       AvataImageurl = x.Creator.AvataImageurl,
-                       FullName = x.Creator.FirstName + x.Creator.LastName
+                        AvataImageurl = x.Creator.AvataImageurl,
+                        FullName = x.Creator.FirstName + x.Creator.LastName,
+                        Rating = x.Creator.ReviewsForHim.Select(z => z.Rating).Average()
                     },
                     PostedOn = x.CreatedOn,
                     Content = x.Content,
-                    Rating = x.Rating
+                    Rating = x.Rating,
+                    Id = x.Id
                 })
+                .Skip(page * 5)
+                .Take(5)
                 .ToList();
 
             return this.PartialView("_Comment", comments);

@@ -1,15 +1,11 @@
-﻿using BrumWithMe.Data;
+﻿using System.Collections.Generic;
+using System.Web.Mvc;
 using BrumWithMe.Data.Models.CompositeModels.Trip;
 using BrumWithMe.Services.Data.Contracts;
 using BrumWithMe.Services.Providers.Mapping.Contracts;
 using BrumWithMe.Web.Models.Search;
 using BrumWithMe.Web.Models.Trip;
 using Bytes2you.Validation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
 
 namespace BrumWithMe.MVC.Controllers
 {

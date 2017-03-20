@@ -2,12 +2,14 @@
 
 @foreach (var comment in Model)
 {
-    <section class="col s12">
-        <div class="col s3">@Html.Partial("_UserBanner", comment.Author)</div>
-        <div class="col s9">
-            <div class="col s12"><h6>Оценка: @comment.Rating</h6></div>
-            <p>@comment.Content</p>
-            <div clsas="col s12">Публикувано на: @comment.PostedOn</div>
+    <section class="col s12 z-depth-3 comment-container" id="comment-@comment.Id">
+        <div class="col s4 comment-avatar">
+            @Html.Partial("_UserBanner", comment.Author)
+            <div clsas="col s12">Публикувано на: <br /> @comment.PostedOn</div>
+        </div>
+        <div class="col s8">
+            <div class="col s12"><h5>Оценка: @comment.Rating</h5></div>
+            <p class="comment-content col s12">@comment.Content</p>
         </div>
     </section>
 }

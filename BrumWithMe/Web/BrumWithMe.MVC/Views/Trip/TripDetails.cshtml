@@ -76,9 +76,20 @@
         <section class="row">
             <h4 class="center-align">Отзиви за шофьора</h4>
             @Html.Action(nameof(ReviewController.GetPostComment), "Review", new { reviewFor = Model.Driver.Id })
-            <section id="comments">
+            <section id="comments" class="col s8 offset-s2">
                 @Html.Action(nameof(ReviewController.CommentsForUser), "Review", new { userId = Model.Driver.Id })
             </section>
+            <section class="col s3 offset-s5">
+                @Ajax.ActionLink("Виж още", nameof(ReviewController.CommentsForUser), "Review",
+                   new { userId = Model.Driver.Id },
+                   new AjaxOptions()
+                   {
+                       InsertionMode = InsertionMode.InsertAfter,
+                       OnSuccess = "appendNewCommentsToDom",
+                   },
+                   new { @class = "btn", id = "load-more-btn" })
+            </section>
+
         </section>
     }
 </div>
@@ -114,4 +125,12 @@
     <script async defer
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAmM0B0JfIJKoF6KQfUfotRFcmzvI4Qn3w&callback=initMap">
     </script>
+    <script>
+        function appendNewCommentsToDom(result) {
+            $("#comments section.comment-container").last().after(result);
+        }
+    </script>
 }
+
+
+

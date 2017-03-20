@@ -3,14 +3,14 @@
 @using (Ajax.BeginForm(nameof(ReviewController.PostComment),
                 null,
                 new AjaxOptions() { HttpMethod = "Post", UpdateTargetId = "comments", InsertionMode = InsertionMode.Replace },
-                new { @class = "col s6" }))
+                new { @class = "col s6 offset-s3" }))
 {
     @Html.AntiForgeryToken()
 
     <div class="row">
         <div class="input-field col s12">
             <textarea id="commet-textarea" class="materialize-textarea" name="Content"></textarea>
-            <label for="comment-textarea">Коминтар</label>
+            <label for="comment-textarea">Коментар</label>
             @Html.HiddenFor(x => x.ReviewsUserId)
         </div>
         <div class="col s12">
@@ -26,7 +26,7 @@
             <label for="rating5">5</label>
         </div>
         <div class="col s12">
-            <input type="submit" class="btn col s6 offset-s4" value="Send review" />
+            <input type="submit" class="btn col s6 offset-s4" value="Публикувай" />
         </div>
     </div>
 }
