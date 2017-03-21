@@ -88,7 +88,7 @@
                     OnBegin = "getNextPage"
                 }))
                 {
-                    <input type="hidden" id="comment-page-number-hidden" name="page" />
+                    <input type="hidden" id="comment-page-number-hidden" name="page" value="1"/>
                     <input type="submit" class="btn" id="load-more-btn" value="Виж още" />
                 }
             </section>
@@ -134,7 +134,8 @@
         }
 
         function getNextPage() {
-            var page = ($("#comments").children("section.comment-container").length / 5);
+            var page = +$("#comment-page-number-hidden").val();
+            page++;
             $("#comment-page-number-hidden").val(page);
         }
     </script>
