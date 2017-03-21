@@ -9,10 +9,14 @@ namespace BrumWithMe.MVC.Areas.Admin.Controllers
     [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
-        // GET: Admin/Admin
-        public ActionResult Index()
+        public ActionResult Dashboard()
         {
-            return View();
+            return this.View();
+        }
+
+        public ActionResult ReportedTrips()
+        {
+            return this.PartialView("_ReportedTrips");
         }
     }
 }

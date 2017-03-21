@@ -1,0 +1,22 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="container">
+    <section class="row z-depth-3 shadow-container">
+    <h1>Hello From Admin area</h1>
+        <div class="col s12">
+            <ul class="tabs">
+                <li class="tab col s3">
+                @Ajax.ActionLink("Докладване пътувания", nameof(AdminController.ReportedTrips),
+                   null,
+                   new AjaxOptions() { InsertionMode=InsertionMode.Replace, UpdateTargetId="admin-page-content" },
+                   new { @class = "teal-text text-darken-4" })
+                </li>
+                <li class="tab col s3"><a class="active" href="#test2">Test 2</a></li>
+                <li class="tab col s3"><a href="#test4">Test 4</a></li>
+            </ul>
+        </div>
+        <section id="admin-page-content"></section>
+    </section>
+</section>

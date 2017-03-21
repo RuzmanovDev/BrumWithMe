@@ -47,6 +47,7 @@
     <Compile Include="Contracts\IAccountManagementService.cs" />
     <Compile Include="Contracts\ICarService.cs" />
     <Compile Include="Contracts\ICityService.cs" />
+    <Compile Include="Contracts\IReportService.cs" />
     <Compile Include="Contracts\IReviewService.cs" />
     <Compile Include="Contracts\ITagService.cs" />
     <Compile Include="Contracts\ITripService.cs" />
@@ -55,6 +56,7 @@
     <Compile Include="Services\BaseDataService.cs" />
     <Compile Include="Services\CarService.cs" />
     <Compile Include="Services\CityService.cs" />
+    <Compile Include="Services\ReportService.cs" />
     <Compile Include="Services\ReviewService.cs" />
     <Compile Include="Services\TagService.cs" />
     <Compile Include="Services\TripService.cs" />

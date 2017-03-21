@@ -65,7 +65,11 @@
                 </div>
                 <span class="report-button col s3 offset-s9">
                     <i class="material-icons">warning</i>
-                    <a href="#" class="large material-icons">Докладвай</a>
+                    @Ajax.ActionLink("Докладвай", nameof(ReportController.ReportTrip),
+                   "Report",
+                   new { tripId = Model.Id },
+                   new AjaxOptions() { HttpMethod = "POST", UpdateTargetId="ds" },
+                   new { @class= "large material-icons" })
                 </span>
             </div>
         </div>
