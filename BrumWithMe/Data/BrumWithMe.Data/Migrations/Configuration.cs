@@ -1,6 +1,9 @@
 namespace BrumWithMe.Data.Migrations
 {
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.EntityFramework;
     using Models.Entities;
+    using Models.UserRoles;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
@@ -16,6 +19,8 @@ namespace BrumWithMe.Data.Migrations
 
         protected override void Seed(BrumWithMeDbContext context)
         {
+            this.RolesSeeder(context);
+
             context.UserTripStatus.AddOrUpdate(new UserTripStatus()
             {
                 Id = 1,
@@ -33,19 +38,19 @@ namespace BrumWithMe.Data.Migrations
                 Id = 3,
                 Name = "Owner"
             });
+        }
 
-            //  This method will be called after migrating to the latest version.
+        private void RolesSeeder(BrumWithMeDbContext context)
+        {
+            var roleStore = new RoleStore<IdentityRole>(context);
+            var roleManager = new RoleManager<IdentityRole>(roleStore);
 
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data. E.g.
-            //
-            //    context.People.AddOrUpdate(
-            //      p => p.FullName,
-            //      new Person { FullName = "Andrew Peters" },
-            //      new Person { FullName = "Brice Lambson" },
-            //      new Person { FullName = "Rowan Miller" }
-            //    );
-            //
+            var roleAdmin = new IdentityRole() { Name = UserType.Admin };
+
+            if (!context.Roles.Any(role => role.Name == UserType.Admin))
+            {
+                roleManager.Create(roleAdmin);
+            }
         }
     }
 }

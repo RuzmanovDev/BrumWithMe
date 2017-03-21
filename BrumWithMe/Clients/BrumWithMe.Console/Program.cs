@@ -19,6 +19,13 @@ namespace BrumWithMe.Console
                 cityName?.ToLower();
 
             System.Console.WriteLine(cityName);
+
+            string str1 = "Pesho";
+            string str2 = "psh";
+
+            //string str = str1.Where(x=> !str1.Contains(!str1.Any())
+            //string str = str1.Where(x=> str2.Any)
+
         }
     }
 }

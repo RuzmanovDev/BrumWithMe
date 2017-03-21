@@ -80,6 +80,7 @@
     <Compile Include="CompositeModels\Trip\TripDetails.cs" />
     <Compile Include="CompositeModels\Trip\TripInfo.cs" />
     <Compile Include="CompositeModels\Trip\TripBasicInfo.cs" />
+    <Compile Include="UserRoles\UserType.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
