@@ -92,7 +92,6 @@
     <Compile Include="Dashboard\DashboardViewModel.cs" />
     <Compile Include="Manage\ChangeAvatarViewModel.cs" />
     <Compile Include="Manage\ChangePasswordViewModel.cs" />
-    <Compile Include="Manage\IndexViewModel.cs" />
     <Compile Include="Manage\RegisterCarViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Review\CommentViewModel.cs" />
