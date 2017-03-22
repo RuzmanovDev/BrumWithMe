@@ -69,6 +69,8 @@ namespace BrumWithMe.Data.Models.Entities
 
         public bool IsReported { get; set; }
 
+        public bool IsFinished { get; set; }
+
         public bool IsDeleted { get; set; }
     }
 }

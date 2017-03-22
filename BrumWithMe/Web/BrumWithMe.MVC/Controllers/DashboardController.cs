@@ -11,13 +11,15 @@ namespace BrumWithMe.MVC.Controllers
     {
         private readonly ITripService tripService;
         private readonly IMappingProvider mappingProvider;
+        private readonly IUserDashboardService userDashboardService;
 
-        public DashboardController(ITripService tripService, IMappingProvider mappingProvider)
+        public DashboardController(ITripService tripService, IMappingProvider mappingProvider, IUserDashboardService userDashboardService)
         {
             Guard.WhenArgument(tripService, nameof(tripService)).IsNull().Throw();
 
             this.tripService = tripService;
             this.mappingProvider = mappingProvider;
+            this.userDashboardService = userDashboardService;
         }
 
         public ActionResult Index()
@@ -29,7 +31,7 @@ namespace BrumWithMe.MVC.Controllers
         {
             var loggedUserId = this.User.Identity.GetUserId();
 
-            var data = this.tripService.GetTripsCreatedByUser(loggedUserId);
+            var data = this.userDashboardService.GetTripsCreatedByUser(loggedUserId);
 
             return this.PartialView("_AllTripsSharedByUser", data);
         }
@@ -37,7 +39,7 @@ namespace BrumWithMe.MVC.Controllers
         public ActionResult TripsJoinedByMe()
         {
             var userId = base.GetLoggedUserId;
-            var trips = this.tripService.GetTripsJoinedByUser(userId);
+            var trips = this.userDashboardService.GetTripsJoinedByUser(userId);
 
             return this.PartialView("_TripsJoinedByUser", trips);
         }
@@ -53,7 +55,7 @@ namespace BrumWithMe.MVC.Controllers
         [HttpPost]
         public ActionResult AcceptUserInTrip(string userId, int tripId)
         {
-            var updatedTripInfo = this.tripService.JoinUserToTrip(userId, tripId);
+            var updatedTripInfo = this.userDashboardService.JoinUserToTrip(userId, tripId);
 
             return this.PartialView("_TripSharedByUserInfo", updatedTripInfo);
         }
@@ -61,7 +63,7 @@ namespace BrumWithMe.MVC.Controllers
         [HttpPost]
         public ActionResult RejectUserInTrip(string userId, int tripId)
         {
-            var updatedTripInfo = this.tripService.RejectUserToJoinTrip(userId, tripId);
+            var updatedTripInfo = this.userDashboardService.RejectUserToJoinTrip(userId, tripId);
 
             return this.PartialView("_TripSharedByUserInfo", updatedTripInfo);
         }

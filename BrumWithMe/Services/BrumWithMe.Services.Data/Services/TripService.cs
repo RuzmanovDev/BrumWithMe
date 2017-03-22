@@ -89,7 +89,7 @@ namespace BrumWithMe.Services.Data.Services
 
         public TripDetails GetTripDetails(int tripId)
         {
-            var tripDetails = this.tripRepo.GetFirstMapped<TripDetails>(x => x.Id == tripId);
+            var tripDetails = this.tripRepo.GetFirstMapped<TripDetails>(x => x.Id == tripId && !x.IsFinished && !x.IsDeleted);
 
             return tripDetails;
         }
@@ -100,7 +100,8 @@ namespace BrumWithMe.Services.Data.Services
             int page = 0;
 
             var trips = this.tripRepo.GetAllMapped<DateTime, TripBasicInfo>(
-                x => !x.IsDeleted, x => x.DateCreated, page, countToTake);
+                x => !x.IsDeleted && !x.IsFinished,
+                x => x.DateCreated, page, countToTake);
 
             return trips;
         }
@@ -110,7 +111,7 @@ namespace BrumWithMe.Services.Data.Services
             origin = origin?.ToLower();
             destination = destination?.ToLower();
 
-            int size = 2;
+            int size = 5;
 
             // handle zero based paging
             page =
@@ -120,14 +121,18 @@ namespace BrumWithMe.Services.Data.Services
 
             int totalCount = this.tripRepo
                 .GetAll(x => x.Origin.Name.ToLower().Contains(origin)
-                && x.Destination.Name.ToLower().Contains(destination),
+                && x.Destination.Name.ToLower().Contains(destination)
+                && !x.IsDeleted
+                && !x.IsFinished,
                 x => x.Id, i => i.Destination, i => i.Origin)
                 .Count();
 
             var trips = this.tripRepo
                 .GetAllMapped<DateTime, TripBasicInfo>(
                 where => where.Origin.Name.ToLower().Contains(origin)
-                && where.Destination.Name.ToLower().Contains(destination),
+                && where.Destination.Name.ToLower().Contains(destination)
+                && !where.IsFinished
+                && !where.IsDeleted,
                 x => x.DateCreated, page, size);
 
             var result = new TripSearchResult();
@@ -138,18 +143,18 @@ namespace BrumWithMe.Services.Data.Services
             return result;
         }
 
-        public IEnumerable<TripInfoWithUserRequests> GetTripsCreatedByUser(string userId)
-        {
-            var tripIdsUserOwns =
-                this.userTripsRepo.GetAll(
-                    x => x.UserTripStatusId == (int)UserTripStatusType.Owner
-                    && x.UserId == userId,
-                    x => x.TripId);
+        //public IEnumerable<TripInfoWithUserRequests> GetTripsCreatedByUser(string userId)
+        //{
+        //    var tripIdsUserOwns =
+        //        this.userTripsRepo.GetAll(
+        //            x => x.UserTripStatusId == (int)UserTripStatusType.Owner
+        //            && x.UserId == userId,
+        //            x => x.TripId);
 
-            var tripsInfo = this.tripRepo.GetAllMapped<TripInfoWithUserRequests>(x => tripIdsUserOwns.Contains(x.Id) && !x.IsDeleted);
+        //    var tripsInfo = this.tripRepo.GetAllMapped<TripInfoWithUserRequests>(x => tripIdsUserOwns.Contains(x.Id) && !x.IsDeleted && !x.IsFinished);
 
-            return tripsInfo;
-        }
+        //    return tripsInfo;
+        //}
 
         public IEnumerable<PassangerInfo> GetPassengersForTheTrip(int tripId)
         {
@@ -157,12 +162,12 @@ namespace BrumWithMe.Services.Data.Services
                 .GetAllMapped<PassangerInfo>(x => x.TripId == tripId && x.UserTripStatusId != (int)UserTripStatusType.Owner);
         }
 
-        public IEnumerable<TripBasicInfoWithStatus> GetTripsJoinedByUser(string userId)
-        {
-            var result = this.userTripsRepo.GetAllMapped<TripBasicInfoWithStatus>(x => x.UserId == userId && x.UserTripStatusId != (int)UserTripStatusType.Owner);
+        //public IEnumerable<TripBasicInfoWithStatus> GetTripsJoinedByUser(string userId)
+        //{
+        //    var result = this.userTripsRepo.GetAllMapped<TripBasicInfoWithStatus>(x => x.UserId == userId && x.UserTripStatusId != (int)UserTripStatusType.Owner);
 
-            return result;
-        }
+        //    return result;
+        //}
 
         public bool RequestToJoinTrip(int tripId, string userId)
         {
@@ -228,53 +233,53 @@ namespace BrumWithMe.Services.Data.Services
             return isPassangerInTrip;
         }
 
-        public TripInfoWithUserRequests JoinUserToTrip(string userId, int tripId)
-        {
-            using (var uow = base.UnitOfWork())
-            {
-                bool isUserOwner = this.IsUserOwnerOfTrip(userId, tripId);
+        //public TripInfoWithUserRequests JoinUserToTrip(string userId, int tripId)
+        //{
+        //    using (var uow = base.UnitOfWork())
+        //    {
+        //        bool isUserOwner = this.IsUserOwnerOfTrip(userId, tripId);
 
-                if (isUserOwner)
-                {
-                    throw new InvalidOperationException("Trip owner cannot join trip created by him!");
-                }
+        //        if (isUserOwner)
+        //        {
+        //            throw new InvalidOperationException("Trip owner cannot join trip created by him!");
+        //        }
 
-                var trip = this.tripRepo
-                    .GetFirst(x => !x.IsDeleted && x.Id == tripId);
+        //        var trip = this.tripRepo
+        //            .GetFirst(x => !x.IsDeleted && !x.IsFinished && x.Id == tripId);
 
-                var incrementedSeats = ++trip.TakenSeats;
+        //        var incrementedSeats = ++trip.TakenSeats;
 
-                if (incrementedSeats > trip.TotalSeats)
-                {
-                    throw new InvalidOperationException("There aren't any more free seats!");
-                }
+        //        if (incrementedSeats > trip.TotalSeats)
+        //        {
+        //            throw new InvalidOperationException("There aren't any more free seats!");
+        //        }
 
-                this.userTripsRepo.Update(new UsersTrips()
-                {
-                    UserId = userId,
-                    TripId = tripId,
-                    UserTripStatusId = (int)UserTripStatusType.Accepted
-                });
+        //        this.userTripsRepo.Update(new UsersTrips()
+        //        {
+        //            UserId = userId,
+        //            TripId = tripId,
+        //            UserTripStatusId = (int)UserTripStatusType.Accepted
+        //        });
 
-                uow.Commit();
+        //        uow.Commit();
 
-                var tripInfo = this.tripRepo.GetFirstMapped<TripInfoWithUserRequests>(x => x.Id == tripId && !x.IsDeleted);
+        //        var tripInfo = this.tripRepo.GetFirstMapped<TripInfoWithUserRequests>(x => x.Id == tripId && !x.IsDeleted && !x.IsFinished);
 
-                return tripInfo;
-            }
-        }
+        //        return tripInfo;
+        //    }
+        //}
 
-        public TripInfoWithUserRequests RejectUserToJoinTrip(string userId, int tripId)
-        {
-            this.SignOutOfTrip(tripId, userId);
+        //public TripInfoWithUserRequests RejectUserToJoinTrip(string userId, int tripId)
+        //{
+        //    this.SignOutOfTrip(tripId, userId);
 
-            var updatedTripInfo = this.tripRepo.GetFirstMapped<TripInfoWithUserRequests>(x => x.Id == tripId);
+        //    var updatedTripInfo = this.tripRepo.GetFirstMapped<TripInfoWithUserRequests>(x => x.Id == tripId);
 
-            return updatedTripInfo;
+        //    return updatedTripInfo;
 
-        }
+        //}
 
-        private bool IsUserOwnerOfTrip(string userId, int tripId)
+        public bool IsUserOwnerOfTrip(string userId, int tripId)
         {
             var userTrip = this.userTripsRepo.GetFirst(x => x.UserId == userId && x.TripId == tripId && x.UserTripStatusId == (int)UserTripStatusType.Owner);
             if (userTrip != null)
@@ -296,7 +301,7 @@ namespace BrumWithMe.Services.Data.Services
 
             using (var uow = base.UnitOfWork())
             {
-                this.tripRepo.GetFirst(x => x.Id == tripId).IsDeleted = true;
+                this.tripRepo.GetFirst(x => x.Id == tripId).IsFinished = true;
                 return uow.Commit();
             }
         }
