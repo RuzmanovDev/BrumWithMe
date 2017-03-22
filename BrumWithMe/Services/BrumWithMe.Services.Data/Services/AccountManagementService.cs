@@ -2,7 +2,6 @@
 using BrumWithMe.Data.Contracts;
 using BrumWithMe.Data.Models.Entities;
 using BrumWithMe.Services.Data.Contracts;
-using BrumWithMe.Services.Providers.FileUpload;
 using Bytes2you.Validation;
 using BrumWithMe.Services.Providers.Mapping.Contracts;
 

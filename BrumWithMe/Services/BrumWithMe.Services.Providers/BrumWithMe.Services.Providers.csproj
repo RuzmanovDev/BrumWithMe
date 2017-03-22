@@ -49,8 +49,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FileUpload\FileUploadProvider.cs" />
-    <Compile Include="FileUpload\IFileUploadProvider.cs" />
     <Compile Include="Mapping\Contracts\IMappingProvider.cs" />
     <Compile Include="Mapping\MappingProfile.cs" />
     <Compile Include="Mapping\MappingProvider.cs" />

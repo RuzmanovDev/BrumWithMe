@@ -6,7 +6,6 @@ using BrumWithMe.Web.Models.Account;
 using BrumWithMe.Data.Models.Entities;
 using BrumWithMe.Auth.Identity.Contracts;
 using System.Collections;
-using BrumWithMe.Services.Providers.FileUpload;
 using BrumWithMe.Services.Providers.Mapping.Contracts;
 using System.IO;
 using Bytes2you.Validation;

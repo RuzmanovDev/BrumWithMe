@@ -4,7 +4,6 @@ using BrumWithMe.Auth.Identity.Contracts;
 using BrumWithMe.Auth.Identity.Services;
 using BrumWithMe.Services.Data.Contracts;
 using BrumWithMe.Services.Data.Services;
-using BrumWithMe.Services.Providers.FileUpload;
 using BrumWithMe.Services.Providers.Mapping;
 using BrumWithMe.Services.Providers.Mapping.Contracts;
 using BrumWithMe.Services.Providers.TimeProviders;
@@ -29,7 +28,6 @@ namespace BrumWithMe.MVC.App_Start.Bindings
 
             this.Bind<IMappingProvider>().To<MappingProvider>().InRequestScope();
             this.Bind<IDateTimeProvider>().To<DateTimeProvider>().InRequestScope();
-            this.Bind<IFileUploadProvider>().To<ServerFileUploadProvider>();
             this.Bind<IAccountManagementService>().To<AccountManagementService>().InRequestScope();
             this.Bind<ITripService>().To<TripService>().InRequestScope();
             this.Bind<ICarService>().To<CarService>().InRequestScope();
