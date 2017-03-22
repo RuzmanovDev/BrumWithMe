@@ -11,11 +11,9 @@ namespace BrumWithMe.Services.Data.Services
     public class AccountManagementService : BaseDataService, IAccountManagementService
     {
         private readonly IRepositoryEf<Car> carsRepo;
-        private readonly IFileUploadProvider fileUploadProvider;
 
         public AccountManagementService(
             IRepositoryEf<Car> carsRepo,
-            IFileUploadProvider fileUploadProvider,
             Func<IUnitOfWorkEF> unitOfWork)
             :base(unitOfWork)
         {
@@ -23,6 +21,5 @@ namespace BrumWithMe.Services.Data.Services
 
             this.carsRepo = carsRepo;
         }
-
     }
 }

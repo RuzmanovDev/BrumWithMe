@@ -13,11 +13,9 @@ namespace BrumWithMe.Services.Data.Contracts
 
         TripSearchResult GetTripsFor(string origin, string destination, int page = 0);
 
-        //IEnumerable<TripInfoWithUserRequests> GetTripsCreatedByUser(string userId);
-
         IEnumerable<PassangerInfo> GetPassengersForTheTrip(int tripId);
 
-        //IEnumerable<TripBasicInfoWithStatus> GetTripsJoinedByUser(string userId);
+        IEnumerable<TripBasicInfo> GetDeletedTrips();
 
         bool RequestToJoinTrip(int tripId, string userId);
 
@@ -27,12 +25,10 @@ namespace BrumWithMe.Services.Data.Contracts
 
         bool IsUserOwnerOfTrip(string userId, int tripId);
 
-        //TripInfoWithUserRequests JoinUserToTrip(string userId, int tripId);
-
-        //TripInfoWithUserRequests RejectUserToJoinTrip(string userId, int tripId);
-
         bool MarkTripAsFinished(int tripId, string userId);
 
         bool DeleteTrip(int tripId);
+
+        bool RecoverTrip(int tripId);
     }
 }

@@ -13,26 +13,28 @@ using System.IO;
 namespace BrumWithMe.MVC.Controllers
 {
     [Authorize]
-    public class ManageController : BaseAuthController
+    public class ManageController : BaseController
     {
         private readonly IAccountManagementService accountManagementService;
         private readonly ICarService carService;
         private readonly IMappingProvider mappingProvider;
+        private readonly IAuthService authService;
 
         public ManageController(
             IAuthService authService,
             ICarService carService,
             IMappingProvider mappingProvider,
             IAccountManagementService accountManagementService)
-            : base(authService)
         {
             Guard.WhenArgument(mappingProvider, nameof(mappingProvider)).IsNull().Throw();
             Guard.WhenArgument(accountManagementService, nameof(accountManagementService)).IsNull().Throw();
             Guard.WhenArgument(carService, nameof(carService)).IsNull().Throw();
+            Guard.WhenArgument(authService, nameof(authService)).IsNull().Throw();
 
             this.accountManagementService = accountManagementService;
             this.mappingProvider = mappingProvider;
             this.carService = carService;
+            this.authService = authService;
         }
 
         public ActionResult Index()
@@ -93,11 +95,11 @@ namespace BrumWithMe.MVC.Controllers
                 return View(model);
             }
 
-            IdentityResult result = await this.AuthService.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword, model.NewPassword);
+            IdentityResult result = await this.authService.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword, model.NewPassword);
 
             if (result.Succeeded)
             {
-                this.AuthService.LogOff();
+                this.authService.LogOff();
 
                 return RedirectToAction("Index");
             }

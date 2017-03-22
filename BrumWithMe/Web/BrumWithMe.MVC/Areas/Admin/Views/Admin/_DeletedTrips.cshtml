@@ -1,6 +1,6 @@
-﻿@model ReportedTripsViewModel
+﻿@model IEnumerable<TripBasicInfoViewModel>
 
-<section class="row" id="reportedTrips">
+<section class="row" id="deletedTrips">
     <table class="highlight">
         <thead>
             <tr>
@@ -10,7 +10,7 @@
         </thead>
 
         <tbody>
-            @foreach (var trip in Model.ReportedTrips)
+            @foreach (var trip in Model)
             {
                 <tr>
                     <td>
@@ -19,11 +19,12 @@
                         </div>
                     </td>
                     <td>
-                        @Ajax.ActionLink("Изтрий", nameof(AdminController.DeleteTrip), new { tripId = trip.Id },
-                       new AjaxOptions() { HttpMethod = "POST", UpdateTargetId = "reportedTrips" })
+                        @Ajax.ActionLink("Възстанови", nameof(AdminController.RestoreTrip), new { tripId = trip.Id },
+                       new AjaxOptions() { HttpMethod = "POST", UpdateTargetId = "deletedTrips" })
                     </td>
                 </tr>
             }
         </tbody>
     </table>
 </section>
+

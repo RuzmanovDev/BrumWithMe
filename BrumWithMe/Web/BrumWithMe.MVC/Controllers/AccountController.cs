@@ -9,19 +9,24 @@ using System.Collections;
 using BrumWithMe.Services.Providers.FileUpload;
 using BrumWithMe.Services.Providers.Mapping.Contracts;
 using System.IO;
+using Bytes2you.Validation;
 
 namespace BrumWithMe.MVC.Controllers
 {
     [Authorize]
-    public class AccountController : BaseAuthController
+    public class AccountController : BaseController
     {
         private const string XsrfKey = "XsrfId";
         private readonly IMappingProvider mappingProvider;
+        private readonly IAuthService authService;
 
         public AccountController(IAuthService authService, IMappingProvider mappingProvider)
-            : base(authService)
         {
+            Guard.WhenArgument(authService, nameof(authService)).IsNull().Throw();
+            Guard.WhenArgument(mappingProvider, nameof(mappingProvider)).IsNull().Throw();
+
             this.mappingProvider = mappingProvider;
+            this.authService = authService;
         }
 
         [AllowAnonymous]
@@ -41,7 +46,7 @@ namespace BrumWithMe.MVC.Controllers
                 return View(model);
             }
 
-            var result = await this.AuthService.LogIn(model.Email, model.Password);
+            var result = await this.authService.LogIn(model.Email, model.Password);
 
             switch (result)
             {
@@ -78,18 +83,18 @@ namespace BrumWithMe.MVC.Controllers
                     AvataImageurl = "/UserAvatars/default.png"
                 };
 
-                IdentityResult result = await this.AuthService.Register(user, model.Password);
+                IdentityResult result = await this.authService.Register(user, model.Password);
 
                 if (result.Succeeded)
                 {
-                    await this.AuthService.LogIn(model.Email, model.Password);
+                    await this.authService.LogIn(model.Email, model.Password);
 
                     var path = Server.MapPath($"~/UserAvatars/{model.Email}/Cars/");
                     Directory.CreateDirectory(path);
 
                     return RedirectToAction(nameof(HomeController.Index), "Home");
                 }
-
+                
                 this.AddErrors(result);
             }
 
@@ -100,7 +105,7 @@ namespace BrumWithMe.MVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
-            this.AuthService.LogOff();
+            this.authService.LogOff();
             return RedirectToAction("Index", "Home");
         }
     }

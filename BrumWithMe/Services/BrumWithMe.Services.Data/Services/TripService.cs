@@ -106,6 +106,14 @@ namespace BrumWithMe.Services.Data.Services
             return trips;
         }
 
+
+        public IEnumerable<TripBasicInfo> GetDeletedTrips()
+        {
+            var trips = this.tripRepo.GetAllMapped<TripBasicInfo>(x => x.IsDeleted && !x.IsFinished);
+
+            return trips;
+        }
+
         public TripSearchResult GetTripsFor(string origin, string destination, int page = 0)
         {
             origin = origin?.ToLower();
@@ -143,31 +151,11 @@ namespace BrumWithMe.Services.Data.Services
             return result;
         }
 
-        //public IEnumerable<TripInfoWithUserRequests> GetTripsCreatedByUser(string userId)
-        //{
-        //    var tripIdsUserOwns =
-        //        this.userTripsRepo.GetAll(
-        //            x => x.UserTripStatusId == (int)UserTripStatusType.Owner
-        //            && x.UserId == userId,
-        //            x => x.TripId);
-
-        //    var tripsInfo = this.tripRepo.GetAllMapped<TripInfoWithUserRequests>(x => tripIdsUserOwns.Contains(x.Id) && !x.IsDeleted && !x.IsFinished);
-
-        //    return tripsInfo;
-        //}
-
         public IEnumerable<PassangerInfo> GetPassengersForTheTrip(int tripId)
         {
             return this.userTripsRepo
                 .GetAllMapped<PassangerInfo>(x => x.TripId == tripId && x.UserTripStatusId != (int)UserTripStatusType.Owner);
         }
-
-        //public IEnumerable<TripBasicInfoWithStatus> GetTripsJoinedByUser(string userId)
-        //{
-        //    var result = this.userTripsRepo.GetAllMapped<TripBasicInfoWithStatus>(x => x.UserId == userId && x.UserTripStatusId != (int)UserTripStatusType.Owner);
-
-        //    return result;
-        //}
 
         public bool RequestToJoinTrip(int tripId, string userId)
         {
@@ -233,52 +221,6 @@ namespace BrumWithMe.Services.Data.Services
             return isPassangerInTrip;
         }
 
-        //public TripInfoWithUserRequests JoinUserToTrip(string userId, int tripId)
-        //{
-        //    using (var uow = base.UnitOfWork())
-        //    {
-        //        bool isUserOwner = this.IsUserOwnerOfTrip(userId, tripId);
-
-        //        if (isUserOwner)
-        //        {
-        //            throw new InvalidOperationException("Trip owner cannot join trip created by him!");
-        //        }
-
-        //        var trip = this.tripRepo
-        //            .GetFirst(x => !x.IsDeleted && !x.IsFinished && x.Id == tripId);
-
-        //        var incrementedSeats = ++trip.TakenSeats;
-
-        //        if (incrementedSeats > trip.TotalSeats)
-        //        {
-        //            throw new InvalidOperationException("There aren't any more free seats!");
-        //        }
-
-        //        this.userTripsRepo.Update(new UsersTrips()
-        //        {
-        //            UserId = userId,
-        //            TripId = tripId,
-        //            UserTripStatusId = (int)UserTripStatusType.Accepted
-        //        });
-
-        //        uow.Commit();
-
-        //        var tripInfo = this.tripRepo.GetFirstMapped<TripInfoWithUserRequests>(x => x.Id == tripId && !x.IsDeleted && !x.IsFinished);
-
-        //        return tripInfo;
-        //    }
-        //}
-
-        //public TripInfoWithUserRequests RejectUserToJoinTrip(string userId, int tripId)
-        //{
-        //    this.SignOutOfTrip(tripId, userId);
-
-        //    var updatedTripInfo = this.tripRepo.GetFirstMapped<TripInfoWithUserRequests>(x => x.Id == tripId);
-
-        //    return updatedTripInfo;
-
-        //}
-
         public bool IsUserOwnerOfTrip(string userId, int tripId)
         {
             var userTrip = this.userTripsRepo.GetFirst(x => x.UserId == userId && x.TripId == tripId && x.UserTripStatusId == (int)UserTripStatusType.Owner);
@@ -312,6 +254,17 @@ namespace BrumWithMe.Services.Data.Services
             {
                 var trip = this.tripRepo.GetFirst(x => x.Id == tripId);
                 trip.IsDeleted = true;
+
+                return uow.Commit();
+            }
+        }
+
+        public bool RecoverTrip(int tripId)
+        {
+            using (var uow = base.UnitOfWork())
+            {
+                var trip = this.tripRepo.GetFirst(x => x.Id == tripId);
+                trip.IsDeleted = false;
 
                 return uow.Commit();
             }

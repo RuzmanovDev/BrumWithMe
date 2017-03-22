@@ -12,5 +12,13 @@ namespace BrumWithMe.MVC.Controllers
                 return this.User?.Identity.GetUserId();
             }
         }
+
+        protected void AddErrors(IdentityResult result)
+        {
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError("", error);
+            }
+        }
     }
 }

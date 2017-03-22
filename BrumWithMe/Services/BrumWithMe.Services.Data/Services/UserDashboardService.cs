@@ -1,9 +1,7 @@
-﻿using BrumWithMe.Services.Data.Contracts;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using BrumWithMe.Services.Data.Contracts;
 using BrumWithMe.Data.Models.CompositeModels.Trip;
 using BrumWithMe.Data.Contracts;
 using BrumWithMe.Data.Models.Entities;

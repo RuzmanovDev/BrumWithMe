@@ -44,8 +44,24 @@ namespace BrumWithMe.MVC.Areas.Admin.Controllers
             return this.PartialView("_ReportedTrips", model);
         }
 
+        public ActionResult DeletedTrips()
+        {
+            var deletedTrips = this.tripService.GetDeletedTrips();
+            var tripsvmodel = this.mappingProvider.Map<IEnumerable<TripBasicInfo>, IEnumerable<TripBasicInfoViewModel>>(deletedTrips);
+
+            return this.PartialView("_DeletedTrips", tripsvmodel);
+
+        }
         [HttpPost]
         public ActionResult DeleteTrip(int tripId)
+        {
+            this.tripService.DeleteTrip(tripId);
+
+            return this.RedirectToAction(nameof(AdminController.ReportedTrips));
+        }
+
+        [HttpPost]
+        public ActionResult RestoreTrip(int tripId)
         {
             this.tripService.DeleteTrip(tripId);
 
