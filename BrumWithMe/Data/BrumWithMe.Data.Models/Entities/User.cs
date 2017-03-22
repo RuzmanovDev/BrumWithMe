@@ -33,7 +33,7 @@ namespace BrumWithMe.Data.Models.Entities
         [Required]
         public string LastName { get; set; }
 
-        [MaxLength(50)]
+        [MaxLength(150)]
         public string AvataImageurl { get; set; }
 
         public virtual ICollection<UsersTrips> UsersTrips

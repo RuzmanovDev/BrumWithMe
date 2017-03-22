@@ -116,5 +116,31 @@ namespace BrumWithMe.MVC.Controllers
             return this.View(model);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ChangeAvatar(ChangeAvatarViewModel changeAvatarViewModel)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(changeAvatarViewModel);
+            }
+
+            var loggedUserName = this.User.Identity.Name;
+
+            var extension = Path.GetExtension(changeAvatarViewModel.NewAvatar.FileName);
+
+            var filename = loggedUserName + extension;
+            var path = Server.MapPath($"~/UserAvatars/{loggedUserName}/") + filename;
+
+            changeAvatarViewModel.NewAvatar.SaveAs(path);
+
+            var imageUrl = $"/UserAvatars/{loggedUserName}/" + filename;
+            var logedUserId = base.GetLoggedUserId;
+
+            this.accountManagementService.SetUserAvatar(logedUserId, imageUrl);
+
+            return this.RedirectToAction(nameof(ManageController.ChangeAvatar));
+        }
+
     }
 }

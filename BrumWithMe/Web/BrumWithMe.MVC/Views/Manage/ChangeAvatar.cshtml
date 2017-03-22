@@ -1,3 +1,26 @@
 ﻿@model ChangeAvatarViewModel
 
-<img src="@Model.CurrentAvatarUrl" />
+<section class="container">
+    <section class="row z-depth-3 shadow-container">
+        <section class="center-align">
+            <img src="@Model.CurrentAvatarUrl" />
+        </section>
+        <h4 class="center-align">Смяна на аватар</h4>
+        @using (Html.BeginForm(nameof(ManageController.ChangeAvatar), "Manage", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+            <div class="file-field input-field col s6">
+                <div class="btn">
+                    <span>File</span>
+                    <input type="file" name="NewAvatar">
+                </div>
+                <div class="file-path-wrapper">
+                    <input class="file-path validate" type="text">
+                </div>
+            </div>
+            <div class="input-field col s6">
+                <input type="submit" value="Качване на новия аватар" class="btn" />
+            </div>
+        }
+    </section>
+</section>

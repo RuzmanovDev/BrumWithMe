@@ -1,4 +1,6 @@
-﻿@if (Request.IsAuthenticated)
+﻿@model string
+
+@if (Request.IsAuthenticated)
 {
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
     {
@@ -12,7 +14,7 @@
             <li>
                 <a href="#!" class="valign-wrapper dropdown-button" data-activates="drop-down-menu">
                     <span class="logged-user-username">@this.User.Identity.Name</span>
-                    <img class="circle logged-user-avatar" src="~/UserAvatars/default.png" />
+                    <img class="circle logged-user-avatar" src="@Model" />
                 </a>
             </li>
         </ul>
