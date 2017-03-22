@@ -37,14 +37,9 @@ namespace BrumWithMe.MVC.Controllers
             this.authService = authService;
         }
 
-        public ActionResult Index()
-        {
-            return View();
-        }
-
         public ActionResult RegisterCar()
         {
-            return PartialView("_RegisterCar");
+            return View();
         }
 
         [HttpPost]
@@ -53,7 +48,7 @@ namespace BrumWithMe.MVC.Controllers
         {
             if (!this.ModelState.IsValid)
             {
-                return this.PartialView("_RegisterCar", car);
+                return this.View(car);
             }
 
             var imageUrl = "/UserAvatars/default-car.jpg";
@@ -118,7 +113,7 @@ namespace BrumWithMe.MVC.Controllers
 
             model.CurrentAvatarUrl = userAvatarUrl;
 
-            return this.PartialView("_ChangeAvatar", model);
+            return this.View(model);
         }
 
     }

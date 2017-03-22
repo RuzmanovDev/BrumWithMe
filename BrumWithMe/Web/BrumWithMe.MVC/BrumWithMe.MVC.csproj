@@ -316,7 +316,6 @@
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Manage\ChangePassword.cshtml" />
-    <Content Include="Views\Manage\Index.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_RecentTrips.cshtml" />
@@ -325,7 +324,7 @@
     <Content Include="Views\Shared\AjaxTest.cshtml" />
     <Content Include="Views\Trip\Create.cshtml" />
     <Content Include="Views\Trip\TripDetails.cshtml" />
-    <Content Include="Views\Manage\_RegisterCar.cshtml" />
+    <Content Include="Views\Manage\RegisterCar.cshtml" />
     <Content Include="Views\Shared\_UserBanner.cshtml" />
     <Content Include="Views\Search\Result.cshtml" />
     <Content Include="Views\Shared\_TripQuickSearch.cshtml" />
@@ -340,7 +339,7 @@
     <Content Include="Views\Review\_PostComment.cshtml" />
     <Content Include="Views\Review\_Comment.cshtml" />
     <Content Include="Views\Report\ReportedTrips.cshtml" />
-    <Content Include="Views\Manage\_ChangeAvatar.cshtml" />
+    <Content Include="Views\Manage\ChangeAvatar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

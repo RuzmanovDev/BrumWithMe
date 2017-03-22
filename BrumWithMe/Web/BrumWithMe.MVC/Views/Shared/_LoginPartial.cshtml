@@ -4,7 +4,8 @@
     {
         @Html.AntiForgeryToken()
         <ul id="drop-down-menu" class="dropdown-content">
-            <li>@Html.ActionLink("Настойки", nameof(ManageController.Index), "Manage", new { area = "" }, null)</li>
+            <li>@Html.ActionLink("Регистриране на автомобил", nameof(ManageController.RegisterCar), "Manage", new { area = "" }, null)</li>
+            <li>@Html.ActionLink("Смяна на аватар", nameof(ManageController.ChangeAvatar), "Manage", new { area = "" }, null)</li>
             <li><a href="javascript:document.getElementById('logoutForm').submit()">Изход</a></li>
         </ul>
         <ul id="logged-user-avatar-menu" class="right hide-on-med-and-down">
