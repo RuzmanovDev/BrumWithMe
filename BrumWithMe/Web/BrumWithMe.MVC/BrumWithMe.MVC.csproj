@@ -325,7 +325,7 @@
     <Content Include="Views\Shared\AjaxTest.cshtml" />
     <Content Include="Views\Trip\Create.cshtml" />
     <Content Include="Views\Trip\TripDetails.cshtml" />
-    <Content Include="Views\Manage\RegisterCar.cshtml" />
+    <Content Include="Views\Manage\_RegisterCar.cshtml" />
     <Content Include="Views\Shared\_UserBanner.cshtml" />
     <Content Include="Views\Search\Result.cshtml" />
     <Content Include="Views\Shared\_TripQuickSearch.cshtml" />
@@ -340,11 +340,11 @@
     <Content Include="Views\Review\_PostComment.cshtml" />
     <Content Include="Views\Review\_Comment.cshtml" />
     <Content Include="Views\Report\ReportedTrips.cshtml" />
+    <Content Include="Views\Manage\_ChangeAvatar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Views\Shared\" />
-    <Folder Include="Areas\Api\Models\" />
     <Folder Include="Areas\Api\Views\City\" />
     <Folder Include="Areas\Api\Views\Shared\" />
   </ItemGroup>

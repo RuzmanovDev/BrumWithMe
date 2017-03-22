@@ -2,5 +2,6 @@
 {
     public interface IAccountManagementService
     {
+        string GetUserAvatarUrl(string loggedUser);
     }
 }

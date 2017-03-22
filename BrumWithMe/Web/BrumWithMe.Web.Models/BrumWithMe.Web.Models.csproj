@@ -90,6 +90,7 @@
     <Compile Include="Account\RegisterViewModel.cs" />
     <Compile Include="Areas\Admin\ReportedTripsViewModel.cs" />
     <Compile Include="Dashboard\DashboardViewModel.cs" />
+    <Compile Include="Manage\ChangeAvatarViewModel.cs" />
     <Compile Include="Manage\ChangePasswordViewModel.cs" />
     <Compile Include="Manage\IndexViewModel.cs" />
     <Compile Include="Manage\RegisterCarViewModel.cs" />

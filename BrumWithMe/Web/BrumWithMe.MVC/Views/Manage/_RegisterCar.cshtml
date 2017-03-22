@@ -1,16 +1,14 @@
 ﻿@model RegisterCarViewModel
-<section class="container">
-    <section class="row shadow-container z-depth-3">
-        <h4 class="center-align">Регистриране на автомобил</h4>
-        @using (Html.BeginForm(nameof(ManageController.RegisterCar), "Manage", FormMethod.Post, new { enctype = "multipart/form-data" }))
-        {
-            @Html.AntiForgeryToken()
 
-            <div class="input-field col s6">
-                <label for="make">Марка</label>
-                @Html.TextBoxFor(m => m.Make, new { @class = "validate" })
-                @Html.ValidationMessageFor(m => m.Make, "", new { @class = "validation-error" })
-            </div>
+@using (Html.BeginForm(nameof(ManageController.RegisterCar), "Manage", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="input-field col s6">
+        <label for="make">Марка</label>
+        @Html.TextBoxFor(m => m.Make, new { @class = "validate" })
+        @Html.ValidationMessageFor(m => m.Make, "", new { @class = "validation-error" })
+    </div>
             <div class="input-field col s6">
                 <label for="model">Модел</label>
                 @Html.TextBoxFor(m => m.Model, new { @class = "validate" })
@@ -38,9 +36,7 @@
             <div class="input-field col s6">
                 <input type="submit" value="Добави автомобил" class="btn" />
             </div>
-        }
-    </section>
-</section>
+}
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
