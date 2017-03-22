@@ -3,14 +3,16 @@ using BrumWithMe.Data.Contracts;
 using BrumWithMe.Data.Models.Entities;
 using Bytes2you.Validation;
 using BrumWithMe.Services.Data.Contracts;
+using BrumWithMe.Data.Models.CompositeModels.Trip;
+using System.Collections.Generic;
 
 namespace BrumWithMe.Services.Data.Services
 {
     public class ReportService : BaseDataService, IReportService
     {
-        private readonly IRepositoryEf<Trip> tripRepo;
+        private readonly IProjectableRepositoryEf<Trip> tripRepo;
 
-        public ReportService(IRepositoryEf<Trip> tripRepo, Func<IUnitOfWorkEF> unitOfWork)
+        public ReportService(IProjectableRepositoryEf<Trip> tripRepo, Func<IUnitOfWorkEF> unitOfWork)
             : base(unitOfWork)
         {
             Guard.WhenArgument(tripRepo, nameof(tripRepo)).IsNull().Throw();
@@ -28,6 +30,11 @@ namespace BrumWithMe.Services.Data.Services
 
                 uow.Commit();
             }
+        }
+
+        public IEnumerable<TripBasicInfo> GetReportedTrips()
+        {
+            return this.tripRepo.GetAllMapped<TripBasicInfo>(x => x.IsReported && !x.IsDeleted);
         }
     }
 }

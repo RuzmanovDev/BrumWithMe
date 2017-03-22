@@ -300,5 +300,16 @@ namespace BrumWithMe.Services.Data.Services
                 return uow.Commit();
             }
         }
+
+        public bool DeleteTrip(int tripId)
+        {
+            using (var uow = base.UnitOfWork())
+            {
+                var trip = this.tripRepo.GetFirst(x => x.Id == tripId);
+                trip.IsDeleted = true;
+
+                return uow.Commit();
+            }
+        }
     }
 }

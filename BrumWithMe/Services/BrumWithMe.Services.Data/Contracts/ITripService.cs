@@ -30,5 +30,7 @@ namespace BrumWithMe.Services.Data.Contracts
         TripInfoWithUserRequests RejectUserToJoinTrip(string userId, int tripId);
 
         bool MarkTripAsFinished(int tripId, string userId);
+
+        bool DeleteTrip(int tripId);
     }
 }

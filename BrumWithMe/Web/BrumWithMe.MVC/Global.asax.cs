@@ -19,5 +19,6 @@ namespace BrumWithMe.MVC
 
             BrumWithMeDbContext.Create().Database.CreateIfNotExists();
         }
+
     }
 }

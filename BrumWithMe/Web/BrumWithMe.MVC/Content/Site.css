@@ -249,3 +249,7 @@ ul.autocomplete-content.dropdown-content {
 #load-more-btn {
     margin-bottom: 20px;
 }
+
+.reported-trip-container .newly-shared-trip {
+    width: 60%;
+}

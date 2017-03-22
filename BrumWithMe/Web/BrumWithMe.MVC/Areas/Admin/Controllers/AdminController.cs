@@ -1,4 +1,10 @@
-﻿using System;
+﻿using BrumWithMe.Data.Models.CompositeModels.Trip;
+using BrumWithMe.Services.Data.Contracts;
+using BrumWithMe.Services.Providers.Mapping.Contracts;
+using BrumWithMe.Web.Models.Areas.Admin;
+using BrumWithMe.Web.Models.Trip;
+using Bytes2you.Validation;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,6 +15,20 @@ namespace BrumWithMe.MVC.Areas.Admin.Controllers
     [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
+        private readonly IReportService reportService;
+        private readonly IMappingProvider mappingProvider;
+        private readonly ITripService tripService;
+
+        public AdminController(IReportService reportService, IMappingProvider mappingProvider, ITripService tripService)
+        {
+            Guard.WhenArgument(reportService, nameof(reportService)).IsNull().Throw();
+            Guard.WhenArgument(mappingProvider, nameof(mappingProvider)).IsNull().Throw();
+
+            this.reportService = reportService;
+            this.mappingProvider = mappingProvider;
+            this.tripService = tripService;
+        }
+
         public ActionResult Dashboard()
         {
             return this.View();
@@ -16,7 +36,20 @@ namespace BrumWithMe.MVC.Areas.Admin.Controllers
 
         public ActionResult ReportedTrips()
         {
-            return this.PartialView("_ReportedTrips");
+            var model = new ReportedTripsViewModel();
+            var trips = this.reportService.GetReportedTrips();
+            var tripsvmodel = this.mappingProvider.Map<IEnumerable<TripBasicInfo>, IEnumerable<TripBasicInfoViewModel>>(trips);
+
+            model.ReportedTrips = tripsvmodel;
+            return this.PartialView("_ReportedTrips", model);
+        }
+
+        [HttpPost]
+        public ActionResult DeleteTrip(int tripId)
+        {
+            this.tripService.DeleteTrip(tripId);
+
+            return this.RedirectToAction(nameof(AdminController.ReportedTrips));
         }
     }
 }

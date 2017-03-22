@@ -1,27 +1,30 @@
-﻿<table class="highlight">
-    <thead>
-        <tr>
-            <th data-field="id">Name</th>
-            <th data-field="name">Item Name</th>
-            <th data-field="price">Item Price</th>
-        </tr>
-    </thead>
+﻿@model ReportedTripsViewModel
 
-    <tbody>
-        <tr>
-            <td>Alvin</td>
-            <td>Eclair</td>
-            <td>$0.87</td>
-        </tr>
-        <tr>
-            <td>Alan</td>
-            <td>Jellybean</td>
-            <td>$3.76</td>
-        </tr>
-        <tr>
-            <td>Jonathan</td>
-            <td>Lollipop</td>
-            <td>$7.00</td>
-        </tr>
-    </tbody>
-</table>
+<section class="row" id="reportedTrips">
+    <table class="highlight">
+        <thead>
+            <tr>
+                <th data-field="id" class="center-align">Пътуване</th>
+                <th data-field="name" class="center-align">Изтрий / Възстанови</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var trip in Model.ReportedTrips)
+            {
+                <tr>
+                    <td>
+                        <div class="reported-trip-container">
+                            @Html.Partial("_TripInfo", trip)
+                        </div>
+                    </td>
+                    <td>
+                        @Ajax.ActionLink("Изтрий", nameof(AdminController.DeleteTrip), new { tripId = trip.Id },
+                       new AjaxOptions() { HttpMethod = "POST", UpdateTargetId = "reportedTrips" })
+                    </td>
+                    <td><a class="btn">Възстанови</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</section>
