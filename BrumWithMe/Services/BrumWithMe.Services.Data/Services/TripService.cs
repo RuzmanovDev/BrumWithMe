@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using BrumWithMe.Data.Contracts;
 using BrumWithMe.Data.Models.Entities;
-using BrumWithMe.Data.Models.CompositeModels;
 using BrumWithMe.Services.Data.Contracts;
 using Bytes2you.Validation;
 using System.Linq;
@@ -32,17 +31,19 @@ namespace BrumWithMe.Services.Data.Services
             IDateTimeProvider dateTimeProvider)
             : base(unitOfWork)
         {
-            Guard.WhenArgument(tripRepo, nameof(tripRepo)).IsNull().Throw();
+            Guard.WhenArgument(userTripsRepo, nameof(userTripsRepo)).IsNull().Throw();
             Guard.WhenArgument(cityService, nameof(cityService)).IsNull().Throw();
-            Guard.WhenArgument(tagService, nameof(tagService)).IsNull().Throw();
             Guard.WhenArgument(mappingProvider, nameof(mappingProvider)).IsNull().Throw();
+            Guard.WhenArgument(tripRepo, nameof(tripRepo)).IsNull().Throw();
+            Guard.WhenArgument(tagService, nameof(tagService)).IsNull().Throw();
+            Guard.WhenArgument(dateTimeProvider, nameof(dateTimeProvider)).IsNull().Throw();
 
-            this.tripRepo = tripRepo;
+            this.userTripsRepo = userTripsRepo;
             this.cityService = cityService;
+            this.mappingProvider = mappingProvider;
+            this.tripRepo = tripRepo;
             this.tagService = tagService;
             this.dateTimeProvider = dateTimeProvider;
-            this.mappingProvider = mappingProvider;
-            this.userTripsRepo = userTripsRepo;
         }
 
         public void CreateTrip(TripCreationInfo tripInfo)

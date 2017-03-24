@@ -71,6 +71,7 @@
     <Compile Include="TagServiceTests\Constructor_Should.cs" />
     <Compile Include="TagServiceTests\GetAllTags_Should.cs" />
     <Compile Include="TagServiceTests\GetTagsByIds_Should.cs" />
+    <Compile Include="TripServiceTests\Constructor_Should.cs" />
     <Compile Include="TripServiceTests\CreateTripShould.cs" />
     <Compile Include="TripServiceTests\GetLatestTripsBasicInfo_Should.cs" />
     <Compile Include="TripServiceTests\GetTripDetails_Should.cs" />

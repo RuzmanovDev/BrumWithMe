@@ -90,7 +90,7 @@ namespace BrumWithMe.MVC.Controllers
             trip.TimeOfDeparture = timeOfDeparture;
             trip.TagIds = selectedTags;
             trip.DriverId = currentUSerId;
-
+          
             this.tripService.CreateTrip(trip);
 
             return RedirectToAction(nameof(this.Create));
