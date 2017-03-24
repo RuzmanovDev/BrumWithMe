@@ -10,7 +10,15 @@ namespace BrumWithMe.Mvc.Tests
         [Test]
         public void TestMethod1()
         {
-            var controller = new Mock<BaseController>();
-        }   
+            var test = "test";
+            var controller = new BaseController()
+            {
+                GetUserId = () => test
+            };
+
+            var result = controller.GetUserId;
+
+            Assert.AreEqual(test, result());
+        }
     }
 }
