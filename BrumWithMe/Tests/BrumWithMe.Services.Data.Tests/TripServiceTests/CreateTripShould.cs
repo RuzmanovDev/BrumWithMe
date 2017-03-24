@@ -1,4 +1,7 @@
-﻿using BrumWithMe.Data.Contracts;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using BrumWithMe.Data.Contracts;
 using BrumWithMe.Data.Models.CompositeModels.Trip;
 using BrumWithMe.Data.Models.Entities;
 using BrumWithMe.Data.Models.Enums;
@@ -8,9 +11,6 @@ using BrumWithMe.Services.Providers.Mapping.Contracts;
 using BrumWithMe.Services.Providers.TimeProviders;
 using Moq;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace BrumWithMe.Services.Data.Tests.TripServiceTests
 {
