@@ -1,0 +1,14 @@
+﻿<section class="row" id="reportedTrips">
+    <table class="highlight">
+        <thead>
+            <tr>
+                <th data-field="id" class="center-align">Пътуване</th>
+                <th data-field="name" class="center-align">Действие</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @Html.Action(nameof(UsersController.UsersData));
+        </tbody>
+    </table>
+</section>

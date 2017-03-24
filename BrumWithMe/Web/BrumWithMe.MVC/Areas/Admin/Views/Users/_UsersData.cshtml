@@ -1,0 +1,16 @@
+﻿@model IEnumerable<UserBannerViewModel>
+
+@foreach (var user in Model)
+{
+    <tr>
+        <td>
+            <div class="reported-trip-container">
+                @Html.Partial("_UserBanner", user)
+            </div>
+        </td>
+        <td>
+            @Ajax.ActionLink("Изтрий", nameof(AdminController.DeleteTrip),
+                       new AjaxOptions() { HttpMethod = "POST", UpdateTargetId = "reportedTrips" })
+        </td>
+    </tr>
+}

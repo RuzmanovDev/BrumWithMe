@@ -4,17 +4,19 @@ using BrumWithMe.Data.Models.Entities;
 using BrumWithMe.Services.Data.Contracts;
 using Bytes2you.Validation;
 using BrumWithMe.Services.Providers.Mapping.Contracts;
+using System.Collections.Generic;
+using BrumWithMe.Data.Models.CompositeModels;
 
 namespace BrumWithMe.Services.Data.Services
 {
     public class AccountManagementService : BaseDataService, IAccountManagementService
     {
         private readonly IRepositoryEf<Car> carsRepo;
-        private readonly IRepositoryEf<User> userRepo;
+        private readonly IProjectableRepositoryEf<User> userRepo;
 
         public AccountManagementService(
             IRepositoryEf<Car> carsRepo,
-            IRepositoryEf<User> userRepo,
+            IProjectableRepositoryEf<User> userRepo,
             Func<IUnitOfWorkEF> unitOfWork)
             : base(unitOfWork)
         {
@@ -46,6 +48,13 @@ namespace BrumWithMe.Services.Data.Services
 
                 uow.Commit();
             }
+        }
+
+        public IEnumerable<UserBasicInfo> GetAllUsersBasicInfo()
+        {
+            var users = this.userRepo.GetAllMapped<UserBasicInfo>(x => true);
+
+            return users;
         }
     }
 }

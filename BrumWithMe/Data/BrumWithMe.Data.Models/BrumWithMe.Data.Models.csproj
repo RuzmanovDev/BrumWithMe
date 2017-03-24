@@ -67,7 +67,6 @@
     <Compile Include="Entities\Car.cs" />
     <Compile Include="Entities\City.cs" />
     <Compile Include="Entities\Review.cs" />
-    <Compile Include="Entities\Subscription.cs" />
     <Compile Include="Entities\Tag.cs" />
     <Compile Include="Entities\Trip.cs" />
     <Compile Include="Entities\UserTripStatus.cs" />

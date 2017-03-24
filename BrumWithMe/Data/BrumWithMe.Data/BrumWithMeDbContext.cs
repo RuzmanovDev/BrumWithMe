@@ -33,8 +33,6 @@ namespace BrumWithMe.Data
 
         public virtual IDbSet<UserTripStatus> UserTripStatus { get; set; }
 
-        public virtual IDbSet<Subscription> Subscibtions { get; set; }
-
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

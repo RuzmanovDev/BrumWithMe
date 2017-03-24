@@ -223,6 +223,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\AdminController.cs" />
+    <Compile Include="Areas\Admin\Controllers\UsersController.cs" />
     <Compile Include="Areas\Api\ApiAreaRegistration.cs" />
     <Compile Include="Areas\Api\Controllers\CityController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -278,6 +279,8 @@
     <Content Include="Areas\Api\Views\web.config" />
     <Content Include="Areas\Admin\Views\Admin\_ReportedTrips.cshtml" />
     <Content Include="Areas\Admin\Views\Admin\_DeletedTrips.cshtml" />
+    <Content Include="Areas\Admin\Views\Users\_UsersTable.cshtml" />
+    <Content Include="Areas\Admin\Views\Users\_UsersData.cshtml" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\cities-autocomplete.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />

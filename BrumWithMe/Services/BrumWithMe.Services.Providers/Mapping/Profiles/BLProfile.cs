@@ -27,7 +27,7 @@ namespace BrumWithMe.Services.Providers.Mapping.Profiles
             CreateMap<Car, CarBasicInfo>();
 
             CreateMap<User, UserBasicInfo>()
-                     .ForMember(dest => dest.Rating, opt => opt.MapFrom(src => src.ReviewsForHim.Select(x=>x.Rating).Average()));
+                     .ForMember(dest => dest.Rating, opt => opt.MapFrom(src => src.ReviewsForHim.Select(x => x.Rating).Average()));
 
 
             CreateMap<UsersTrips, TripBasicInfo>()
@@ -57,7 +57,7 @@ namespace BrumWithMe.Services.Providers.Mapping.Profiles
                 .ForMember(dest => dest.Price, opt => opt.MapFrom(src => src.Price))
                 .ForMember(dest => dest.TimeOfDeparture, opt => opt.MapFrom(src => src.TimeOfDeparture))
                 .ForMember(dest => dest.CarAvatarImage, opt => opt.MapFrom(src => src.Car.ImageUrl));
-                //.ForMember(dest => dest.Passangers, opt => opt.MapFrom(src => src.TripsUsers.Where(x => x.UserTripStatusId != (int)UserTripStatusType.Owner)));
+            //.ForMember(dest => dest.Passangers, opt => opt.MapFrom(src => src.TripsUsers.Where(x => x.UserTripStatusId != (int)UserTripStatusType.Owner)));
 
             CreateMap<UsersTrips, TripBasicInfoWithStatus>()
                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.TripId))
