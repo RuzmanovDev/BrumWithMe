@@ -78,5 +78,23 @@ namespace BrumWithMe.Auth.Identity.Services
                 }
             }
         }
+
+        public void UnlockAccount(string userId)
+        {
+            Guard.WhenArgument(userId, nameof(userId)).IsNullOrEmpty().Throw();
+
+            var user = this.userRepo.GetById(userId);
+
+            if (user != null)
+            {
+                using (var uow = this.unitOfWork())
+                {
+                    user.LockoutEnabled = true;
+                    user.LockoutEndDateUtc = DateTime.Now.AddDays(-1);
+
+                    uow.Commit();
+                }
+            }
+        }
     }
 }

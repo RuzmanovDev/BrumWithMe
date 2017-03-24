@@ -4,7 +4,7 @@
 
 <section class="container">
     <section class="row z-depth-3 shadow-container">
-        <h1>Hello From Admin area</h1>
+        <h4>Админски панел</h4>
         <div class="col s12">
             <ul class="tabs">
                 <li class="tab col s3">
@@ -19,7 +19,6 @@
                    new AjaxOptions() { InsertionMode = InsertionMode.Replace, UpdateTargetId = "admin-page-content" },
                    new { @class = "teal-text text-darken-4" })
                 </li>
-                <li class="tab col s3">
                 <li class="tab col s3">
                     @Ajax.ActionLink("Потребители", nameof(UsersController.Users), "Users",
                    null,

@@ -49,7 +49,16 @@ namespace BrumWithMe.MVC.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult LockoutUser(string userId, int days = 0)
         {
-            this.authService.LockAccount(userId, 3);
+            this.authService.LockAccount(userId, days);
+
+            return this.UsersData();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult UnlockUser(string userId)
+        {
+            this.authService.UnlockAccount(userId);
 
             return this.UsersData();
         }

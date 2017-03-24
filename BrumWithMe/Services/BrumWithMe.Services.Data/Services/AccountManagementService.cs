@@ -52,7 +52,7 @@ namespace BrumWithMe.Services.Data.Services
 
         public IEnumerable<UserBasicInfo> GetAllUsersBasicInfo()
         {
-            var users = this.userRepo.GetAllMapped<UserBasicInfo>(x => true);
+            var users = this.userRepo.GetAllMapped<UserBasicInfo>();
 
             return users;
         }

@@ -10,11 +10,28 @@
         </td>
         <td>
             @using (Ajax.BeginForm(nameof(UsersController.LockoutUser),
-                            new AjaxOptions() { HttpMethod = "POST", UpdateTargetId = "user-data", InsertionMode = InsertionMode.Replace }))
+                    null,
+                    new AjaxOptions() { HttpMethod = "POST", UpdateTargetId = "user-data", InsertionMode = InsertionMode.Replace },
+                    new {@class= "col s6" }))
             {
                 @Html.AntiForgeryToken()
                 <input type="hidden" name="userId" value="@user.Id" />
-                <input type="submit" class="btn" value="Блокирай" />
+                <div class="col s5 input-field">
+                    <label for="@user.Id-block-days">Блокирай за</label>
+                    <input type="number" name="days" class="col s12" id="@user.Id-block-days" />
+                </div>
+
+                <input type="submit" class="btn red" value="Блокирай" />
+            }
+
+            @using (Ajax.BeginForm(nameof(UsersController.UnlockUser),
+                    null,
+                    new AjaxOptions() { HttpMethod = "POST", UpdateTargetId = "user-data", InsertionMode = InsertionMode.Replace },
+                    new { @class = "col s6" }))
+            {
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="userId" value="@user.Id" />
+                <input type="submit" class="btn" value="Отблокирай" />
             }
         </td>
     </tr>

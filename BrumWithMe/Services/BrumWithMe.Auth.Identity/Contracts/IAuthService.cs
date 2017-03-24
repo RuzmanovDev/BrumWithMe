@@ -17,5 +17,6 @@ namespace BrumWithMe.Auth.Identity.Contracts
         string GetLoggedUserId(IPrincipal loggedUser);
 
         void LockAccount(string userId, int daysToLockOutAccount);
+        void UnlockAccount(string userId);
     }
 }
