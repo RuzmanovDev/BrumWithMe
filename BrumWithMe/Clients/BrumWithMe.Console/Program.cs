@@ -14,18 +14,10 @@ namespace BrumWithMe.Console
     {
         static void Main(string[] args)
         {
-            string cityName = "pesho";
-            cityName =
-                cityName?.ToLower();
+            DateTime? date = DateTime.Now;
+            DateTime second = DateTime.Now;
 
-            System.Console.WriteLine(cityName);
-
-            string str1 = "Pesho";
-            string str2 = "psh";
-
-            //string str = str1.Where(x=> !str1.Contains(!str1.Any())
-            //string str = str1.Where(x=> str2.Any)
-
+            System.Console.WriteLine(date>second);
         }
     }
 }

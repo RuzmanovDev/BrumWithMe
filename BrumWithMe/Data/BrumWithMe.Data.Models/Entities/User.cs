@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Security.Claims;
@@ -35,6 +36,19 @@ namespace BrumWithMe.Data.Models.Entities
 
         [MaxLength(150)]
         public string AvataImageurl { get; set; }
+
+        public override DateTime? LockoutEndDateUtc
+        {
+            get
+            {
+                return base.LockoutEndDateUtc;
+            }
+
+            set
+            {
+                base.LockoutEndDateUtc = value;
+            }
+        }
 
         public virtual ICollection<UsersTrips> UsersTrips
         {

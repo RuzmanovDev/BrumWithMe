@@ -9,10 +9,20 @@
             </div>
         </td>
         <td>
+            @if (user.IsBlocked)
+            {
+                <i class="material-icons red-text darken-4 large">not_interested</i>
+            }
+            else
+            {
+                <i class="material-icons teal-text darken-4 large">done</i>
+            }
+        </td>
+        <td>
             @using (Ajax.BeginForm(nameof(UsersController.LockoutUser),
-                    null,
-                    new AjaxOptions() { HttpMethod = "POST", UpdateTargetId = "user-data", InsertionMode = InsertionMode.Replace },
-                    new {@class= "col s6" }))
+                        null,
+                        new AjaxOptions() { HttpMethod = "POST", UpdateTargetId = "user-data", InsertionMode = InsertionMode.Replace },
+                        new { @class = "col s6" }))
             {
                 @Html.AntiForgeryToken()
                 <input type="hidden" name="userId" value="@user.Id" />
@@ -25,9 +35,9 @@
             }
 
             @using (Ajax.BeginForm(nameof(UsersController.UnlockUser),
-                    null,
-                    new AjaxOptions() { HttpMethod = "POST", UpdateTargetId = "user-data", InsertionMode = InsertionMode.Replace },
-                    new { @class = "col s6" }))
+                        null,
+                        new AjaxOptions() { HttpMethod = "POST", UpdateTargetId = "user-data", InsertionMode = InsertionMode.Replace },
+                        new { @class = "col s6" }))
             {
                 @Html.AntiForgeryToken()
                 <input type="hidden" name="userId" value="@user.Id" />

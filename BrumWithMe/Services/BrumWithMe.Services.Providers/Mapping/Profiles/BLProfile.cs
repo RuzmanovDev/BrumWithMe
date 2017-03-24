@@ -6,6 +6,7 @@ using BrumWithMe.Web.Models.Shared;
 using System.Linq;
 using BrumWithMe.Data.Models.Enums;
 using BrumWithMe.Data.Models.CompositeModels.Review;
+using System;
 
 namespace BrumWithMe.Services.Providers.Mapping.Profiles
 {
@@ -27,6 +28,7 @@ namespace BrumWithMe.Services.Providers.Mapping.Profiles
             CreateMap<Car, CarBasicInfo>();
 
             CreateMap<User, UserBasicInfo>()
+                     .ForMember(dest => dest.IsBlocked, opt => opt.MapFrom(src => src.LockoutEndDateUtc != null ? (DateTime)src.LockoutEndDateUtc > DateTime.Now : false ))
                      .ForMember(dest => dest.Rating, opt => opt.MapFrom(src => src.ReviewsForHim.Select(x => x.Rating).Average()));
 
 
