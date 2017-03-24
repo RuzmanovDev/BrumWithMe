@@ -5,7 +5,7 @@ namespace BrumWithMe.MVC.Controllers
 {
     public class BaseController : Controller
     {
-        protected string GetLoggedUserId
+        protected virtual string GetLoggedUserId
         {
             get
             {

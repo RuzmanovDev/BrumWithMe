@@ -1,4 +1,8 @@
-﻿using BrumWithMe.Data.Contracts;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
+using BrumWithMe.Data.Contracts;
 using BrumWithMe.Data.Models.CompositeModels.Trip;
 using BrumWithMe.Data.Models.Entities;
 using BrumWithMe.Services.Data.Contracts;
@@ -7,20 +11,14 @@ using BrumWithMe.Services.Providers.Mapping.Contracts;
 using BrumWithMe.Services.Providers.TimeProviders;
 using Moq;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BrumWithMe.Services.Data.Tests.TripServiceTests
 {
     [TestFixture]
-    public class GetTripDetails_Should
+    public class GetDeletedTrips_Should
     {
         [Test]
-        public void ReturnTripDetails_FromTheRepo()
+        public void RetrunOnlyDeletedNonFinishedTrips()
         {
             // Arrange
             var mockedTripRepo = new Mock<IProjectableRepositoryEf<Trip>>();
@@ -40,30 +38,31 @@ namespace BrumWithMe.Services.Data.Tests.TripServiceTests
                   mockedTripRepo.Object,
                   mockedDateTimpeProvider.Object);
 
-            TripDetails expected = new TripDetails() { Id = 1 };
-
             var data = new List<Trip>()
             {
-                new Trip() { Id=1, IsDeleted = false, IsFinished = false }
+                new Trip() {IsDeleted = true, IsFinished = false },
+                new Trip() {IsDeleted = true, IsFinished = false },
+                new Trip() {IsDeleted = true, IsFinished = false }
             };
 
-            mockedTripRepo.Setup(x => x.GetFirstMapped<TripDetails>(It.IsAny<Expression<Func<Trip, bool>>>()))
+            IEnumerable<TripBasicInfo> expected = null;
+            mockedTripRepo.Setup(x => x.GetAllMapped<TripBasicInfo>(It.IsAny<Expression<Func<Trip, bool>>>()))
                 .Returns((Expression<Func<Trip, bool>> predicate) =>
                 {
-                    return data.Where(predicate.Compile())
-                    .Select(x => expected)
-                    .FirstOrDefault();
+                    expected = data.Where(predicate.Compile()).Select(x => new TripBasicInfo());
+                    return expected;
                 });
 
             // Act
-            var result = tripService.GetTripDetails(1);
+            var result = tripService.GetDeletedTrips();
 
             // Assert
-            Assert.AreSame(expected, result);
+            Assert.AreEqual(data.Count, result.Count());
+            CollectionAssert.AreEqual(expected, result);
         }
 
         [Test]
-        public void ReturnNull_WhenTheTripsAreMarkedAsDeleted()
+        public void ReturnEmptyCollction_WhenDeletedTripsAreMarkedAsFinished()
         {
             // Arrange
             var mockedTripRepo = new Mock<IProjectableRepositoryEf<Trip>>();
@@ -83,26 +82,27 @@ namespace BrumWithMe.Services.Data.Tests.TripServiceTests
                   mockedTripRepo.Object,
                   mockedDateTimpeProvider.Object);
 
-            TripDetails expected = null;
-
             var data = new List<Trip>()
             {
-                new Trip() { Id=1, IsDeleted = true, IsFinished = false }
+                new Trip() {IsDeleted = true, IsFinished = true },
+                new Trip() {IsDeleted = true, IsFinished = true },
+                new Trip() {IsDeleted = true, IsFinished = true }
             };
 
-            mockedTripRepo.Setup(x => x.GetFirstMapped<TripDetails>(It.IsAny<Expression<Func<Trip, bool>>>()))
+            IEnumerable<TripBasicInfo> expected = null;
+            mockedTripRepo.Setup(x => x.GetAllMapped<TripBasicInfo>(It.IsAny<Expression<Func<Trip, bool>>>()))
                 .Returns((Expression<Func<Trip, bool>> predicate) =>
                 {
-                    return data.Where(predicate.Compile())
-                    .Select(x => expected)
-                    .FirstOrDefault();
+                    expected = data.Where(predicate.Compile()).Select(x => new TripBasicInfo());
+                    return expected;
                 });
 
             // Act
-            var result = tripService.GetTripDetails(1);
+            var result = tripService.GetDeletedTrips();
 
             // Assert
-            Assert.AreSame(expected, result);
+            Assert.AreEqual(0, result.Count());
+            CollectionAssert.AreEqual(expected, result);
         }
     }
 }

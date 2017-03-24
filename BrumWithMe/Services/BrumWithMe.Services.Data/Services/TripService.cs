@@ -107,7 +107,6 @@ namespace BrumWithMe.Services.Data.Services
             return trips;
         }
 
-
         public IEnumerable<TripBasicInfo> GetDeletedTrips()
         {
             var trips = this.tripRepo.GetAllMapped<TripBasicInfo>(x => x.IsDeleted && !x.IsFinished);
