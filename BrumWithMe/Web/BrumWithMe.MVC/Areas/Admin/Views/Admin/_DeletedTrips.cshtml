@@ -20,7 +20,7 @@
                     </td>
                     <td>
                         @Ajax.ActionLink("Възстанови", nameof(AdminController.RestoreTrip), new { tripId = trip.Id },
-                       new AjaxOptions() { HttpMethod = "POST", UpdateTargetId = "deletedTrips" })
+                       new AjaxOptions() { HttpMethod = "POST", UpdateTargetId = "deletedTrips" }, new { @class = "btn" })
                     </td>
                 </tr>
             }

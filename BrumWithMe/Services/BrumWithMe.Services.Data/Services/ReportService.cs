@@ -31,6 +31,17 @@ namespace BrumWithMe.Services.Data.Services
                 uow.Commit();
             }
         }
+        public void UnReportTrip(int tripId)
+        {
+            var trip = this.tripRepo.GetFirst(x => x.Id == tripId);
+
+            using (var uow = base.UnitOfWork())
+            {
+                trip.IsReported = false;
+
+                uow.Commit();
+            }
+        }
 
         public IEnumerable<TripBasicInfo> GetReportedTrips()
         {

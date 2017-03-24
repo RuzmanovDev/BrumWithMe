@@ -8,5 +8,6 @@ namespace BrumWithMe.Services.Data.Contracts
         void ReportTrip(int tripId);
 
         IEnumerable<TripBasicInfo> GetReportedTrips();
+        void UnReportTrip(int tripId);
     }
 }

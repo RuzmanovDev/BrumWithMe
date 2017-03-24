@@ -52,6 +52,7 @@ namespace BrumWithMe.MVC.Areas.Admin.Controllers
             return this.PartialView("_DeletedTrips", tripsvmodel);
 
         }
+
         [HttpPost]
         public ActionResult DeleteTrip(int tripId)
         {
@@ -63,7 +64,15 @@ namespace BrumWithMe.MVC.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult RestoreTrip(int tripId)
         {
-            this.tripService.DeleteTrip(tripId);
+            this.tripService.RecoverTrip(tripId);
+
+            return this.RedirectToAction(nameof(AdminController.DeletedTrips));
+        }
+
+        [HttpPost]
+        public ActionResult UnReportTrip(int tripId)
+        {
+            this.reportService.UnReportTrip(tripId);
 
             return this.RedirectToAction(nameof(AdminController.ReportedTrips));
         }
