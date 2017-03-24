@@ -75,35 +75,6 @@ namespace BrumWithMe.MVC.Controllers
             return RedirectToAction(nameof(this.RegisterCar));
         }
 
-        public ActionResult ChangePassword()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ChangePassword(ChangePasswordViewModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-
-            IdentityResult result = await this.authService.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword, model.NewPassword);
-
-            if (result.Succeeded)
-            {
-                this.authService.LogOff();
-
-                return RedirectToAction("Index");
-            }
-
-            base.AddErrors(result);
-
-            return View(model);
-        }
-
-
         public ActionResult ChangeAvatar()
         {
             var loggedUser = base.GetLoggedUserId;
@@ -140,6 +111,5 @@ namespace BrumWithMe.MVC.Controllers
 
             return this.RedirectToAction(nameof(ManageController.ChangeAvatar));
         }
-
     }
 }

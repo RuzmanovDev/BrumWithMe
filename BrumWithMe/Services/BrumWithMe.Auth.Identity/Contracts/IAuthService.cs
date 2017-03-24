@@ -14,8 +14,8 @@ namespace BrumWithMe.Auth.Identity.Contracts
 
         Task<IdentityResult> Register(User user, string password);
 
-        Task<IdentityResult> ChangePasswordAsync(string v, string oldPassword, string newPassword);
-
         string GetLoggedUserId(IPrincipal loggedUser);
+
+        void LockAccount(string userId, int daysToLockOutAccount);
     }
 }

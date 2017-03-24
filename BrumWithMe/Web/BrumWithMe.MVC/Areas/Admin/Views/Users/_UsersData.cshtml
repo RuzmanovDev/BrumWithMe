@@ -9,8 +9,13 @@
             </div>
         </td>
         <td>
-            @Ajax.ActionLink("Изтрий", nameof(AdminController.DeleteTrip),
-                       new AjaxOptions() { HttpMethod = "POST", UpdateTargetId = "reportedTrips" })
+            @using (Ajax.BeginForm(nameof(UsersController.LockoutUser),
+                            new AjaxOptions() { HttpMethod = "POST", UpdateTargetId = "user-data", InsertionMode = InsertionMode.Replace }))
+            {
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="userId" value="@user.Id" />
+                <input type="submit" class="btn" value="Блокирай" />
+            }
         </td>
     </tr>
 }

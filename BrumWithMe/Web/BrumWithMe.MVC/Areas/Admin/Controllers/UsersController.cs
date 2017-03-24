@@ -1,4 +1,5 @@
-﻿using BrumWithMe.Data.Models.CompositeModels;
+﻿using BrumWithMe.Auth.Identity.Contracts;
+using BrumWithMe.Data.Models.CompositeModels;
 using BrumWithMe.Services.Data.Contracts;
 using BrumWithMe.Services.Providers.Mapping.Contracts;
 using BrumWithMe.Web.Models.Shared;
@@ -14,14 +15,20 @@ namespace BrumWithMe.MVC.Areas.Admin.Controllers
     public class UsersController : Controller
     {
         private readonly IAccountManagementService accountManagementService;
+        private readonly IAuthService authService;
         private readonly IMappingProvider mappingProvider;
 
-        public UsersController(IAccountManagementService accountManagementService, IMappingProvider mappingProvider)
+        public UsersController(
+            IAccountManagementService accountManagementService,
+            IMappingProvider mappingProvider,
+            IAuthService authService)
         {
             Guard.WhenArgument(accountManagementService, nameof(accountManagementService)).IsNull().Throw();
             Guard.WhenArgument(mappingProvider, nameof(mappingProvider)).IsNull().Throw();
+            Guard.WhenArgument(authService, nameof(authService)).IsNull().Throw();
 
             this.accountManagementService = accountManagementService;
+            this.authService = authService;
             this.mappingProvider = mappingProvider;
         }
 
@@ -37,5 +44,15 @@ namespace BrumWithMe.MVC.Areas.Admin.Controllers
 
             return this.PartialView("_UsersData", usersVModel);
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult LockoutUser(string userId, int days = 0)
+        {
+            this.authService.LockAccount(userId, 3);
+
+            return this.UsersData();
+        }
+
     }
 }
