@@ -21,19 +21,19 @@ namespace BrumWithMe.Data.Migrations
         {
             this.RolesSeeder(context);
 
-            context.UserTripStatus.AddOrUpdate(new UserTripStatus()
+            context.UserTripStatus.AddOrUpdate(new UsersTripStatus()
             {
                 Id = 1,
                 Name = "Pending"
             });
 
-            context.UserTripStatus.AddOrUpdate(new UserTripStatus()
+            context.UserTripStatus.AddOrUpdate(new UsersTripStatus()
             {
                 Id = 2,
                 Name = "Accepted"
             });
 
-            context.UserTripStatus.AddOrUpdate(new UserTripStatus()
+            context.UserTripStatus.AddOrUpdate(new UsersTripStatus()
             {
                 Id = 3,
                 Name = "Owner"

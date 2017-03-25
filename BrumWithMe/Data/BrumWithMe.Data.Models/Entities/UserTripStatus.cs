@@ -4,11 +4,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BrumWithMe.Data.Models.Entities
 {
-    public class UserTripStatus
+    public class UsersTripStatus
     {
         private ICollection<UsersTrips> usersTrips;
 
-        public UserTripStatus()
+        public UsersTripStatus()
         {
             this.usersTrips = new HashSet<UsersTrips>();
         }

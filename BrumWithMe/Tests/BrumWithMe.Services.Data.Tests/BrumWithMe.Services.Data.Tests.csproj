@@ -78,6 +78,7 @@
     <Compile Include="TripServiceTests\GetPassengersForTheTrip_Should.cs" />
     <Compile Include="TripServiceTests\GetTripDetails_Should.cs" />
     <Compile Include="TripServiceTests\GetTripsFor_Should.cs" />
+    <Compile Include="TripServiceTests\RequestToJoinTrip_Should.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

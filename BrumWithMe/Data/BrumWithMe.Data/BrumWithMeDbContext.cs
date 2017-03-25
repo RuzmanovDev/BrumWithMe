@@ -31,7 +31,7 @@ namespace BrumWithMe.Data
 
         public virtual IDbSet<UsersTrips> UsersTrips { get; set; }
 
-        public virtual IDbSet<UserTripStatus> UserTripStatus { get; set; }
+        public virtual IDbSet<UsersTripStatus> UserTripStatus { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

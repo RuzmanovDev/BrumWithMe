@@ -18,6 +18,6 @@ namespace BrumWithMe.Data.Models.Entities
         [ForeignKey("UserTripStatus")]
         public  int UserTripStatusId { get; set; }
 
-        public virtual UserTripStatus UserTripStatus { get; set; }
+        public virtual UsersTripStatus UserTripStatus { get; set; }
     }
 }
