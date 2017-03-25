@@ -101,66 +101,6 @@ namespace BrumWithMe.Data.Repositories
             }
         }
 
-        public IEnumerable<T2> GetAll<T1, T2>(
-          Expression<Func<T, bool>> filter,
-          Expression<Func<T, T1>> sort,
-          Expression<Func<T, T2>> project)
-        {
-            IQueryable<T> result = this.DbSet;
-
-            if (filter != null)
-            {
-                result = result.Where(filter);
-            }
-
-            if (sort != null)
-            {
-                result = result.OrderBy(sort);
-            }
-
-            if (project != null)
-            {
-                return result.Select(project).ToList();
-            }
-            else
-            {
-                return result.OfType<T2>().ToList();
-            }
-        }
-
-        public IEnumerable<T2> GetAll<T1, T2>(
-            Expression<Func<T, bool>> filter,
-            Expression<Func<T, T1>> sort,
-            Expression<Func<T, T2>> project,
-            params Expression<Func<T, object>>[] includes)
-        {
-            IQueryable<T> result = this.DbSet;
-
-            if (includes != null)
-            {
-                result = includes.Aggregate(result, (current, include) => current.Include(include));
-            }
-
-            if (filter != null)
-            {
-                result = result.Where(filter);
-            }
-
-            if (sort != null)
-            {
-                result = result.OrderBy(sort);
-            }
-
-            if (project != null)
-            {
-                return result.Select(project).ToList();
-            }
-            else
-            {
-                return result.OfType<T2>().ToList();
-            }
-        }
-
         public T GetById(object id)
         {
             return this.DbSet.Find(id);

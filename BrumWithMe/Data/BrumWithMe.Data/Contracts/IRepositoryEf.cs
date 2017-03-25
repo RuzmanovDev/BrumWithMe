@@ -18,17 +18,6 @@ namespace BrumWithMe.Data.Contracts
             Expression<Func<T, T1>> project,
             params Expression<Func<T, object>>[] includes);
 
-        IEnumerable<T2> GetAll<T1, T2>(
-            Expression<Func<T, bool>> filter,
-            Expression<Func<T, T1>> sort,
-            Expression<Func<T, T2>> project);
-
-        IEnumerable<T2> GetAll<T1, T2>(
-          Expression<Func<T, bool>> filter,
-          Expression<Func<T, T1>> sort,
-          Expression<Func<T, T2>> project,
-         params Expression<Func<T, object>>[] includes);
-
         T GetFirst(Expression<Func<T, bool>> filter);
 
         T GetFirst(Expression<Func<T, bool>> filter, params Expression<Func<T, object>>[] includes);

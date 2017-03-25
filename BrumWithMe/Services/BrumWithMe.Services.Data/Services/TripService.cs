@@ -127,13 +127,14 @@ namespace BrumWithMe.Services.Data.Services
                 ?
                 page - 1 : 0;
 
-            int totalCount = this.tripRepo
+            var totalTrips = this.tripRepo
                 .GetAll(x => x.Origin.Name.ToLower().Contains(origin)
                 && x.Destination.Name.ToLower().Contains(destination)
                 && !x.IsDeleted
                 && !x.IsFinished,
-                x => x.Id, i => i.Destination, i => i.Origin)
-                .Count();
+                x => x.Id);
+
+            var totalCount = totalTrips.Count();
 
             var trips = this.tripRepo
                 .GetAllMapped<DateTime, TripBasicInfo>(
