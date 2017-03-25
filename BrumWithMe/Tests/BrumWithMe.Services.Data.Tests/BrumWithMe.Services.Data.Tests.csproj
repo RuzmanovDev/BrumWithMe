@@ -73,6 +73,7 @@
     <Compile Include="TagServiceTests\GetTagsByIds_Should.cs" />
     <Compile Include="TripServiceTests\Constructor_Should.cs" />
     <Compile Include="TripServiceTests\CreateTripShould.cs" />
+    <Compile Include="TripServiceTests\DeleteTrip_Should.cs" />
     <Compile Include="TripServiceTests\GetDeletedTrips_Should.cs" />
     <Compile Include="TripServiceTests\GetLatestTripsBasicInfo_Should.cs" />
     <Compile Include="TripServiceTests\GetPassengersForTheTrip_Should.cs" />
@@ -81,6 +82,7 @@
     <Compile Include="TripServiceTests\IsPassengerInTrip_Should.cs" />
     <Compile Include="TripServiceTests\IsUserOwnerOfTrip_Should.cs" />
     <Compile Include="TripServiceTests\MarkTripAsFinished_Should.cs" />
+    <Compile Include="TripServiceTests\RecoverTrip_Should.cs" />
     <Compile Include="TripServiceTests\RequestToJoinTrip_Should.cs" />
     <Compile Include="TripServiceTests\SignOutOfTrip_Should.cs" />
   </ItemGroup>
