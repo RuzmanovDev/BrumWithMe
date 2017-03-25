@@ -53,6 +53,7 @@
     <Compile Include="Controllers\HomeControllerTests\Constructor_Should.cs" />
     <Compile Include="Controllers\HomeControllerTests\Index_Should.cs" />
     <Compile Include="Controllers\HomeControllerTests\LoginPartial_Should.cs" />
+    <Compile Include="Controllers\ReportControllerTests\Constructor_Should.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
