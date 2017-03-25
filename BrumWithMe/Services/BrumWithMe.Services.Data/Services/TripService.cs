@@ -186,6 +186,11 @@ namespace BrumWithMe.Services.Data.Services
             {
                 var userTrip = this.userTripsRepo.GetFirst(x => x.TripId == tripId);
 
+                if (userTrip == null)
+                {
+                    return false;
+                }
+
                 if (userTrip.UserTripStatusId == (int)UserTripStatusType.Accepted)
                 {
                     var trip = userTrip.Trip;
