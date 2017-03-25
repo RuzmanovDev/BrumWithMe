@@ -58,6 +58,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="AccountManagementServiceTests\Constructor_Should.cs" />
     <Compile Include="BaseDataServiceTests\Constructor_Should.cs" />
     <Compile Include="BaseDataServiceTests\Mocks\DerivedDataService.cs" />
     <Compile Include="CarServiceTests\AddCarToUser_Should.cs" />

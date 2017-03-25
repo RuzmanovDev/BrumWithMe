@@ -3,7 +3,6 @@ using BrumWithMe.Data.Contracts;
 using BrumWithMe.Data.Models.Entities;
 using BrumWithMe.Services.Data.Contracts;
 using Bytes2you.Validation;
-using BrumWithMe.Services.Providers.Mapping.Contracts;
 using System.Collections.Generic;
 using BrumWithMe.Data.Models.CompositeModels;
 
