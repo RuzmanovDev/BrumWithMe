@@ -43,6 +43,13 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="Controllers\DashboardControllerTests\AcceptUserInTrip_Should.cs" />
+    <Compile Include="Controllers\DashboardControllerTests\Constructor_Should.cs" />
+    <Compile Include="Controllers\DashboardControllerTests\Index_Should.cs" />
+    <Compile Include="Controllers\DashboardControllerTests\PassangersInfo_Should.cs" />
+    <Compile Include="Controllers\DashboardControllerTests\RejectUserInTrip_Should.cs" />
+    <Compile Include="Controllers\DashboardControllerTests\TripsJoinedByMe_Should.cs" />
+    <Compile Include="Controllers\DashboardControllerTests\TripsSharedByMe_Should.cs" />
     <Compile Include="Controllers\HomeControllerTests\Constructor_Should.cs" />
     <Compile Include="Controllers\HomeControllerTests\Index_Should.cs" />
     <Compile Include="Controllers\HomeControllerTests\LoginPartial_Should.cs" />
@@ -101,6 +108,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Data\BrumWithMe.Data.Models\BrumWithMe.Data.Models.csproj">
+      <Project>{144806C1-2813-4871-845F-3D2D708052F7}</Project>
+      <Name>BrumWithMe.Data.Models</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Services\BrumWithMe.Services.Data\BrumWithMe.Services.Data.csproj">
       <Project>{EF938788-92EE-4CA0-B659-2F3474AF9B80}</Project>
       <Name>BrumWithMe.Services.Data</Name>

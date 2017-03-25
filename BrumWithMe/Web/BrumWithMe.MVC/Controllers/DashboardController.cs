@@ -1,8 +1,6 @@
 ﻿using System.Web.Mvc;
 using BrumWithMe.Services.Data.Contracts;
-using BrumWithMe.Services.Providers.Mapping.Contracts;
 using Bytes2you.Validation;
-using Microsoft.AspNet.Identity;
 
 namespace BrumWithMe.MVC.Controllers
 {
@@ -10,15 +8,14 @@ namespace BrumWithMe.MVC.Controllers
     public class DashboardController : BaseController
     {
         private readonly ITripService tripService;
-        private readonly IMappingProvider mappingProvider;
         private readonly IUserDashboardService userDashboardService;
 
-        public DashboardController(ITripService tripService, IMappingProvider mappingProvider, IUserDashboardService userDashboardService)
+        public DashboardController(ITripService tripService, IUserDashboardService userDashboardService)
         {
             Guard.WhenArgument(tripService, nameof(tripService)).IsNull().Throw();
+            Guard.WhenArgument(userDashboardService, nameof(userDashboardService)).IsNull().Throw();
 
             this.tripService = tripService;
-            this.mappingProvider = mappingProvider;
             this.userDashboardService = userDashboardService;
         }
 
@@ -29,7 +26,7 @@ namespace BrumWithMe.MVC.Controllers
 
         public ActionResult TripsSharedByMe()
         {
-            var loggedUserId = this.User.Identity.GetUserId();
+            var loggedUserId = this.GetLoggedUserId();
 
             var data = this.userDashboardService.GetTripsCreatedByUser(loggedUserId);
 
