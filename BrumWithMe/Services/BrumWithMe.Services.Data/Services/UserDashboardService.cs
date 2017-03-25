@@ -5,7 +5,6 @@ using BrumWithMe.Services.Data.Contracts;
 using BrumWithMe.Data.Models.CompositeModels.Trip;
 using BrumWithMe.Data.Contracts;
 using BrumWithMe.Data.Models.Entities;
-using BrumWithMe.Services.Providers.Mapping.Contracts;
 using Bytes2you.Validation;
 using BrumWithMe.Data.Models.Enums;
 
@@ -15,24 +14,22 @@ namespace BrumWithMe.Services.Data.Services
     {
         private readonly IProjectableRepositoryEf<Trip> tripRepo;
         private readonly IProjectableRepositoryEf<UsersTrips> userTripsRepo;
-        private readonly IMappingProvider mappingProvider;
         private readonly ITripService tripService;
 
         public UserDashboardService(
             Func<IUnitOfWorkEF> unitOfWork,
             IProjectableRepositoryEf<UsersTrips> userTripsRepo,
-            IMappingProvider mappingProvider,
             ITripService tripService,
             IProjectableRepositoryEf<Trip> tripRepo)
             : base(unitOfWork)
         {
             Guard.WhenArgument(tripRepo, nameof(tripRepo)).IsNull().Throw();
-            Guard.WhenArgument(mappingProvider, nameof(mappingProvider)).IsNull().Throw();
+            Guard.WhenArgument(userTripsRepo, nameof(userTripsRepo)).IsNull().Throw();
+            Guard.WhenArgument(tripService, nameof(tripService)).IsNull().Throw();
 
-            this.tripRepo = tripRepo;
-            this.mappingProvider = mappingProvider;
             this.userTripsRepo = userTripsRepo;
             this.tripService = tripService;
+            this.tripRepo = tripRepo;
         }
 
         public IEnumerable<TripInfoWithUserRequests> GetTripsCreatedByUser(string userId)

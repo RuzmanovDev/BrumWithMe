@@ -94,6 +94,11 @@
     <Compile Include="TripServiceTests\RecoverTrip_Should.cs" />
     <Compile Include="TripServiceTests\RequestToJoinTrip_Should.cs" />
     <Compile Include="TripServiceTests\SignOutOfTrip_Should.cs" />
+    <Compile Include="UserDashboardServiceTests\Constructor_Should.cs" />
+    <Compile Include="UserDashboardServiceTests\GetTripsCreatedByUser_Should.cs" />
+    <Compile Include="UserDashboardServiceTests\GetTripsJoinedByUser_Should.cs" />
+    <Compile Include="UserDashboardServiceTests\JoinUserToTrip_Should.cs" />
+    <Compile Include="UserDashboardServiceTests\RejectUserToJoinTrip_Should.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
