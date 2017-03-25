@@ -1,13 +1,9 @@
-﻿using BrumWithMe.Data.Contracts;
+﻿using System;
+using BrumWithMe.Data.Contracts;
 using BrumWithMe.Data.Models.Entities;
 using BrumWithMe.Services.Data.Services;
 using Moq;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BrumWithMe.Services.Data.Tests.AccountManagementServiceTests
 {
@@ -65,7 +61,34 @@ namespace BrumWithMe.Services.Data.Tests.AccountManagementServiceTests
             // Act
             var result = service.GetUserAvatarUrl(loggedUserId);
 
+            // Assert
             Assert.IsNull(result);
+        }
+
+        [Test]
+        public void RetulUserAvatar()
+        {
+            // Arrange
+            var mockedUnitOfWork = new Mock<Func<IUnitOfWorkEF>>();
+            var mockedCarsRepo = new Mock<IProjectableRepositoryEf<Car>>();
+            var mockedUserRepo = new Mock<IProjectableRepositoryEf<User>>();
+
+            var service = new AccountManagementService(mockedCarsRepo.Object, mockedUserRepo.Object, mockedUnitOfWork.Object);
+
+            string loggedUserId = "loggedUserId";
+            string avatarUrl = "avatarUrl";
+
+            User user = new User() { Id = loggedUserId, AvataImageurl = avatarUrl };
+
+            mockedUserRepo
+                .Setup(x => x.GetById(loggedUserId))
+                .Returns(user);
+
+            // Act
+            var result = service.GetUserAvatarUrl(loggedUserId);
+
+            // Assert
+            Assert.AreEqual(avatarUrl,result);
         }
     }
 }
