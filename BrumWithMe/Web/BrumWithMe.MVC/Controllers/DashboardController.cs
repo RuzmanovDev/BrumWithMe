@@ -38,7 +38,7 @@ namespace BrumWithMe.MVC.Controllers
 
         public ActionResult TripsJoinedByMe()
         {
-            var userId = base.GetLoggedUserId;
+            var userId = this.GetLoggedUserId();
             var trips = this.userDashboardService.GetTripsJoinedByUser(userId);
 
             return this.PartialView("_TripsJoinedByUser", trips);

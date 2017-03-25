@@ -6,20 +6,12 @@ namespace BrumWithMe.MVC.Controllers
 {
     public class BaseController : Controller
     {
-        public Func<string> GetUserId;
-
         public BaseController()
         {
-            this.GetUserId = () => User.Identity.GetUserId();
+            this.GetLoggedUserId = () => User.Identity.GetUserId();
         }
 
-        protected virtual string GetLoggedUserId
-        {
-            get
-            {
-                return this.User?.Identity.GetUserId();
-            }
-        }
+        public virtual Func<string> GetLoggedUserId { get; set; }
 
         protected void AddErrors(IdentityResult result)
         {

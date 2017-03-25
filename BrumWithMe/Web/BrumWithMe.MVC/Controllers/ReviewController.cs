@@ -46,7 +46,7 @@ namespace BrumWithMe.MVC.Controllers
             }
 
             var review = this.mappingProvider.Map<PostCommentViewModel, Review>(comment);
-            review.CreatorId = base.GetLoggedUserId;
+            review.CreatorId = this.GetLoggedUserId();
             review.CreatedOn = DateTime.UtcNow;
 
             this.reviewService.CreateReview(review);

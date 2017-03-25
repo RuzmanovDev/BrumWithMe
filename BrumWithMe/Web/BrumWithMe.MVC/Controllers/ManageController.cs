@@ -69,7 +69,7 @@ namespace BrumWithMe.MVC.Controllers
             var carToAdd = this.mappingProvider.Map<RegisterCarViewModel, Car>(car);
             carToAdd.ImageUrl = imageUrl;
 
-            var loggedUser = base.GetLoggedUserId;
+            var loggedUser = this.GetLoggedUserId();
             this.carService.AddCarToUser(carToAdd, loggedUser);
 
             return RedirectToAction(nameof(this.RegisterCar));
@@ -77,7 +77,7 @@ namespace BrumWithMe.MVC.Controllers
 
         public ActionResult ChangeAvatar()
         {
-            var loggedUser = base.GetLoggedUserId;
+            var loggedUser = this.GetLoggedUserId();
             var userAvatarUrl = this.accountManagementService.GetUserAvatarUrl(loggedUser);
             var model = new ChangeAvatarViewModel();
 
@@ -105,7 +105,7 @@ namespace BrumWithMe.MVC.Controllers
             changeAvatarViewModel.NewAvatar.SaveAs(path);
 
             var imageUrl = $"/UserAvatars/{loggedUserName}/" + filename;
-            var logedUserId = base.GetLoggedUserId;
+            var logedUserId = this.GetLoggedUserId();
 
             this.accountManagementService.SetUserAvatar(logedUserId, imageUrl);
 

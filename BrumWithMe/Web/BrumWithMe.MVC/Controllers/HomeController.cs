@@ -23,9 +23,9 @@ namespace BrumWithMe.MVC.Controllers
         [ChildActionOnly]
         public ActionResult LoginPartial()
         {
-            var loggedUser = base.GetLoggedUserId;
+            var loggedUser = this.GetLoggedUserId();
 
-            if(loggedUser != null)
+            if (loggedUser != null)
             {
                 var loggedUserAvatar = this.accountManagementService.GetUserAvatarUrl(loggedUser);
                 return this.PartialView("_LoginPartial", loggedUserAvatar);

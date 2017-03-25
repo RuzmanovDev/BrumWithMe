@@ -43,11 +43,11 @@ namespace BrumWithMe.MVC.Controllers
 
             bool isUserAlreadyAppliedToTrip = false;
             bool isUserOwner =
-                base.GetLoggedUserId == tripDetailsView.Driver.Id;
+                this.GetLoggedUserId() == tripDetailsView.Driver.Id;
 
             if (base.GetLoggedUserId != null)
             {
-                isUserAlreadyAppliedToTrip = this.tripService.IsPassengerInTrip(base.GetLoggedUserId, id);
+                isUserAlreadyAppliedToTrip = this.tripService.IsPassengerInTrip(this.GetLoggedUserId(), id);
             }
 
             tripDetailsView.IsCurrentUserPassangerInTheTrip = isUserAlreadyAppliedToTrip;
@@ -77,7 +77,7 @@ namespace BrumWithMe.MVC.Controllers
 
             var hourOfDeparture = TimeSpan.ParseExact(tripInfo.HourOfDeparture, @"hh\:mm", null);
             var timeOfDeparture = tripInfo.DateOfDeparture.Add(hourOfDeparture);
-            var currentUSerId = base.GetLoggedUserId;
+            var currentUSerId = this.GetLoggedUserId();
 
 
             var selectedTags = tripInfo.Tags
@@ -100,7 +100,7 @@ namespace BrumWithMe.MVC.Controllers
         public ActionResult Create()
         {
             var tags = this.tagService.GetAllTags();
-            var userId = base.GetLoggedUserId;
+            var userId = this.GetLoggedUserId();
 
             var cars = this.carService.GetUserCars(userId);
             if (cars == null || cars.Count() < 1)
@@ -123,7 +123,7 @@ namespace BrumWithMe.MVC.Controllers
         [Authorize]
         public ActionResult RequestToJoinTheTrip(int tripId)
         {
-            var userId = base.GetLoggedUserId;
+            var userId = this.GetLoggedUserId();
             var isScucessfullyJoined = this.tripService.RequestToJoinTrip(tripId, userId);
 
             var model = new JoinTripBtnViewModel();
@@ -137,7 +137,7 @@ namespace BrumWithMe.MVC.Controllers
         [Authorize]
         public ActionResult SignOutOftheTrip(int tripId)
         {
-            var userId = base.GetLoggedUserId;
+            var userId = this.GetLoggedUserId();
             var result = this.tripService.SignOutOfTrip(tripId, userId);
             bool isUserInTrip = true;
 
@@ -156,7 +156,7 @@ namespace BrumWithMe.MVC.Controllers
         [ChildActionOnly]
         public ActionResult JoinBtn(int tripId)
         {
-            var userId = base.GetLoggedUserId;
+            var userId = this.GetLoggedUserId();
 
             var isUserPassangerInTheTrip = this.tripService.IsPassengerInTrip(userId, tripId);
 
@@ -171,7 +171,7 @@ namespace BrumWithMe.MVC.Controllers
         [Authorize]
         public ActionResult MarkTripAsFinished(int tripId)
         {
-            var userId = base.GetLoggedUserId;
+            var userId = this.GetLoggedUserId();
 
             bool result = this.tripService.MarkTripAsFinished(tripId, userId);
 
