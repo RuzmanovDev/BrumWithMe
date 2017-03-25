@@ -1,0 +1,124 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
+using BrumWithMe.Data.Contracts;
+using BrumWithMe.Data.Models.Entities;
+using BrumWithMe.Data.Models.Enums;
+using BrumWithMe.Services.Data.Contracts;
+using BrumWithMe.Services.Data.Services;
+using BrumWithMe.Services.Providers.Mapping.Contracts;
+using BrumWithMe.Services.Providers.TimeProviders;
+using Moq;
+using NUnit.Framework;
+
+namespace BrumWithMe.Services.Data.Tests.TripServiceTests
+{
+    [TestFixture]
+    public class MarkTripAsFinished_Should
+    {
+        [Test]
+        public void ReturnFalse_WhenUserThatTiresToFinishTheTrip()
+        {
+            // Arrange
+            var mockedTripRepo = new Mock<IProjectableRepositoryEf<Trip>>();
+            var mockedUserTripRepo = new Mock<IProjectableRepositoryEf<UsersTrips>>();
+            var mockedCityService = new Mock<ICityService>();
+            var mockedTagService = new Mock<ITagService>();
+            var mockedDateTimpeProvider = new Mock<IDateTimeProvider>();
+            var mockedMappingProvider = new Mock<IMappingProvider>();
+            var mockedUnitOfWork = new Mock<IUnitOfWorkEF>();
+
+            var tripService = new TripService(
+                  () => mockedUnitOfWork.Object,
+                  mockedUserTripRepo.Object,
+                  mockedCityService.Object,
+                  mockedMappingProvider.Object,
+                  mockedTagService.Object,
+                  mockedTripRepo.Object,
+                  mockedDateTimpeProvider.Object);
+
+            string userId = "userId";
+            int tripId = 1;
+            var userTrips = new UsersTrips()
+            {
+                TripId = tripId,
+                UserId = userId,
+                UserTripStatusId = (int)UserTripStatusType.Accepted
+            };
+
+            var data = new List<UsersTrips>() { userTrips };
+
+            UsersTrips exp = null;
+            mockedUserTripRepo.Setup(x => x.GetFirst(It.IsAny<Expression<Func<UsersTrips, bool>>>()))
+                .Returns((Expression<Func<UsersTrips, bool>> predicate) =>
+                {
+                    exp = data.Where(predicate.Compile()).FirstOrDefault();
+
+                    return exp;
+                });
+
+            // Act
+            var result = tripService.MarkTripAsFinished(tripId, userId);
+
+            // Assert
+            Assert.IsFalse(result);
+        }
+
+        [Test]
+        public void MarkTripAsFinished_WhenParamsAreValid()
+        {
+            // Arrange
+            var mockedTripRepo = new Mock<IProjectableRepositoryEf<Trip>>();
+            var mockedUserTripRepo = new Mock<IProjectableRepositoryEf<UsersTrips>>();
+            var mockedCityService = new Mock<ICityService>();
+            var mockedTagService = new Mock<ITagService>();
+            var mockedDateTimpeProvider = new Mock<IDateTimeProvider>();
+            var mockedMappingProvider = new Mock<IMappingProvider>();
+            var mockedUnitOfWork = new Mock<IUnitOfWorkEF>();
+
+            mockedUnitOfWork.Setup(x => x.Commit()).Returns(true);
+
+            var tripService = new TripService(
+                  () => mockedUnitOfWork.Object,
+                  mockedUserTripRepo.Object,
+                  mockedCityService.Object,
+                  mockedMappingProvider.Object,
+                  mockedTagService.Object,
+                  mockedTripRepo.Object,
+                  mockedDateTimpeProvider.Object);
+
+            string userId = "userId";
+            int tripId = 1;
+            var trip = new Trip() { Id = tripId };
+
+            var userTrips = new UsersTrips()
+            {
+                TripId = tripId,
+                UserId = userId,
+                UserTripStatusId = (int)UserTripStatusType.Owner
+            };
+
+            var data = new List<UsersTrips>() { userTrips };
+
+            UsersTrips exp = null;
+            mockedUserTripRepo.Setup(x => x.GetFirst(It.IsAny<Expression<Func<UsersTrips, bool>>>()))
+                .Returns((Expression<Func<UsersTrips, bool>> predicate) =>
+                {
+                    exp = data.Where(predicate.Compile()).FirstOrDefault();
+
+                    return exp;
+                });
+
+            mockedTripRepo.Setup(x => x.GetFirst(It.IsAny<Expression<Func<Trip, bool>>>()))
+                .Returns(trip);
+            // Act
+            var result = tripService.MarkTripAsFinished(tripId, userId);
+
+            // Assert
+            Assert.IsTrue(trip.IsFinished);
+            mockedUnitOfWork.Verify(x => x.Commit(), Times.Once);
+            Assert.IsTrue(result);
+        }
+    }
+}

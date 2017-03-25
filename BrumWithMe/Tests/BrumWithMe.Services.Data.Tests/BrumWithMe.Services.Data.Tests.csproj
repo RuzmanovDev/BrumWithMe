@@ -80,6 +80,7 @@
     <Compile Include="TripServiceTests\GetTripsFor_Should.cs" />
     <Compile Include="TripServiceTests\IsPassengerInTrip_Should.cs" />
     <Compile Include="TripServiceTests\IsUserOwnerOfTrip_Should.cs" />
+    <Compile Include="TripServiceTests\MarkTripAsFinished_Should.cs" />
     <Compile Include="TripServiceTests\RequestToJoinTrip_Should.cs" />
     <Compile Include="TripServiceTests\SignOutOfTrip_Should.cs" />
   </ItemGroup>
