@@ -29,7 +29,7 @@ namespace BrumWithMe.Services.Data.Services
         public string GetUserAvatarUrl(string loggedUser)
         {
             Guard.WhenArgument(loggedUser, nameof(loggedUser)).IsNullOrEmpty().Throw();
-
+            User user = new User();
             var userAvatarUrl = this.userRepo.GetById(loggedUser)?.AvataImageurl;
 
             return userAvatarUrl;
