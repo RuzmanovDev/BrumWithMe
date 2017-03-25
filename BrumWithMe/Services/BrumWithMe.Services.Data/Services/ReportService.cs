@@ -24,6 +24,11 @@ namespace BrumWithMe.Services.Data.Services
         {
             var trip = this.tripRepo.GetFirst(x => x.Id == tripId);
 
+            if (trip == null)
+            {
+                return;
+            }
+
             using (var uow = base.UnitOfWork())
             {
                 trip.IsReported = true;
@@ -31,9 +36,15 @@ namespace BrumWithMe.Services.Data.Services
                 uow.Commit();
             }
         }
+
         public void UnReportTrip(int tripId)
         {
             var trip = this.tripRepo.GetFirst(x => x.Id == tripId);
+
+            if (trip == null)
+            {
+                return;
+            }
 
             using (var uow = base.UnitOfWork())
             {

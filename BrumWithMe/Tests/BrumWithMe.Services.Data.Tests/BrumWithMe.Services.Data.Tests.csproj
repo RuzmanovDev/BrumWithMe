@@ -73,6 +73,10 @@
     <Compile Include="CityServiceTests\GetAllCityNames_Should.cs" />
     <Compile Include="CityServiceTests\GetCityByName_Should.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReportServiceTests\Constructor_Should.cs" />
+    <Compile Include="ReportServiceTests\GetReportedTrips_Should.cs" />
+    <Compile Include="ReportServiceTests\ReportTrip_Should.cs" />
+    <Compile Include="ReportServiceTests\UnReportTrip_Should.cs" />
     <Compile Include="TagServiceTests\Constructor_Should.cs" />
     <Compile Include="TagServiceTests\GetAllTags_Should.cs" />
     <Compile Include="TagServiceTests\GetTagsByIds_Should.cs" />
