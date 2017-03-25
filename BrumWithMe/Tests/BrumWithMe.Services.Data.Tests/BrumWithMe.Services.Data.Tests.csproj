@@ -79,6 +79,8 @@
     <Compile Include="ReportServiceTests\UnReportTrip_Should.cs" />
     <Compile Include="ReviewServiceTests\Constructor_Should.cs" />
     <Compile Include="ReviewServiceTests\CreateReview_Should.cs" />
+    <Compile Include="ReviewServiceTests\GetAverageUserRating_Should.cs" />
+    <Compile Include="ReviewServiceTests\GetCommentsFor_Should.cs" />
     <Compile Include="TagServiceTests\Constructor_Should.cs" />
     <Compile Include="TagServiceTests\GetAllTags_Should.cs" />
     <Compile Include="TagServiceTests\GetTagsByIds_Should.cs" />
