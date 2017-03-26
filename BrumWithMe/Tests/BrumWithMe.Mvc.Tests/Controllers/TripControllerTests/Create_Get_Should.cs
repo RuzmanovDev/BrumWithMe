@@ -1,16 +1,14 @@
-﻿using BrumWithMe.Data.Models.CompositeModels;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.Mvc;
+using BrumWithMe.Data.Models.CompositeModels;
 using BrumWithMe.MVC.Controllers;
 using BrumWithMe.Services.Data.Contracts;
 using BrumWithMe.Services.Providers.Mapping.Contracts;
 using BrumWithMe.Web.Models.Trip;
 using Moq;
 using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web.Mvc;
 using TestStack.FluentMVCTesting;
 
 namespace BrumWithMe.Mvc.Tests.Controllers.TripControllerTests

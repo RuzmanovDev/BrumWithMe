@@ -14,7 +14,7 @@ namespace BrumWithMe.Mvc.Tests.Controllers.DashboardControllerTests
     public class PassangersInfo_Should
     {
         [Test]
-        public void test()
+        public void Retrn_PassangersPartial_WithCorrectModel()
         {
             // Arrange
             var mockedTripService = new Mock<ITripService>();

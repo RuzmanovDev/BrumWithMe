@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
-
 using BrumWithMe.Data.Models.CompositeModels.Review;
 using BrumWithMe.Data.Models.Entities;
 using BrumWithMe.Services.Data.Contracts;
@@ -25,6 +24,7 @@ namespace BrumWithMe.MVC.Controllers
             this.reviewService = reviewService;
         }
 
+        [Authorize]
         public ActionResult CommentsForUser(string userId, int page = 0)
         {
             IEnumerable<CommentInfo> data = this.reviewService.GetCommentsFor(userId, page);
@@ -36,13 +36,13 @@ namespace BrumWithMe.MVC.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public ActionResult PostComment(PostCommentViewModel comment)
         {
             if (!this.ModelState.IsValid)
             {
-                // TODO handle errors and wrtie validation logic
-                return null;
+                return new EmptyResult();
             }
 
             var review = this.mappingProvider.Map<PostCommentViewModel, Review>(comment);
@@ -57,6 +57,7 @@ namespace BrumWithMe.MVC.Controllers
             return this.CommentsForUser(comment.ReviewedUserId);
         }
 
+        [Authorize]
         public ActionResult GetPostComment(string reviewFor)
         {
             if (this.GetLoggedUserId() == reviewFor)
