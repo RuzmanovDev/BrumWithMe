@@ -9,7 +9,7 @@ using TestStack.FluentMVCTesting;
 namespace BrumWithMe.Mvc.Tests.Controllers.SearchControllerTests
 {
     [TestFixture]
-   public class Search_Should
+    public class Search_Should
     {
         [Test]
         public void Return_TripQuickSerachPartial()
