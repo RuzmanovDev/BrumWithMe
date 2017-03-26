@@ -28,8 +28,9 @@ namespace BrumWithMe.Services.Providers.Mapping.Profiles
             CreateMap<Car, CarBasicInfo>();
 
             CreateMap<User, UserBasicInfo>()
-                     .ForMember(dest => dest.IsBlocked, opt => opt.MapFrom(src => src.LockoutEndDateUtc != null ? (DateTime)src.LockoutEndDateUtc > DateTime.Now : false ))
-                     .ForMember(dest => dest.Rating, opt => opt.MapFrom(src => src.ReviewsForHim.Select(x => x.Rating).Average()));
+                     .ForMember(dest => dest.IsBlocked, opt => opt.MapFrom(src => src.LockoutEndDateUtc != null ? (DateTime)src.LockoutEndDateUtc > DateTime.Now : false))
+                     .ForMember(dest => dest.Rating, opt => opt.MapFrom(src => src.ReviewsByHim
+                        .Where(x => x.ReviewedUserId == src.Id).Select(x => x.Rating).Average()));
 
 
             CreateMap<UsersTrips, TripBasicInfo>()

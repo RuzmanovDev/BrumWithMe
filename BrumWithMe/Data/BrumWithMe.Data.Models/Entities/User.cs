@@ -24,6 +24,19 @@ namespace BrumWithMe.Data.Models.Entities
             this.reviewsByHim = new HashSet<Review>();
         }
 
+        public override string Id
+        {
+            get
+            {
+                return base.Id;
+            }
+
+            set
+            {
+                base.Id = value;
+            }
+        }
+
         [MinLength(3)]
         [MaxLength(25)]
         [Required]

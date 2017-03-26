@@ -49,7 +49,10 @@ namespace BrumWithMe.MVC.Controllers
             review.CreatorId = this.GetLoggedUserId();
             review.CreatedOn = DateTime.UtcNow;
 
-            this.reviewService.CreateReview(review);
+            if (review.CreatorId != review.ReviewedUserId)
+            {
+                this.reviewService.CreateReview(review);
+            }
 
             return this.CommentsForUser(comment.ReviewedUserId);
         }
