@@ -1,17 +1,15 @@
-﻿using BrumWithMe.Auth.Identity.Contracts;
+﻿using System.Collections.Generic;
+using System.Web.Mvc;
+using BrumWithMe.Auth.Identity.Contracts;
 using BrumWithMe.Data.Models.CompositeModels;
 using BrumWithMe.Services.Data.Contracts;
 using BrumWithMe.Services.Providers.Mapping.Contracts;
 using BrumWithMe.Web.Models.Shared;
 using Bytes2you.Validation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
 
 namespace BrumWithMe.MVC.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class UsersController : Controller
     {
         private readonly IAccountManagementService accountManagementService;
