@@ -55,6 +55,8 @@
     <Compile Include="Controllers\HomeControllerTests\LoginPartial_Should.cs" />
     <Compile Include="Controllers\ReportControllerTests\Constructor_Should.cs" />
     <Compile Include="Controllers\ReportControllerTests\ReportTrip_Should.cs" />
+    <Compile Include="Controllers\TripControllerTests\Constructor_Should.cs" />
+    <Compile Include="Controllers\TripControllerTests\TripDetails_Should.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -118,9 +120,17 @@
       <Project>{EF938788-92EE-4CA0-B659-2F3474AF9B80}</Project>
       <Name>BrumWithMe.Services.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Services\BrumWithMe.Services.Providers\BrumWithMe.Services.Providers.csproj">
+      <Project>{402CA91F-486D-4954-94B9-38E6FCFDE38A}</Project>
+      <Name>BrumWithMe.Services.Providers</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Web\BrumWithMe.MVC\BrumWithMe.MVC.csproj">
       <Project>{B332EC19-A4C2-4A73-BDDF-BA1FD0E9ED6E}</Project>
       <Name>BrumWithMe.MVC</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Web\BrumWithMe.Web.Models\BrumWithMe.Web.Models.csproj">
+      <Project>{2A2F207E-4113-4CC9-9554-C7C547508E2D}</Project>
+      <Name>BrumWithMe.Web.Models</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

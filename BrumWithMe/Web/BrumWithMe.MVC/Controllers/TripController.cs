@@ -1,13 +1,13 @@
-﻿using BrumWithMe.Data.Models.CompositeModels;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.Mvc;
+using BrumWithMe.Data.Models.CompositeModels;
 using BrumWithMe.Data.Models.CompositeModels.Trip;
 using BrumWithMe.Services.Data.Contracts;
 using BrumWithMe.Services.Providers.Mapping.Contracts;
 using BrumWithMe.Web.Models.Trip;
 using Bytes2you.Validation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web.Mvc;
 
 namespace BrumWithMe.MVC.Controllers
 {
@@ -24,10 +24,10 @@ namespace BrumWithMe.MVC.Controllers
             ICarService carService,
             IMappingProvider mappingProvider)
         {
-            Guard.WhenArgument(tripService, nameof(ITripService)).IsNull().Throw();
-            Guard.WhenArgument(tagService, nameof(ITagService)).IsNull().Throw();
-            Guard.WhenArgument(carService, nameof(ICarService)).IsNull().Throw();
-            Guard.WhenArgument(mappingProvider, nameof(IMappingProvider)).IsNull().Throw();
+            Guard.WhenArgument(tripService, nameof(tripService)).IsNull().Throw();
+            Guard.WhenArgument(tagService, nameof(tagService)).IsNull().Throw();
+            Guard.WhenArgument(carService, nameof(carService)).IsNull().Throw();
+            Guard.WhenArgument(mappingProvider, nameof(mappingProvider)).IsNull().Throw();
 
             this.tripService = tripService;
             this.tagService = tagService;
@@ -38,16 +38,17 @@ namespace BrumWithMe.MVC.Controllers
         public ActionResult TripDetails(int id)
         {
             TripDetails tripDetails = this.tripService.GetTripDetails(id);
-
             TripDetailsViewModel tripDetailsView = this.mappingProvider.Map<TripDetails, TripDetailsViewModel>(tripDetails);
+
+            var loggedUserId = base.GetLoggedUserId();
 
             bool isUserAlreadyAppliedToTrip = false;
             bool isUserOwner =
-                this.GetLoggedUserId() == tripDetailsView.Driver.Id;
+                loggedUserId == tripDetailsView.Driver.Id;
 
-            if (base.GetLoggedUserId != null)
+            if (loggedUserId != null)
             {
-                isUserAlreadyAppliedToTrip = this.tripService.IsPassengerInTrip(this.GetLoggedUserId(), id);
+                isUserAlreadyAppliedToTrip = this.tripService.IsPassengerInTrip(loggedUserId, id);
             }
 
             tripDetailsView.IsCurrentUserPassangerInTheTrip = isUserAlreadyAppliedToTrip;
