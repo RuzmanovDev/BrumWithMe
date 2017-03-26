@@ -62,6 +62,5 @@ namespace BrumWithMe.MVC.Areas.Admin.Controllers
 
             return this.UsersData();
         }
-
     }
 }
