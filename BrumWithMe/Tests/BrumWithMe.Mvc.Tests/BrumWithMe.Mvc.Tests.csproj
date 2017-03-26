@@ -59,6 +59,10 @@
     <Compile Include="Controllers\ReviewControllerTests\Construcor_Should.cs" />
     <Compile Include="Controllers\ReviewControllerTests\GetPostComment_Should.cs" />
     <Compile Include="Controllers\ReviewControllerTests\PostComment_Should.cs" />
+    <Compile Include="Controllers\SearchControllerTests\ConstructorShould.cs" />
+    <Compile Include="Controllers\SearchControllerTests\LoadTrips_Should.cs" />
+    <Compile Include="Controllers\SearchControllerTests\Result_Should.cs" />
+    <Compile Include="Controllers\SearchControllerTests\Search_Should.cs" />
     <Compile Include="Controllers\TripControllerTests\Constructor_Should.cs" />
     <Compile Include="Controllers\TripControllerTests\Create_Get_Should.cs" />
     <Compile Include="Controllers\TripControllerTests\Create_Post_Should.cs" />

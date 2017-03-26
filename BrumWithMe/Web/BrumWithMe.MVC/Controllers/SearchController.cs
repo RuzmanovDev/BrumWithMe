@@ -16,8 +16,8 @@ namespace BrumWithMe.MVC.Controllers
 
         public SearchController(ITripService tripService, IMappingProvider mappingProvider)
         {
-            Guard.WhenArgument(tripService, nameof(ITripService)).IsNull().Throw();
-            Guard.WhenArgument(mappingProvider, nameof(IMappingProvider)).IsNull().Throw();
+            Guard.WhenArgument(tripService, nameof(tripService)).IsNull().Throw();
+            Guard.WhenArgument(mappingProvider, nameof(mappingProvider)).IsNull().Throw();
 
             this.mappingProvider = mappingProvider;
             this.tripService = tripService;
@@ -30,10 +30,10 @@ namespace BrumWithMe.MVC.Controllers
                 page *= -1;
             }
 
-            //TODO Maybe redundant transformation?
             var trips = this.tripService.GetTripsFor(model.Origin, model.Destination, page);
             IEnumerable<TripBasicInfoViewModel> tripsViewModel =
                 this.mappingProvider.Map<IEnumerable<TripBasicInfo>, IEnumerable<TripBasicInfoViewModel>>(trips.FoundTrips);
+
             model.Data = tripsViewModel;
             model.TotalCount = trips.TotalTrips;
 
@@ -43,11 +43,11 @@ namespace BrumWithMe.MVC.Controllers
 
         public ActionResult Result(SearchTripViewModel searchModel)
         {
-            //TODO Maybe redundant transformation?
             var trips = this.tripService.GetTripsFor(searchModel.Origin, searchModel.Destination);
 
             IEnumerable<TripBasicInfoViewModel> tripsViewModel =
                 this.mappingProvider.Map<IEnumerable<TripBasicInfo>, IEnumerable<TripBasicInfoViewModel>>(trips.FoundTrips);
+
             searchModel.Data = tripsViewModel;
             searchModel.TotalCount = trips.TotalTrips;
 
