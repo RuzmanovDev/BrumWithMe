@@ -68,6 +68,7 @@ namespace BrumWithMe.MVC.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public ActionResult Create(CreateTripViewModel tripInfo)
         {
@@ -79,7 +80,6 @@ namespace BrumWithMe.MVC.Controllers
             var hourOfDeparture = TimeSpan.ParseExact(tripInfo.HourOfDeparture, @"hh\:mm", null);
             var timeOfDeparture = tripInfo.DateOfDeparture.Add(hourOfDeparture);
             var currentUSerId = this.GetLoggedUserId();
-
 
             var selectedTags = tripInfo.Tags
                 ?.Where(x => x.IsSelected)
