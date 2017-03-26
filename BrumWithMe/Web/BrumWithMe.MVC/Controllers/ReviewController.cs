@@ -56,6 +56,11 @@ namespace BrumWithMe.MVC.Controllers
 
         public ActionResult GetPostComment(string reviewFor)
         {
+            if (this.GetLoggedUserId() == reviewFor)
+            {
+                return new EmptyResult();
+            }
+
             var model = new PostCommentViewModel() { ReviewedUserId = reviewFor };
             return this.PartialView("_PostComment", model);
         }

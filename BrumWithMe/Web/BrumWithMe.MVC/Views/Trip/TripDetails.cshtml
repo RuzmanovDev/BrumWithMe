@@ -68,13 +68,12 @@
                     @Ajax.ActionLink("Докладвай", nameof(ReportController.ReportTrip),
                    "Report",
                    new { tripId = Model.Id },
-                   new AjaxOptions() { HttpMethod = "POST", UpdateTargetId="ds" },
-                   new { @class= "large material-icons" })
+                   new AjaxOptions() { HttpMethod = "POST", UpdateTargetId = "ds" },
+                   new { @class = "large material-icons" })
                 </span>
             </div>
         </div>
     </div>
-    <hr />
     @if (this.User.Identity.IsAuthenticated)
     {
         <section class="row">
@@ -92,7 +91,7 @@
                     OnBegin = "getNextPage"
                 }))
                 {
-                    <input type="hidden" id="comment-page-number-hidden" name="page" value="1"/>
+                    <input type="hidden" id="comment-page-number-hidden" name="page" value="1" />
                     <input type="submit" class="btn" id="load-more-btn" value="Виж още" />
                 }
             </section>
@@ -101,48 +100,11 @@
     }
 </div>
 @section scripts{
-    <script>
-        function initMap() {
-            var directionsService = new google.maps.DirectionsService;
-            var directionsDisplay = new google.maps.DirectionsRenderer;
-            var map = new google.maps.Map(document.getElementById('map'), {
-                zoom: 7,
-                center: { lat: 41.85, lng: -87.65 }
-            });
-            directionsDisplay.setMap(map);
-
-            calculateAndDisplayRoute(directionsService, directionsDisplay);
-
-        }
-
-        function calculateAndDisplayRoute(directionsService, directionsDisplay) {
-            directionsService.route({
-                origin: document.getElementById('origin').innerText,
-                destination: document.getElementById('destination').innerText,
-                travelMode: 'DRIVING'
-            }, function (response, status) {
-                if (status === 'OK') {
-                    directionsDisplay.setDirections(response);
-                } else {
-                    window.alert('Directions request failed due to ' + status);
-                }
-            });
-        }
-    </script>
+    <script src="~/Scripts/TripDetails/google-maps-api.js"></script>
     <script async defer
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAmM0B0JfIJKoF6KQfUfotRFcmzvI4Qn3w&callback=initMap">
     </script>
-    <script>
-        function appendNewCommentsToDom(result) {
-            $("#comments section.comment-container").last().after(result);
-        }
-
-        function getNextPage() {
-            var page = +$("#comment-page-number-hidden").val();
-            page++;
-            $("#comment-page-number-hidden").val(page);
-        }
-    </script>
+    <script src="~/Scripts/TripDetails/managing-comments.js"></script>
 }
 
 
