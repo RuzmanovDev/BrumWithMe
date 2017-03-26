@@ -58,7 +58,11 @@
     <Compile Include="Controllers\TripControllerTests\Constructor_Should.cs" />
     <Compile Include="Controllers\TripControllerTests\Create_Get_Should.cs" />
     <Compile Include="Controllers\TripControllerTests\Create_Post_Should.cs" />
+    <Compile Include="Controllers\TripControllerTests\JoinBtn_Should.cs" />
+    <Compile Include="Controllers\TripControllerTests\MarkTripAsFinished_Should.cs" />
     <Compile Include="Controllers\TripControllerTests\RecentTrips_Should.cs" />
+    <Compile Include="Controllers\TripControllerTests\RequestToJoinTheTrip_Should.cs" />
+    <Compile Include="Controllers\TripControllerTests\SignOutOftheTrip_Should.cs" />
     <Compile Include="Controllers\TripControllerTests\TripDetails_Should.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -91,7 +91,7 @@ namespace BrumWithMe.MVC.Controllers
             trip.TimeOfDeparture = timeOfDeparture;
             trip.TagIds = selectedTags;
             trip.DriverId = currentUSerId;
-          
+
             this.tripService.CreateTrip(trip);
 
             return RedirectToAction(nameof(this.Create));
@@ -181,7 +181,7 @@ namespace BrumWithMe.MVC.Controllers
                 return this.RedirectToAction(nameof(TripController.TripDetails), new { id = tripId });
             }
 
-            return this.RedirectToAction(nameof(HomeController.Index));
+            return this.RedirectToAction(nameof(HomeController.Index), "Home");
         }
     }
 }

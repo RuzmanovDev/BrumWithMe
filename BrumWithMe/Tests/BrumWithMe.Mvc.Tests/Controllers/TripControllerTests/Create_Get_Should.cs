@@ -92,7 +92,7 @@ namespace BrumWithMe.Mvc.Tests.Controllers.TripControllerTests
         }
 
         [Test]
-        public void ReturnDefaultView_WithCorrectViewModel()
+        public void ReturnDefaultView_WithCorrectViewModel_AndAttachPropertiesCorrectly()
         {
             // Arrange
             var mockedTripService = new Mock<ITripService>();
@@ -106,8 +106,9 @@ namespace BrumWithMe.Mvc.Tests.Controllers.TripControllerTests
                      mockedCarService.Object,
                      mockedMappingProvider.Object);
 
+            var tagsFromService = new List<TagInfo>();
             mockedTagService.Setup(x => x.GetAllTags())
-            .Returns(new List<TagInfo>());
+            .Returns(tagsFromService);
 
             var userId = "userId";
             controller.GetLoggedUserId = () => userId;
@@ -116,11 +117,18 @@ namespace BrumWithMe.Mvc.Tests.Controllers.TripControllerTests
             mockedCarService.Setup(x => x.GetUserCars(userId))
                 .Returns(cars);
 
+            var carsViewModel = new List<CarViewModel>();
+            mockedMappingProvider.Setup(x => x.Map<IEnumerable<CarBasicInfo>, IEnumerable<CarViewModel>>(cars))
+                .Returns(carsViewModel);
+
+            var tagsViewModel = new List<TagViewModel>();
+            mockedMappingProvider.Setup(x => x.Map<IEnumerable<TagInfo>, IList<TagViewModel>>(tagsFromService))
+                .Returns(tagsViewModel);
 
             // Act and Assert
             controller.WithCallTo(x => x.Create())
                 .ShouldRenderDefaultView()
-                .WithModel<CreateTripViewModel>();
+                .WithModel<CreateTripViewModel>(x => x.Tags == tagsViewModel && x.UserCars == carsViewModel);
 
         }
     }
