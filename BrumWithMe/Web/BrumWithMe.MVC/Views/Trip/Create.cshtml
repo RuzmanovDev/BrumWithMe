@@ -9,12 +9,12 @@
 
             <div class="col l6 input-field">
                 @Html.LabelFor(m => m.OriginName, "От")
-                @Html.TextBoxFor(x => x.OriginName, new { id = "origin-name" })
+                @Html.TextBoxFor(x => x.OriginName, new { id = "origin-name", @class = "autocomplete" })
                 @Html.ValidationMessageFor(m => m.OriginName, "", new { @class = "validation-error" })
             </div>
             <div class="col l6 input-field">
                 @Html.LabelFor(m => m.DestinationName, "До")
-                @Html.TextBoxFor(x => x.DestinationName)
+                @Html.TextBoxFor(x => x.DestinationName, new { @class = "autocomplete" })
                 @Html.ValidationMessageFor(m => m.DestinationName, "", new { @class = "validation-error" })
             </div>
             <div class="col l6">
@@ -69,6 +69,7 @@
     <link rel="stylesheet" type="text/css" href="~/Content/materialize/css/materialize.clockpicker.css" />
 
     <script src="~/Content/materialize/js/materialize.clockpicker.js"></script>
+    <script src="~/Scripts/cities-autocomplete.js"></script>
     <script>
         $(document).ready(function () {
             $('select').material_select();

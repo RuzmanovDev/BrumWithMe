@@ -9,12 +9,12 @@
         <ul class="pagination">
             @for (int i = 0; i < Model.TotalCount; i++)
             {
-                if (i % 2 == 0)
+                if (i % 5 == 0)
                 {
                     <li class="active teal darken-4">
-                        @Ajax.ActionLink((i / 2 + 1).ToString(),
+                        @Ajax.ActionLink((i / 5 + 1).ToString(),
                nameof(SearchController.LoadTrips),
-               new { page = i / 2 + 1, origin = this.Model.Origin, destination = this.Model.Destination },
+               new { page = i / 5 + 1, origin = this.Model.Origin, destination = this.Model.Destination },
                new AjaxOptions
                {
                    UpdateTargetId = "result",
