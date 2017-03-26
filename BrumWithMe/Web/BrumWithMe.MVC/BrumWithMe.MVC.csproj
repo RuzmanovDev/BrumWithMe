@@ -243,6 +243,10 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="400.html" />
+    <Content Include="404.html" />
+    <Content Include="500.html" />
+    <Content Include="503.html" />
     <Content Include="Content\materialize\css\materialize.clockpicker.css" />
     <Content Include="Content\materialize\css\materialize.css" />
     <Content Include="Content\materialize\css\materialize.min.css" />
