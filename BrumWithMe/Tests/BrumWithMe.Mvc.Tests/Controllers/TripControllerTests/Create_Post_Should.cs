@@ -8,6 +8,8 @@ using BrumWithMe.Web.Models.Trip;
 using Moq;
 using NUnit.Framework;
 using TestStack.FluentMVCTesting;
+using System.Web.Mvc;
+using System;
 
 namespace BrumWithMe.Mvc.Tests.Controllers.TripControllerTests
 {
@@ -142,6 +144,45 @@ namespace BrumWithMe.Mvc.Tests.Controllers.TripControllerTests
 
             mockedTripService.Verify(x => x.CreateTrip(tripCreationInfo), Times.Once);
             Assert.AreEqual(0, tripCreationInfo.TagIds.Count());
+        }
+
+        [Test]
+        public void HaveHttpPostAttrbute()
+        {
+            // Arrange
+            var method = typeof(TripController).GetMethod(nameof(TripController.Create), new Type[] { typeof(CreateTripViewModel) });
+
+            // Act
+            var hasAttr = method.GetCustomAttributes(typeof(HttpPostAttribute), false).Any();
+
+            // Assert
+            Assert.IsTrue(hasAttr);
+        }
+
+        [Test]
+        public void HaveAuthorizeAttribute()
+        {
+            // Arrange
+            var method = typeof(TripController).GetMethod(nameof(TripController.Create), new Type[] { typeof(CreateTripViewModel) });
+
+            // Act
+            var hasAttr = method.GetCustomAttributes(typeof(ValidateAntiForgeryTokenAttribute), false).Any();
+
+            // Assert
+            Assert.IsTrue(hasAttr);
+        }
+
+        [Test]
+        public void HaveAntiForgeryTokenAttribute()
+        {
+            // Arrange
+            var method = typeof(TripController).GetMethod(nameof(TripController.Create), new Type[] { typeof(CreateTripViewModel) });
+
+            // Act
+            var hasAttr = method.GetCustomAttributes(typeof(AuthorizeAttribute), false).Any();
+
+            // Assert
+            Assert.IsTrue(hasAttr);
         }
     }
 }
