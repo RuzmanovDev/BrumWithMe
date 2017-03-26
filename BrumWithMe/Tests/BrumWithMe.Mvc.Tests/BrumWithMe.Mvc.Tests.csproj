@@ -43,6 +43,13 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="Areas\Admin\Controllers\AdminControllerTests\Constructor_Should.cs" />
+    <Compile Include="Areas\Admin\Controllers\AdminControllerTests\Dashboard_Should.cs" />
+    <Compile Include="Areas\Admin\Controllers\AdminControllerTests\DeletedTrips_Should.cs" />
+    <Compile Include="Areas\Admin\Controllers\AdminControllerTests\DeleteTrip_Should.cs" />
+    <Compile Include="Areas\Admin\Controllers\AdminControllerTests\ReportedTrips_Should.cs" />
+    <Compile Include="Areas\Admin\Controllers\AdminControllerTests\RestoreTrip_Should.cs" />
+    <Compile Include="Areas\Admin\Controllers\AdminControllerTests\UnReportTrip_Should.cs" />
     <Compile Include="Controllers\DashboardControllerTests\AcceptUserInTrip_Should.cs" />
     <Compile Include="Controllers\DashboardControllerTests\Constructor_Should.cs" />
     <Compile Include="Controllers\DashboardControllerTests\Index_Should.cs" />

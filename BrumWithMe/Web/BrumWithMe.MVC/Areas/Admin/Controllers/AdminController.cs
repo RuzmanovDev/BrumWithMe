@@ -23,6 +23,7 @@ namespace BrumWithMe.MVC.Areas.Admin.Controllers
         {
             Guard.WhenArgument(reportService, nameof(reportService)).IsNull().Throw();
             Guard.WhenArgument(mappingProvider, nameof(mappingProvider)).IsNull().Throw();
+            Guard.WhenArgument(tripService, nameof(tripService)).IsNull().Throw();
 
             this.reportService = reportService;
             this.mappingProvider = mappingProvider;
