@@ -40,11 +40,20 @@ namespace BrumWithMe.Data
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
             modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
 
+            modelBuilder.Entity<User>()
+                .Ignore(c => c.AccessFailedCount)
+                .Ignore(c => c.TwoFactorEnabled)
+                .Ignore(c => c.EmailConfirmed)
+                .Ignore(c => c.PhoneNumber)
+                .Ignore(c => c.PhoneNumberConfirmed)
+                .Ignore(c => c.AccessFailedCount);
+
+            modelBuilder.Entity<IdentityUserLogin>().ToTable("UserLogins");
+            modelBuilder.Entity<IdentityUserClaim>().ToTable("UserClaims");
+
             modelBuilder.Entity<User>().ToTable("Users");
             modelBuilder.Entity<IdentityRole>().ToTable("Roles");
             modelBuilder.Entity<IdentityUserRole>().ToTable("UserRoles");
-            modelBuilder.Entity<IdentityUserLogin>().ToTable("UserLogins");
-            modelBuilder.Entity<IdentityUserClaim>().ToTable("UserClaims");
 
             modelBuilder.Entity<User>()
                 .HasMany<Review>(x => x.ReviewsByHim)
@@ -55,16 +64,6 @@ namespace BrumWithMe.Data
                 .HasMany<Review>(x => x.ReviewsForHim)
                 .WithRequired(x => x.Creator)
                 .HasForeignKey(x => x.CreatorId);
-
-            //modelBuilder.Entity<User>()
-            //    .HasMany<Trip>(x => x.UsersTrips)
-            //    .WithMany(x => x.TripsUsers)
-            //    .Map(ut =>
-            //    {
-            //        ut.MapLeftKey("TripId");
-            //        ut.MapRightKey("PassengerId");
-            //        ut.ToTable("UserTrips");
-            //    });
 
             modelBuilder.Entity<Trip>()
                 .HasMany<Tag>(x => x.Tags)

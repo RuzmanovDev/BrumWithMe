@@ -284,6 +284,7 @@
     <Content Include="Areas\Admin\Views\Admin\_DeletedTrips.cshtml" />
     <Content Include="Areas\Admin\Views\Users\_UsersTable.cshtml" />
     <Content Include="Areas\Admin\Views\Users\_UsersData.cshtml" />
+    <None Include="Properties\PublishProfiles\LocalDeploy.pubxml" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Scripts\cities-autocomplete.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
@@ -307,9 +308,16 @@
     <Content Include="Scripts\TripDetails\google-maps-api.js" />
     <Content Include="Scripts\TripDetails\managing-comments.js" />
     <Content Include="Scripts\_references.js" />
+    <Content Include="UserAvatars\admin%40admin.com\admin%40admin.com.jpg" />
     <Content Include="UserAvatars\default-car.jpg" />
     <Content Include="UserAvatars\default.png" />
-    <Content Include="Web.config" />
+    <Content Include="UserAvatars\pesho%40abv.bg\pesho%40abv.bg.jpg" />
+    <Content Include="UserAvatars\stoyan.ruzmanov%40gmail.com\Cars\stoyan.ruzmanov%40gmail.comBenzzBenzz2020.jpg" />
+    <Content Include="UserAvatars\stoyan.ruzmanov%40gmail.com\Cars\stoyan.ruzmanov%40gmail.comcourvetcourvet2004.jpg" />
+    <Content Include="UserAvatars\stoyan.ruzmanov%40gmail.com\stoyan.ruzmanov%40gmail.com.jpg" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -354,6 +362,9 @@
     <Folder Include="Areas\Api\Views\City\" />
     <Folder Include="Areas\Api\Views\Shared\" />
     <Folder Include="Hubs\" />
+    <Folder Include="UserAvatars\admin%40admin.com\Cars\" />
+    <Folder Include="UserAvatars\pesho%40abv.bg\Cars\" />
+    <Folder Include="UserAvatars\pesho%40pesho.bg\Cars\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
