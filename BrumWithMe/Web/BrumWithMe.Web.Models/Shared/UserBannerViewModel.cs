@@ -8,7 +8,7 @@
 
         public double Rating { get; set; }
 
-        public string AvataImageurl { get; set; }
+        public string AvatarImageurl { get; set; }
 
         public string FirstName { get; set; }
 

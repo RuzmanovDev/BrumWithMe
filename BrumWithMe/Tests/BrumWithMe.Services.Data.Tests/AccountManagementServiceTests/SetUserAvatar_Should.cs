@@ -104,7 +104,7 @@ namespace BrumWithMe.Services.Data.Tests.AccountManagementServiceTests
             service.SetUserAvatar(logedUserId, imageUrl);
 
             // Assert
-            Assert.AreEqual(imageUrl, user.AvataImageurl);
+            Assert.AreEqual(imageUrl, user.AvatarImageurl);
             mockedUnitOfWork.Verify(x => x.Commit(), Times.Once);
         }
     }

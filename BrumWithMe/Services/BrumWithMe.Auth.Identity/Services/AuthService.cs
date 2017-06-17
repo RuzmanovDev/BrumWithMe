@@ -1,15 +1,15 @@
-﻿using BrumWithMe.Auth.Identity.Contracts;
+﻿using System;
+using System.Security.Principal;
+using System.Threading.Tasks;
+using BrumWithMe.Auth.Identity.Contracts;
 using BrumWithMe.Auth.Identity.Managers;
+using BrumWithMe.Data.Contracts;
+using BrumWithMe.Data.Models.Entities;
+using Bytes2you.Validation;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
-using System.Threading.Tasks;
-using BrumWithMe.Data.Models.Entities;
-using System;
-using System.Security.Principal;
-using Bytes2you.Validation;
-using BrumWithMe.Data.Contracts;
 
 namespace BrumWithMe.Auth.Identity.Services
 {

@@ -13,14 +13,17 @@ namespace BrumWithMe.Data.Models.Entities
         [MaxLength(30)]
         public string Color { get; set; }
 
+        [Required]
         [MinLength(3)]
         [MaxLength(30)]
         public string Make { get; set; }
 
+        [Required]
         [MinLength(3)]
         [MaxLength(30)]
         public string Model { get; set; }
 
+        [Required]
         [Range(1900, 3000)]
         public int Year { get; set; }
 

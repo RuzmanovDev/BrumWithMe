@@ -78,7 +78,7 @@ namespace BrumWithMe.Services.Data.Tests.AccountManagementServiceTests
             string loggedUserId = "loggedUserId";
             string avatarUrl = "avatarUrl";
 
-            User user = new User() { Id = loggedUserId, AvataImageurl = avatarUrl };
+            User user = new User() { Id = loggedUserId, AvatarImageurl = avatarUrl };
 
             mockedUserRepo
                 .Setup(x => x.GetById(loggedUserId))

@@ -38,17 +38,17 @@ namespace BrumWithMe.Data.Models.Entities
         }
 
         [MinLength(3)]
-        [MaxLength(25)]
+        [MaxLength(30)]
         [Required]
         public string FirstName { get; set; }
 
         [MinLength(3)]
-        [MaxLength(25)]
+        [MaxLength(30)]
         [Required]
         public string LastName { get; set; }
 
         [MaxLength(150)]
-        public string AvataImageurl { get; set; }
+        public string AvatarImageurl { get; set; }
 
         public override DateTime? LockoutEndDateUtc
         {

@@ -30,7 +30,7 @@ namespace BrumWithMe.Services.Data.Services
         {
             Guard.WhenArgument(loggedUser, nameof(loggedUser)).IsNullOrEmpty().Throw();
             User user = new User();
-            var userAvatarUrl = this.userRepo.GetById(loggedUser)?.AvataImageurl;
+            var userAvatarUrl = this.userRepo.GetById(loggedUser)?.AvatarImageurl;
 
             return userAvatarUrl;
         }
@@ -43,7 +43,7 @@ namespace BrumWithMe.Services.Data.Services
             using (var uow = base.UnitOfWork())
             {
                 User user = this.userRepo.GetById(logedUserId);
-                user.AvataImageurl = imageUrl;
+                user.AvatarImageurl = imageUrl;
 
                 uow.Commit();
             }
