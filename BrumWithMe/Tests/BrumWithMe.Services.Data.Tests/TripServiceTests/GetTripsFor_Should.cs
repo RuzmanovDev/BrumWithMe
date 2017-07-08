@@ -44,7 +44,7 @@ namespace BrumWithMe.Services.Data.Tests.TripServiceTests
             var origin = new City() { Name = originName };
             var destination = new City() { Name = destinationName };
 
-            var trip1 = new Trip() { Origin = origin, Destination = destination, DateCreated = DateTime.Now };
+            var trip1 = new Trip() { Origin = origin, Destination = destination, DateCreated = DateTime.Now, TimeOfDeparture = DateTime.Now };
 
             var data = new List<Trip>()
             {
@@ -68,7 +68,7 @@ namespace BrumWithMe.Services.Data.Tests.TripServiceTests
 
             IEnumerable<TripBasicInfo> paggedTrips = null;
             mockedTripRepo.Setup(x =>
-            x.GetAllMapped<DateTime, TripBasicInfo>(
+            x.GetAllMappedWithAscSort<DateTime, TripBasicInfo>(
                 It.IsAny<Expression<Func<Trip, bool>>>(),
                 It.IsAny<Expression<Func<Trip, DateTime>>>(),
                 page, size))

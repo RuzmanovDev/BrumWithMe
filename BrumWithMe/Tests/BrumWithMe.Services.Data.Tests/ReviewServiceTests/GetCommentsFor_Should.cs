@@ -49,14 +49,14 @@ namespace BrumWithMe.Services.Data.Tests.ReviewServiceTests
             var page = 1;
             var userId = "userid";
 
-            mockedReviewRepo.Setup(x => x.GetAllMapped<DateTime, CommentInfo>(It.IsAny<Expression<Func<Review, bool>>>(),
+            mockedReviewRepo.Setup(x => x.GetAllMappedWithDescSort<DateTime, CommentInfo>(It.IsAny<Expression<Func<Review, bool>>>(),
               It.IsAny<Expression<Func<Review, DateTime>>>(), page, 5));
 
             // Act
             service.GetCommentsFor(userId, page);
 
             // Assert
-            mockedReviewRepo.Verify(x => x.GetAllMapped<DateTime, CommentInfo>(It.IsAny<Expression<Func<Review, bool>>>(),
+            mockedReviewRepo.Verify(x => x.GetAllMappedWithDescSort<DateTime, CommentInfo>(It.IsAny<Expression<Func<Review, bool>>>(),
                It.IsAny<Expression<Func<Review, DateTime>>>(), page, 5)
             , Times.Once);
         }

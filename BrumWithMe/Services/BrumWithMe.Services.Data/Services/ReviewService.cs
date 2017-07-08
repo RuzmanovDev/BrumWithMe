@@ -47,7 +47,7 @@ namespace BrumWithMe.Services.Data.Services
                 page = page * -1;
             }
 
-            var result = this.reviews.GetAllMapped<DateTime, CommentInfo>(x => x.ReviewedUserId == userId, sort => sort.CreatedOn, page, 5);
+            var result = this.reviews.GetAllMappedWithDescSort<DateTime, CommentInfo>(x => x.ReviewedUserId == userId, sort => sort.CreatedOn, page, 5);
 
             return result;
         }

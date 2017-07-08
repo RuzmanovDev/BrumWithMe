@@ -1,12 +1,4 @@
-﻿using BrumWithMe.Data;
-using BrumWithMe.Data.Models.Entities;
-using BrumWithMe.Data.Models.CompositeModels.Trip;
-using BrumWithMe.Data.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 
 namespace BrumWithMe.Console
 {

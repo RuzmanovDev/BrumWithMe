@@ -52,7 +52,7 @@ namespace BrumWithMe.Services.Data.Tests.TripServiceTests
 
             var data = new List<Trip>();
 
-            mockedTripRepo.Setup(x => x.GetAllMapped<DateTime, TripBasicInfo>(It.IsAny<Expression<Func<Trip, bool>>>(),
+            mockedTripRepo.Setup(x => x.GetAllMappedWithDescSort<DateTime, TripBasicInfo>(It.IsAny<Expression<Func<Trip, bool>>>(),
                 It.IsAny<Expression<Func<Trip, DateTime>>>(), It.IsAny<int>(), It.IsAny<int>()))
                 .Returns(expected);
 

@@ -100,7 +100,7 @@ namespace BrumWithMe.Services.Data.Services
             // takes the first set of sorted items
             int page = 0;
 
-            var trips = this.tripRepo.GetAllMapped<DateTime, TripBasicInfo>(
+            var trips = this.tripRepo.GetAllMappedWithDescSort<DateTime, TripBasicInfo>(
                 x => !x.IsDeleted && !x.IsFinished,
                 x => x.DateCreated, page, countToTake);
 
@@ -137,12 +137,12 @@ namespace BrumWithMe.Services.Data.Services
             var totalCount = totalTrips.Count();
 
             var trips = this.tripRepo
-                .GetAllMapped<DateTime, TripBasicInfo>(
+                .GetAllMappedWithAscSort<DateTime, TripBasicInfo>(
                 where => where.Origin.Name.ToLower().Contains(origin)
                 && where.Destination.Name.ToLower().Contains(destination)
                 && !where.IsFinished
                 && !where.IsDeleted,
-                x => x.DateCreated, page, size);
+                x => x.TimeOfDeparture, page, size);
 
             var result = new TripSearchResult();
 

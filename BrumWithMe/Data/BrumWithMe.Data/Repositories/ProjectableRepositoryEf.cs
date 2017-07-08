@@ -39,7 +39,7 @@ namespace BrumWithMe.Data.Repositories
             return result;
         }
 
-        public IEnumerable<TDestination> GetAllMapped<T1, TDestination>(
+        public IEnumerable<TDestination> GetAllMappedWithDescSort<T1, TDestination>(
              Expression<Func<T, bool>> filterExpression,
              Expression<Func<T, T1>> sort,
              int page, int size)
@@ -61,6 +61,16 @@ namespace BrumWithMe.Data.Repositories
             var result = this.All
                 .Where(filterExpression)
                 .OrderByDescending(sort)
+                .ProjectToList<TDestination>(this.mapper.ConfigurationProvider);
+
+            return result;
+        }
+
+        public IEnumerable<TDestination> GetAllMappedWithAscSort<T1, TDestination>(Expression<Func<T, bool>> filterExpression, Expression<Func<T, T1>> sort, int page, int size)
+        {
+            var result = this.All
+                .Where(filterExpression)
+                .OrderBy(sort)
                 .ProjectToList<TDestination>(this.mapper.ConfigurationProvider);
 
             return result;
