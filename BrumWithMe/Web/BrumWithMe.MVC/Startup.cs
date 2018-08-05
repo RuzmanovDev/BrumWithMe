@@ -12,6 +12,7 @@ namespace BrumWithMe.MVC
             // TODO: NInject
             var identityConfig = new IdentityConfig();
             identityConfig.ConfigureAuth(app);
+
             app.MapSignalR();
         }
     }
